@@ -1,0 +1,75 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/10 19:57:43 by arybarsk          #+#    #+#             */
+/*   Updated: 2024/03/10 19:57:46 by arybarsk         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "minishell.h"
+
+volatile sig_atomic_t	go_on = 1;
+
+static void	wait_for_children(t_data *data)
+{
+	t_process	*current;
+	int		last_exit_code;
+
+	current = data->child_list_head;
+	last_exit_code = 0;
+	while (current != NULL)
+	{
+		if (waitpid(current->child_pid, &current->status, WUNTRACED) < 0)
+			snuff_it(data, "Error: waitpid failed\n", NULL, 255);
+		if (WIFSIGNALED(current->status))
+			last_exit_code = WTERMSIG(current->status) + 128;
+		if (WIFEXITED(current->status))
+			last_exit_code = WEXITSTATUS(current->status);
+		current = current->next;;
+	}
+	data->last_exit_code = last_exit_code;
+}
+
+int	main(void)
+{
+	t_data		data;
+
+	init_data(&data);
+	data.ft_environ = ft_strdup_array(environ);
+	set_signal_controls(&data);
+	while (go_on)
+	{
+		get_all_cmd_paths(&data);
+		read_input(&data);
+		if (check_quote_syntax(&data) == 0)
+		{
+			make_token_list(&data);
+			merge_unseparated(&data.token_list_head);
+			count_pipes(&data);
+			//print_tokens(data.token_list_head);
+			if (check_token_syntax(&data) == 0)
+			{
+				make_executives(&data);
+				//print_execs(data.exec_list_head);
+				//print_envs(data.env_vars_head);
+				if (count_executives(&data) > 0)
+				{
+					if (count_executives(&data) > 1 && data.pipe_fd_num > 0)
+					{
+						data.pipe = (int *)malloc(sizeof(int) * data.pipe_fd_num);
+						if (!(data.pipe))
+							snuff_it(&data, "Error allocating memory for pipe", NULL, 255);
+					}
+					execute_execs(&data);
+					wait_for_children(&data);
+				}
+			}
+		}
+		clean_up_data(&data);
+	}
+	return (data.last_exit_code);
+}
