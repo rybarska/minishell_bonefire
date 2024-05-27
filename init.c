@@ -28,6 +28,8 @@ void	init_data(t_data *data)
 	data->fd[0] = -1;
 	data->fd[1] = -1;
 	data->std_in = -1;
+	data->temp1_fd = -1;
+	data->temp2_fd = -1;
 	data->pid = -1;
 	data->last_exit_code = 0;
 	data->child_list_head = NULL;

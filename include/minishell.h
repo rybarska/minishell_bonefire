@@ -122,6 +122,8 @@ typedef struct s_data
 	int		exec_num;
 	int		fd[2];
 	int		std_in;
+	int		temp1_fd;
+	int		temp2_fd;
 	pid_t		pid;
 	int		last_exit_code;
 	t_process	*child_list_head;
