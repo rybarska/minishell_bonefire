@@ -22,6 +22,16 @@ void	close_fd_set_minus1(int *fd)
 	}
 }
 
+void	close_all_fds(t_data *data)
+{
+	close_fd_set_minus1(&data->urandom);
+	close_fd_set_minus1(&data->fd[0]);
+	close_fd_set_minus1(&data->fd[1]);
+	close_fd_set_minus1(&data->std_in);
+	close_fd_set_minus1(&data->temp1_fd);
+	close_fd_set_minus1(&data->temp2_fd);
+}
+
 void	reset_ints(t_data *data)
 {
 	data->pos = 0;

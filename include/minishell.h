@@ -197,8 +197,9 @@ void	redir_lst_close_fds(t_redirection **lst);
 void	token_node_lstclear(t_token_node **lst);
 /* cleanup_utils */
 void	close_fd_set_minus1(int *fd);
-void	free_array(char **array);
+void	close_all_fds(t_data *data);
 void	reset_ints(t_data *data);
+//void	free_token(t_data *data);
 /* cleanup */
 void	clean_up_data(t_data *data);
 void	clean_up_env_vars(t_data *data);

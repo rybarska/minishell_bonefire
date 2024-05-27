@@ -43,7 +43,6 @@ void	clean_up_data(t_data *data)
 	if (data->text)
 		free(data->text);
 	data->text = NULL;
-	close_fd_set_minus1(&data->urandom);
 	if (data->cmd_paths != NULL)
 		ft_free_array(data->cmd_paths);
 	data->cmd_paths = NULL;
@@ -54,8 +53,7 @@ void	clean_up_data(t_data *data)
 		process_lstclear(&(data->child_list_head));
 	data->child_list_head = NULL;
 	data->child_list_tail = NULL;
-	close_fd_set_minus1(&data->fd[0]);
-	close_fd_set_minus1(&data->fd[1]);
+	close_all_fds(data);
 	reset_ints(data);
 }
 
