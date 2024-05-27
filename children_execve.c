@@ -26,7 +26,7 @@ void	execute_external_or_builtin(t_data *data, t_exec *exec)
 	}
 	if (!exec->cmd_exec_path || !exec->arguments[0])
 		snuff_it(data, "Error: command not found\n", exec->arguments[0], 127);
-	if (execve(exec->cmd_exec_path, exec->arguments, environ) == -1)
+	if (execve(exec->cmd_exec_path, exec->arguments, data->ft_environ) == -1)
 		snuff_it(data, "Is a directory or error executing command\n",
 			exec->arguments[0], 126);
 }

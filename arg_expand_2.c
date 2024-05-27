@@ -31,8 +31,8 @@ int	add_expanded(char **temp_str, char *expanded)
 	return (0);
 }
 
-// This function calls getenv and returns either the expanded var or NULL
-int	allocate_and_expand(char **temp_str, char *var_name_start,
+// This function calls ft_getenv and returns either the expanded var or NULL
+int	allocate_and_expand(t_data *data, char **temp_str, char *var_name_start,
 	char *var_name_end)
 {
 	char	*var_name;
@@ -44,7 +44,7 @@ int	allocate_and_expand(char **temp_str, char *var_name_start,
 	if (!var_name)
 		return (255);
 	ft_strlcpy(var_name, var_name_start, var_name_end - var_name_start + 1);
-	expanded = getenv(var_name); //write ft_getenv that gets it from ft_environ
+	expanded = ft_getenv(data, var_name); //write ft_getenv that gets it from ft_environ
 	//IF: not there, THEN: look locals
 	//move local allocs into struct & update snuff_it function
 	free(var_name);

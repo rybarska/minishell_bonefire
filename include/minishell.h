@@ -150,6 +150,7 @@ t_token	parse_out_redirections(t_data *data);
 char	*parse_delimiter(t_data *data);
 /* utils */
 void	boo(t_data *data, char *error_msg, char *name, int exit_code);
+char	*ft_getenv(t_data *data, char *name);
 int	has_unquoted_equals(char *str);
 /* tokens_utils */
 int	is_separating(t_token_type type);
@@ -177,7 +178,7 @@ void	extend_redirection_lists(t_data *data, t_token_node *temp, t_exec **exec);
 char	*expand_arg(t_data *data, char *arg);
 /* arg_expand */
 int	add_expanded(char **temp_str, char *expanded);
-int	allocate_and_expand(char **temp_str, char *var_name_start,
+int	allocate_and_expand(t_data *data, char **temp_str, char *var_name_start,
 	char *var_name_end);
 /* arg_rm_quotes */
 char	*rm_quotes(t_data *data, char *arg);

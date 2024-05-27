@@ -15,8 +15,8 @@
 // This function calls allocate_and_expand if it finds a variable name
 // and otherwise returns NULL.
 // It also keeps track of flags for single or double quotes.
-static int	expand_name(char **var_value, char **temp_str, int *is_d_quoted,
-	int *is_s_quoted)
+static int	expand_name(t_data *data, char **var_value, char **temp_str, int *is_d_quoted,
+	int *is_s_quoted) //TODO figure out what to do about 5 parametres
 {
 	char	*var_name_start;
 	char	*var_name_end;
@@ -39,7 +39,7 @@ static int	expand_name(char **var_value, char **temp_str, int *is_d_quoted,
 		(*var_value)++;
 	if (var_name_end != var_name_start)
 	{
-		if (allocate_and_expand(temp_str, var_name_start, var_name_end) > 0)
+		if (allocate_and_expand(data, temp_str, var_name_start, var_name_end) > 0)
 			return (255);
 	}
 	return (0);
@@ -113,7 +113,7 @@ char	*expand_arg(t_data *data, char *arg)
 				temp_str = add_one_char(&arg, temp_str, &is_d_quoted, &is_s_quoted);
 			else if (*(arg + 1) == '?')
 				get_exit_status(data, &temp_str, &arg);
-			else if (expand_name(&arg, &temp_str, &is_d_quoted, &is_s_quoted) == 255)
+			else if (expand_name(data, &arg, &temp_str, &is_d_quoted, &is_s_quoted) == 255)
 				free_temp_str_and_snuff_it(data, &temp_str, arg);
 		}
 		else

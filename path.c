@@ -18,15 +18,15 @@ void	get_all_cmd_paths(t_data *data)
 	char	*temp;
 
 	i = 0;
-	while (environ && environ[i] != NULL)
+	while (data->ft_environ && data->ft_environ[i] != NULL)
 	{
-		if (ft_strncmp(environ[i], "PATH=", 5) == 0)
+		if (ft_strncmp(data->ft_environ[i], "PATH=", 5) == 0)
 			break ;
 		i++;
 	}
-	if (!environ[i])
+	if (!data->ft_environ[i])
 		return ;
-	data->cmd_paths = ft_split(environ[i] + 5, ':');
+	data->cmd_paths = ft_split(data->ft_environ[i] + 5, ':');
 	if (!data->cmd_paths)
 		snuff_it(data, "Error creating split paths\n", NULL, 255);
 	i = -1;

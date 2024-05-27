@@ -31,8 +31,8 @@ static int	heredoc_add_expanded(char **temp_str, char *expanded)
 	return (0);
 }
 
-// This function calls getenv and returns either the expanded var or NULL
-static int	heredoc_allocate_and_expand(char **temp_str, char *var_name_start,
+// This function calls ft_getenv and returns either the expanded var or NULL
+static int	heredoc_allocate_and_expand(t_data *data, char **temp_str, char *var_name_start,
 	char *var_name_end)
 {
 	char	*var_name;
@@ -44,7 +44,7 @@ static int	heredoc_allocate_and_expand(char **temp_str, char *var_name_start,
 	if (!var_name)
 		return (255);
 	ft_strlcpy(var_name, var_name_start, var_name_end - var_name_start + 1);
-	expanded = getenv(var_name);
+	expanded = ft_getenv(data, var_name);
 	free(var_name);
 	if (expanded)
 	{
@@ -57,8 +57,8 @@ static int	heredoc_allocate_and_expand(char **temp_str, char *var_name_start,
 // This function calls allocate_and_expand if it finds a variable name
 // and otherwise returns NULL.
 // It also keeps track of flags for single or double quotes.
-static int	expand_name(char **var_value, char **temp_str, int *is_d_quoted,
-	int *is_s_quoted)
+static int	expand_name(t_data *data, char **var_value, char **temp_str, int *is_d_quoted,
+	int *is_s_quoted)//TODO figure out what to do about 5 parametres
 {
 	char	*var_name_start;
 	char	*var_name_end;
@@ -81,7 +81,7 @@ static int	expand_name(char **var_value, char **temp_str, int *is_d_quoted,
 		(*var_value)++;
 	if (var_name_end != var_name_start)
 	{
-		if (heredoc_allocate_and_expand(temp_str, var_name_start, var_name_end) > 0)
+		if (heredoc_allocate_and_expand(data, temp_str, var_name_start, var_name_end) > 0)
 			return (255);
 	}
 	return (0);
@@ -125,7 +125,7 @@ char	*heredoc_expand_var(t_data *data, char *arg)
 	{
 		if (*arg == '$')
 		{
-			if (expand_name(&arg, &temp_str, &is_d_quoted, &is_s_quoted) == 255)
+			if (expand_name(data, &arg, &temp_str, &is_d_quoted, &is_s_quoted) == 255)
 			{
 				free(temp_str);
 				snuff_it(data, "Error allocating memory for var\n",

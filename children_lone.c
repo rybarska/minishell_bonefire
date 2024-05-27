@@ -24,7 +24,7 @@ static void	execute_lone_external(t_data *data, t_exec **exec, int *temp1, int *
 		if (!(*exec)->cmd_exec_path || !(*exec)->arguments[0])
 			snuff_it(data, "Error: command not found\n",
 				(*exec)->arguments[0], 127);
-		if (execve((*exec)->cmd_exec_path, (*exec)->arguments, environ) == -1)
+		if (execve((*exec)->cmd_exec_path, (*exec)->arguments, data->ft_environ) == -1)
 			snuff_it(data, "Is a directory or error executing first command\n", 
 				(*exec)->arguments[0], 126);
 	}

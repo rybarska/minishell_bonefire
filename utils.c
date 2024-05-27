@@ -24,6 +24,24 @@ void	boo(t_data *data, char *error_msg, char *name, int exit_code)
 	clean_up_data(data);
 }
 
+char	*ft_getenv(t_data *data, char *name)
+{
+	int	i;
+	size_t	name_len;
+
+	if (data == NULL || name == NULL)
+		return (NULL);
+	name_len = ft_strlen(name);
+	i = -1;
+	while (data->ft_environ[++i] != NULL)
+	{
+		if (!ft_strncmp(data->ft_environ[i], name, name_len)
+			&& data->ft_environ[i][name_len] == '=')
+			return (data->ft_environ[i] +name_len + 1);
+	}
+	return (NULL);
+}
+
 int	has_unquoted_equals(char *str)
 {
 	int	is_s_quoted;

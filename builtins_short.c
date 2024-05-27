@@ -18,7 +18,7 @@ void	execute_cd(t_data *data, char *dir)
 
 	if (dir == NULL)
 	{
-		home_dir = getenv("HOME");
+		home_dir = ft_getenv(data, "HOME");
 		if (home_dir == NULL)
 		{
 			boo(data, "expected argument to \"cd\"\n", NULL, 2);
