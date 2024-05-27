@@ -75,17 +75,18 @@ void	print_export_strings(t_data *data)
 	}
 }
 
-void	check_env_var_name(t_data *data, char *name)
+int	check_env_var_name(t_data *data, char *name)
 {
 	(void) data;
 	int	i;
 
 	i = -1;
 	if (!ft_isalpha(name[0]) && name[0] != '_')
-		snuff_it(data, "( not a valid identifier)\n", name, 1);
+		return (boo(data, "(not a valid identifier)\n", name, 1), 1);
 	while (name[++i])
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
-			snuff_it(data, "( not a valid identifier)\n", name, 1);
+			return (boo(data, "(not a valid identifier)\n", name, 1), 1);
 	}
+	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-volatile sig_atomic_t	go_on = 1;
+volatile sig_atomic_t	g_o_on = 1;
 
 static void	wait_for_children(t_data *data)
 {
@@ -39,9 +39,9 @@ int	main(void)
 	t_data		data;
 
 	init_data(&data);
-	data.ft_environ = ft_strdup_array(environ);
+	data.ft_environ = ft_strdup_array(environ); //TODO protect
 	set_signal_controls(&data);
-	while (go_on)
+	while (g_o_on)
 	{
 		get_all_cmd_paths(&data);
 		read_input(&data);

@@ -25,11 +25,12 @@
 # include <readline/history.h>
 # include "libft.h"
 
-extern volatile sig_atomic_t	go_on;
+extern volatile sig_atomic_t	g_o_on;
 
 extern char	**environ;
 
 # define MAX_FILENAME_LEN 42
+# define MAX_PATH_LEN 1024
 # define HISTORY_SIZE 100
 
 typedef enum e_token_type
@@ -106,12 +107,6 @@ typedef struct s_process
 	struct s_process	*next;
 }				t_process;
 
-/*typedef struct s_job
-{
-	t_process	*processes;
-	struct s_job	*next;
-}				t_job;*/
-
 typedef struct s_data
 {
 	t_exec		*exec_list_head;
@@ -154,7 +149,7 @@ t_token	parse_in_redirections(t_data *data);
 t_token	parse_out_redirections(t_data *data);
 char	*parse_delimiter(t_data *data);
 /* utils */
-void	boo(char *error_msg);
+void	boo(t_data *data, char *error_msg, char *name, int exit_code);
 int	has_unquoted_equals(char *str);
 /* tokens_utils */
 int	is_separating(t_token_type type);
@@ -241,9 +236,9 @@ void	execute_export(t_data *data, char **args);
 void	update_var_in_env(t_data *data, char *name, char *value);
 void	add_var_to_env(t_data *data, char *name, char *value);
 void	print_export_strings(t_data *data);
-void	check_env_var_name(t_data *data, char *name);
+int	check_env_var_name(t_data *data, char *name);
 /* builtins_short */
-void	execute_cd(char	*dir);
+void	execute_cd(t_data *data, char *dir);
 void	execute_echo(t_exec **exec);
 void	execute_env(t_data *data);
 void	execute_exit(t_data *data);

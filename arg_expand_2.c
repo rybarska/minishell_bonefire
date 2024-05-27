@@ -45,6 +45,7 @@ int	allocate_and_expand(char **temp_str, char *var_name_start,
 		return (255);
 	ft_strlcpy(var_name, var_name_start, var_name_end - var_name_start + 1);
 	expanded = getenv(var_name); //write ft_getenv that gets it from ft_environ
+	//IF: not there, THEN: look locals
 	//move local allocs into struct & update snuff_it function
 	free(var_name);
 	if (expanded)

@@ -17,10 +17,7 @@ int	update_env_var_in_list(t_data *data, char *name, char *value, int is_exporte
 	t_env_var	*current;
 
 	if (!name || name[0] == '\0')
-	{
-		boo("Invalid env var name\n");
-		return (0);
-	}
+		return (boo(data, "Invalid env var name\n", NULL, 2), 0); //TODO check exit code / return value
 	current = data->env_vars_head;
 	while (current != NULL)
 	{

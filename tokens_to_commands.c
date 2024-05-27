@@ -42,6 +42,7 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 
 void	look_for_path(t_data *data, t_exec **exec, char	*command)
 {
+	//check if hashed
 	check_if_full_path(data, exec, command);
 	if (!(*exec)->is_full_path && data->cmd_paths != NULL)
 		get_path_from_env(data, command);

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	execute_cd(char	*dir)
+void	execute_cd(t_data *data, char *dir)
 {
 	char	*home_dir;
 
@@ -21,14 +21,14 @@ void	execute_cd(char	*dir)
 		home_dir = getenv("HOME");
 		if (home_dir == NULL)
 		{
-			boo("expected argument to \"cd\"\n");
+			boo(data, "expected argument to \"cd\"\n", NULL, 2);
 			return ;
 		}
 		dir = home_dir;
 	}
 	if (chdir(dir) != 0)
 	{
-		perror("minishell: cd");
+		perror("cd");
 		return ;
 	}
 	/*if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)

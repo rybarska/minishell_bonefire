@@ -30,7 +30,10 @@ int	check_quote_syntax(t_data *data)
 		temp_str++;
 	}
 	if (is_s_quoted || is_d_quoted)
-		return (boo("Syntax error near unexpected token\n"), 1);
+	{
+		data->last_exit_code = 2;
+		return (boo(data, "Syntax error near unexpected token\n", NULL, 2), 2);
+	}
 	return (0);
 }
 
@@ -44,11 +47,11 @@ int	check_token_syntax(t_data *data)
 	while (current)
 	{
 		if (is_redirecting(current->type) && !(current->value))
-			return (boo("Syntax error near unexpected token\n"), 1);
+			return (boo(data, "Syntax error near unexpected token\n", NULL, 2), 2);
 		else if (current->type == PIPE && (current->previous == NULL
 			|| current->next == NULL || current->next->type == EOF_TOKEN
 			|| current->next->type == PIPE))
-			return (boo("Syntax error near unexpected token\n"), 1);
+			return (boo(data, "Syntax error near unexpected token\n", NULL, 2), 2);
 		else
 			current = current->next;
 	}

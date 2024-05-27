@@ -119,9 +119,11 @@ void	execute_export(t_data *data, char **args)
 			value = name_end + 1;
 		}
 		name = args[i];
-		check_env_var_name(data, name);
-		set_env_var(data, name, value);
-		add_or_update_env_var_list(data, name, value, 1);
-		i++;
+		if (check_env_var_name(data, name) == 0)
+		{
+			set_env_var(data, name, value);
+			add_or_update_env_var_list(data, name, value, 1);
+			i++;
+		}
 	}
 }

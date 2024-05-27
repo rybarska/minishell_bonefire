@@ -41,10 +41,7 @@ static void	execute_unset(t_data *data, char **var_to_kill)
 
 	i = 0;
 	if (var_to_kill[0] == NULL)
-	{
-		boo("unset: Not enough arguments\n");
-		return ;
-	}
+		boo(data, "unset: Not enough arguments\n", NULL, 2);
 	while (var_to_kill[i] != NULL)
 	{
 		remove_from_env(data, var_to_kill[i]);
@@ -70,7 +67,7 @@ int	execute_builtin(t_data *data, t_exec **exec, char *command)
 	char	**arguments;
 
 	if (ft_strcmp(command, "cd") == 0)
-		execute_cd((*exec)->arguments[1]);
+		execute_cd(data, (*exec)->arguments[1]);
 	else if (ft_strcmp(command, "echo") == 0)
 		execute_echo(exec);
 	else if (ft_strcmp(command, "env") == 0)
