@@ -84,7 +84,7 @@ static void	set_env_var(t_data *data, char *name, char *value)
 	temp = ft_strdup(final_value);
 	if (!temp)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
-	process_vars_and_quotes(data, &temp);
+	//process_vars_and_quotes(data, &temp);
 	if (is_var_in_env(data, name))
 		update_var_in_env(data, name, temp);
 	else
@@ -96,9 +96,6 @@ static void	set_env_var(t_data *data, char *name, char *value)
 
 // This function looks for name and value of exported env var.
 // It calls set_env_var, which leads to modification of data->ft_environ.
-// Then it calls add_or_update_env_var_list, which modifies internal list.
-// The order is important because otherwise the list gets modified before
-	// it is used to identify variables that were assigned previously.
 void	execute_export(t_data *data, char **args)
 {
 	int	i;
@@ -122,7 +119,7 @@ void	execute_export(t_data *data, char **args)
 		if (check_env_var_name(data, name) == 0)
 		{
 			set_env_var(data, name, value);
-			add_or_update_env_var_list(data, name, value, 1);
+			//add_or_update_env_var_list(data, name, value, 1);
 			i++;
 		}
 	}

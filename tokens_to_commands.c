@@ -30,8 +30,8 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 		temp = ft_strdup(current->value);
 		if (!temp)
 			snuff_it(data, "Error allocating memory\n", NULL, 255);
-		if (!exec->is_export)
-			process_vars_and_quotes(data, &temp);
+		//if (!exec->is_export)
+		process_vars_and_quotes(data, &temp);
 		exec->arguments[i] = temp;
 		//printf("exec->arguments[%d]: %s\n", i, exec->arguments[i]);
 		current = current->next;
