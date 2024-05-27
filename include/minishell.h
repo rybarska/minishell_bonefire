@@ -121,6 +121,7 @@ typedef struct s_data
 	int		index;
 	int		exec_num;
 	int		fd[2];
+	int		std_in;
 	pid_t		pid;
 	int		last_exit_code;
 	t_process	*child_list_head;
@@ -208,7 +209,7 @@ void	check_if_full_path(t_data *data, t_exec **exec, char *command);
 /* children */
 void	execute_execs(t_data *data);
 void	handle_parent(t_data *data, t_exec **exec);
-//void	make_child(t_data *data, t_exec **exec);//, int *std_in);
+//void	make_child(t_data *data, t_exec **exec);
 /* children_lone */
 void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec);
 /* children_redirs */
@@ -222,9 +223,9 @@ void	get_heredoc(t_data *data, t_redirection **redir);
 /* heredoc_expand */
 char	*heredoc_expand_var(t_data *data, char *arg);
 /* children_execve */
-void	exec_first_command(t_data *data, t_exec *exec, int *std_in);
-void	exec_mid_command(t_data *data, t_exec *exec, int *std_in);
-void	exec_last_command(t_data *data, t_exec *exec, int *std_in);
+void	exec_first_command(t_data *data, t_exec *exec);
+void	exec_mid_command(t_data *data, t_exec *exec);
+void	exec_last_command(t_data *data, t_exec *exec);
 /* builtins */
 int	is_builtin(char *command);
 int	execute_builtin(t_data *data, t_exec **exec, char *command);

@@ -35,7 +35,7 @@ void	handle_parent(t_data *data, t_exec **exec)
 	}
 }
 
-static void	make_child(t_data *data, t_exec **exec, int *std_in)
+static void	make_child(t_data *data, t_exec **exec)
 {
 	if (pipe(data->fd) < 0)
 		snuff_it(data, "Error creating pipe fds\n", (*exec)->name, 255);
@@ -46,20 +46,20 @@ static void	make_child(t_data *data, t_exec **exec, int *std_in)
 	{
 		//printf("data->fd[0]: %d\n", data->fd[0]);
 		//printf("data->fd[1]: %d\n", data->fd[1]);
-		//printf("*std_in: %d\n", *std_in);
+		//printf("*data->std_in: %d\n", *data->std_in);
 		//dprintf(2, "EXEC NUM: %d, INDEX: %d\n", data->exec_num, data->index);
 		if (data->index == 0)
-			exec_first_command(data, *exec, std_in);
+			exec_first_command(data, *exec);
 		else if (data->index == data->exec_num - 1)
-			exec_last_command(data, *exec, std_in);
+			exec_last_command(data, *exec);
 		else
-			exec_mid_command(data, *exec, std_in);
+			exec_mid_command(data, *exec);
 	}
 	else
 		handle_parent(data, exec);
-	close_fd_set_minus1(std_in);
-	*std_in = dup(data->fd[0]);
-	if (std_in < 0)
+	close_fd_set_minus1(&data->std_in);
+	data->std_in = dup(data->fd[0]);
+	if (data->std_in < 0)
 		snuff_it(data, "Error duplicating pipe fd\n", (*exec)->name, 255);
 	close_fd_set_minus1(&data->fd[0]);
 	close_fd_set_minus1(&data->fd[1]);
@@ -68,12 +68,11 @@ static void	make_child(t_data *data, t_exec **exec, int *std_in)
 void	execute_execs(t_data *data)
 {
 	t_exec	*curr_exec;
-	int		std_in;
 
 	if (data->exec_num == 0)
 		return ;
-	std_in = dup(STDIN_FILENO);
-	if (std_in < 0)
+	data->std_in = dup(STDIN_FILENO);
+	if (data->std_in < 0)
 		snuff_it(data, "Error duplicating STDIN_FILENO\n", NULL, 255);
 	curr_exec = data->exec_list_head;
 	while (curr_exec)
@@ -81,12 +80,12 @@ void	execute_execs(t_data *data)
 		++(data->index);
 		if (data->exec_num == 1)
 		{
-			close_fd_set_minus1(&std_in);
+			close_fd_set_minus1(&data->std_in);
 			execute_lone_exec_no_pipe(data, &curr_exec);
 		}
 		else
-			make_child(data, &curr_exec, &std_in);
+			make_child(data, &curr_exec);
 		curr_exec = curr_exec->next;
 	}
-	close_fd_set_minus1(&std_in);
+	close_fd_set_minus1(&data->std_in);
 }

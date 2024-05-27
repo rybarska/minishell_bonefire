@@ -31,21 +31,21 @@ void	execute_external_or_builtin(t_data *data, t_exec *exec)
 			exec->arguments[0], 126);
 }
 
-void	exec_last_command(t_data *data, t_exec *exec, int *std_in)
+void	exec_last_command(t_data *data, t_exec *exec)
 {
 	close_fd_set_minus1(&data->fd[0]);
-	if (dup2(*std_in, STDIN_FILENO) < 0)
+	if (dup2(data->std_in, STDIN_FILENO) < 0)
 		snuff_it(data, "Error redirecting to STDIN_FILENO\n", exec->name, 255);
-	close_fd_set_minus1(std_in);
+	close_fd_set_minus1(&data->std_in);
 	close_fd_set_minus1(&data->fd[1]);
 	execute_external_or_builtin(data, exec);
 }
 
-void	exec_mid_command(t_data *data, t_exec *exec, int *std_in)
+void	exec_mid_command(t_data *data, t_exec *exec)
 {
-	if (dup2(*std_in, STDIN_FILENO) < 0)
+	if (dup2(data->std_in, STDIN_FILENO) < 0)
 		snuff_it(data, "Error redirecting to STDIN_FILENO\n", exec->name, 255);
-	close_fd_set_minus1(std_in);
+	close_fd_set_minus1(&data->std_in);
 	if (dup2(data->fd[1], STDOUT_FILENO) < 0)
 		snuff_it(data, "Error redirecting pipe[1]\n", exec->name, 255);
 	close_fd_set_minus1(&data->fd[1]);
@@ -53,10 +53,10 @@ void	exec_mid_command(t_data *data, t_exec *exec, int *std_in)
 	execute_external_or_builtin(data, exec);
 }
 
-void	exec_first_command(t_data *data, t_exec *exec, int *std_in)
+void	exec_first_command(t_data *data, t_exec *exec)
 {
 	close_fd_set_minus1(&data->fd[0]);
-	close_fd_set_minus1(std_in);
+	close_fd_set_minus1(&data->std_in);
 	if (dup2(data->fd[1], STDOUT_FILENO) < 0)
 		snuff_it(data, "Error redirecting pipe[1]\n", exec->name, 255);
 	close_fd_set_minus1(&data->fd[1]);
