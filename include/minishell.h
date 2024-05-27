@@ -120,8 +120,6 @@ typedef struct s_data
 	char		*found_path;
 	int		index;
 	int		exec_num;
-	int		pipe_fd_num;
-	int		*pipe;
 	int		fd[2];
 	pid_t		pid;
 	int		last_exit_code;
@@ -138,7 +136,6 @@ void	print_envs(t_env_var *env_vars_head);
 void	init_data(t_data *data);
 /* parse */
 void	read_input(t_data *data);
-void	count_pipes(t_data *data);
 t_token	get_next_token(t_data *data);
 char	*parse_word(t_data *data);
 char	*parse_var(t_data *data);

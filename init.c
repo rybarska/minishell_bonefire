@@ -25,8 +25,6 @@ void	init_data(t_data *data)
 	data->found_path = NULL;
 	data->index = -1;
 	data->exec_num = -1;
-	data->pipe_fd_num = -1;
-	data->pipe = NULL;
 	data->fd[0] = -1;
 	data->fd[1] = -1;
 	data->pid = -1;

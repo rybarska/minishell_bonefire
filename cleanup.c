@@ -50,9 +50,6 @@ void	clean_up_data(t_data *data)
 	if (data->found_path)
 		free(data->found_path);
 	data->found_path = NULL;
-	if (data->pipe)
-		free(data->pipe);
-	data->pipe = NULL;
 	if (data->child_list_head)
 		process_lstclear(&(data->child_list_head));
 	data->child_list_head = NULL;

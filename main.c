@@ -49,7 +49,6 @@ int	main(void)
 		{
 			make_token_list(&data);
 			merge_unseparated(&data.token_list_head);
-			count_pipes(&data);
 			//print_tokens(data.token_list_head);
 			if (check_token_syntax(&data) == 0)
 			{
@@ -58,12 +57,6 @@ int	main(void)
 				//print_envs(data.env_vars_head);
 				if (count_executives(&data) > 0)
 				{
-					if (count_executives(&data) > 1 && data.pipe_fd_num > 0)
-					{
-						data.pipe = (int *)malloc(sizeof(int) * data.pipe_fd_num);
-						if (!(data.pipe))
-							snuff_it(&data, "Error allocating memory for pipe", NULL, 255);
-					}
 					execute_execs(&data);
 					wait_for_children(&data);
 				}

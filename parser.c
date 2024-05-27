@@ -31,19 +31,3 @@ void	read_input(t_data *data)
 	data->text_len = ft_strlen(data->text);
 	data->pos = 0;
 }
-
-void	count_pipes(t_data *data)
-{
-	int	pipe_counter;
-	t_token_node	*current;
-
-	pipe_counter = 0;
-	current = data->token_list_head;
-	while (current)
-	{
-		if (current->type == PIPE)
-			pipe_counter++;
-		current = current->next;
-	}
-	data->pipe_fd_num = pipe_counter * 2;
-}
