@@ -39,7 +39,7 @@ static char	*parse_delimiter_inner(t_data *data)
 		temp = parse_single_quotes(data);
 	else if (data->text[data->pos] == '\"')
 		temp = parse_double_quotes_delimiter(data);
-	else if (ft_isalnum(data->text[data->pos]))
+	else if (ft_isalnum_or_(data->text[data->pos]))
 		temp = parse_word(data);
 	else if (data->text[data->pos] == '$')
 	{

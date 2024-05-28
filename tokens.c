@@ -18,8 +18,8 @@ char	*parse_var(t_data *data)
 	char	*var_name;
 
 	start_pos = data->pos;
-	while (ft_isalnum(data->text[data->pos])
-		|| data->text[data->pos] == '$' || data->text[data->pos] == '_'
+	while (ft_isalnum_or_(data->text[data->pos])
+		|| data->text[data->pos] == '$'
 		|| data->text[data->pos] == '{' || data->text[data->pos] == '}')
 		data->pos++;
 	var_name = malloc(data->pos - start_pos + 1);

@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalnum.c                                       :+:      :+:    :+:   */
+/*   ft_isalnum_or_.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/05 19:32:38 by arybarsk          #+#    #+#             */
-/*   Updated: 2023/09/09 14:23:39 by arybarsk         ###   ########.fr       */
+/*   Created: 2024/05/28 22:56:09 by arybarsk          #+#    #+#             */
+/*   Updated: 2024/05/28 22:56:11 by arybarsk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-
-int	ft_isalnum(int c)
+int	ft_isalnum_or_(int c)
 {
 	if ((c >= '0' && c <= '9') || (c >= 'A' && c <= 'Z')
 		|| (c >= 'a' && c <= 'z'))
 		return (1);
+	if (c == '_')
+		return (1);
 	return (0);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	printf("%d\n", ft_isalnum('f'));
-	printf("%d\n", ft_isalnum('9'));
-	printf("%d\n", ft_isalnum('&'));
-} */

@@ -24,7 +24,8 @@ static int	expand_name(t_data *data, char **var_value, char **temp_str, int *is_
 	(*var_value)++;
 	var_name_start = *var_value;
 	var_name_end = var_name_start;
-	while (*var_name_end && ft_isalnum(*var_name_end))//!ft_strchr(" \t\"\'$", *var_name_end)) //TODO: check if number on 1st position
+	while (*var_name_end && ft_isalnum_or_(*var_name_end))
+	//TODO: check if number on 1st position
 	{
 		if (*var_name_end == '\'' && !is_d_quoted)
 			*is_s_quoted = !*is_s_quoted;
