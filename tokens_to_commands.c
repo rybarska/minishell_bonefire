@@ -27,7 +27,7 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 	i = 0;
 	while (i < arg_count && current != NULL && current->value != NULL)
 	{
-		if (is_substantive(current->type))
+		if (is_substantive(current->type) || current->type == EXPORT)
 		{
 			temp = ft_strdup(current->value);
 			if (!temp)
@@ -70,7 +70,7 @@ void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
 		free(data->found_path);
 		data->found_path = NULL;
 	}
-	if (node && node->value && is_substantive(node->type))
+	if (node && node->value && (is_substantive(node->type) || node->type == EXPORT))
 	{
 		temp = ft_strdup(node->value);
 		if (!temp)

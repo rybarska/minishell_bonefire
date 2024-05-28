@@ -120,7 +120,7 @@ void	execute_export(t_data *data, char **args)
 		{
 			set_env_var(data, name, value);
 			//add_or_update_env_var_list(data, name, value, 1);
-			i++;
 		}
+		i++;
 	}
 }
