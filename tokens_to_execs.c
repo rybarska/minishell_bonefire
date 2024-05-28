@@ -20,10 +20,18 @@ void	handle_command_token(t_data *data, t_token_node **temp,
 
 	current = *temp;
 	arg_count = 0;
-	while (*temp && (*temp)->value && !is_separating((*temp)->type))
+	while (*temp && (*temp)->value)
 	{
-		++arg_count;
-		*temp = (*temp)->next;
+		while (*temp && is_substantive((*temp)->type))
+		{
+			++arg_count;
+			*temp = (*temp)->next;
+		}
+		while (*temp && is_redirecting((*temp)->type))
+		{
+			extend_redirection_lists(data, *temp, exec);
+			*temp = (*temp)->next;
+		}
 	}
 	put_cmd_in_exec(data, current, arg_count, exec);
 }

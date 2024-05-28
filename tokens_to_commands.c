@@ -25,17 +25,20 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 	if (!exec->arguments)
 		snuff_it(data, "Error allocating memory for exec args\n", NULL, 255);
 	i = 0;
-	while (i < arg_count && current != NULL)
+	while (i < arg_count && current != NULL && current->value != NULL)
 	{
-		temp = ft_strdup(current->value);
-		if (!temp)
-			snuff_it(data, "Error allocating memory\n", NULL, 255);
-		//if (!exec->is_export)
-		process_vars_and_quotes(data, &temp);
-		exec->arguments[i] = temp;
-		//printf("exec->arguments[%d]: %s\n", i, exec->arguments[i]);
+		if (is_substantive(current->type))
+		{
+			temp = ft_strdup(current->value);
+			if (!temp)
+				snuff_it(data, "Error allocating memory\n", NULL, 255);
+			//if (!exec->is_export)
+			process_vars_and_quotes(data, &temp);
+			exec->arguments[i] = temp;
+			//printf("exec->arguments[%d]: %s\n", i, exec->arguments[i]);
+			i++;
+		}
 		current = current->next;
-		i++;
 	}
 	exec->arguments[i] = NULL;
 }
@@ -67,13 +70,13 @@ void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
 		free(data->found_path);
 		data->found_path = NULL;
 	}
-	if (node && node->value)
+	if (node && node->value && is_substantive(node->type))
 	{
 		temp = ft_strdup(node->value);
 		if (!temp)
 			snuff_it(data, "Error duplicating string\n", NULL, 255);
-		if (!(*exec)->is_export)
-			process_vars_and_quotes(data, &temp);
+		//if (!(*exec)->is_export)
+		process_vars_and_quotes(data, &temp);
 		(*exec)->name = temp;
 		if (is_builtin(temp))
 			(*exec)->cmd_exec_path = NULL;
