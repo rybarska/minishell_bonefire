@@ -22,11 +22,9 @@ static int	expand_name(t_data *data, char **var_value, char **temp_str, int *is_
 	char	*var_name_end;
 
 	(*var_value)++;
-	if (**var_value == '{')
-		(*var_value)++;
 	var_name_start = *var_value;
 	var_name_end = var_name_start;
-	while (*var_name_end && !ft_strchr(" \t\"\'$}", *var_name_end))
+	while (*var_name_end && ft_isalnum(*var_name_end))//!ft_strchr(" \t\"\'$", *var_name_end)) //TODO: check if number on 1st position
 	{
 		if (*var_name_end == '\'' && !is_d_quoted)
 			*is_s_quoted = !*is_s_quoted;
@@ -35,8 +33,6 @@ static int	expand_name(t_data *data, char **var_value, char **temp_str, int *is_
 		var_name_end++;
 		(*var_value)++;
 	}
-	if (*var_name_end == '}')
-		(*var_value)++;
 	if (var_name_end != var_name_start)
 	{
 		if (allocate_and_expand(data, temp_str, var_name_start, var_name_end) > 0)
@@ -109,7 +105,7 @@ char	*expand_arg(t_data *data, char *arg)
 	{
 		if (*arg == '$' && !is_s_quoted)
 		{
-			if (*(arg + 1) == '\0' || ft_iswhitespace(*(arg + 1)) || ft_strchr("\"'${}", *(arg + 1)))
+			if (*(arg + 1) == '\0' || ft_iswhitespace(*(arg + 1)))
 				temp_str = add_one_char(&arg, temp_str, &is_d_quoted, &is_s_quoted);
 			else if (*(arg + 1) == '?')
 				get_exit_status(data, &temp_str, &arg);
