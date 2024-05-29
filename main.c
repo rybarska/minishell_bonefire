@@ -39,7 +39,9 @@ int	main(void)
 	t_data		data;
 
 	init_data(&data);
-	data.ft_environ = ft_strdup_array(environ); //TODO protect
+	data.ft_environ = ft_strdup_array(environ);
+	if (!data.ft_environ)
+		snuff_it(&data, "Error: ft_strdup_array failed\n", NULL, 255);
 	set_signal_controls(&data);
 	while (g_o_on)
 	{
