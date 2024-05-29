@@ -40,23 +40,21 @@ void	execute_cd(t_data *data, char *dir)
 void	execute_echo(t_exec **exec)
 {
 	int	omit_newline;
-	int	print_index;
 	int	i;
 	int	j;
 
 	omit_newline = 0;
-	print_index = 1;
+	i = 0;
 	j = 2;
-	while ((*exec)->arguments[print_index] != NULL && ft_strncmp((*exec)->arguments[print_index], "-n", 2) == 0)
+	while ((*exec)->arguments[++i] != NULL
+		&& ft_strncmp((*exec)->arguments[i], "-n", 2) == 0)
 	{
-		while ((*exec)->arguments[print_index][j] == 'n')
+		while ((*exec)->arguments[i][j] == 'n')
 			j++;
-		if ((*exec)->arguments[print_index][j] != '\0')
+		if ((*exec)->arguments[i][j] != '\0')
 			break ;
 		omit_newline = 1;
-		print_index++;
 	}
-	i = print_index;
 	while ((*exec)->arguments[i])
 	{
 		printf("%s", (*exec)->arguments[i]);
