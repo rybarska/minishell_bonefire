@@ -15,7 +15,6 @@
 void	handle_eof(t_data *data)
 {
 	printf("exit\n");
-	clean_up_env_vars(data);
 	exit_like_a_boss(data, 0);
 }
 
