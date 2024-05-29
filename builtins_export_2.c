@@ -83,6 +83,7 @@ int	check_env_var_name(t_data *data, char *name)
 	i = -1;
 	if (!ft_isalpha(name[0]) && name[0] != '_')
 		return (boo(data, "(not a valid identifier)\n", name, 1), 1);
+	printf("Entering while loop");
 	while (name[++i])
 	{
 		if (!ft_isalnum_or_(name[i]))

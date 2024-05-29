@@ -21,7 +21,6 @@ void	boo(t_data *data, char *error_msg, char *name, int exit_code)
 	}
 	write(2, error_msg, ft_strlen(error_msg));
 	data->last_exit_code = exit_code;
-	clean_up_data(data);
 }
 
 char	*ft_getenv(t_data *data, char *name)

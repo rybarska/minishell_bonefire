@@ -84,7 +84,7 @@ static void	set_env_var(t_data *data, char *name, char *value)
 	temp = ft_strdup(final_value);
 	if (!temp)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
-	//process_vars_and_quotes(data, &temp);
+	process_vars_and_quotes(data, &temp);
 	if (is_var_in_env(data, name))
 		update_var_in_env(data, name, temp);
 	else
@@ -119,8 +119,9 @@ void	execute_export(t_data *data, char **args)
 		if (check_env_var_name(data, name) == 0)
 		{
 			set_env_var(data, name, value);
-			//add_or_update_env_var_list(data, name, value, 1);
 		}
+		if (name_end)
+			*name_end = '=';
 		i++;
 	}
 }
