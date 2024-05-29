@@ -36,19 +36,15 @@ void	set_signal_controls(t_data *data)
 {
 	struct sigaction	sa_int;
 	struct sigaction	sa_quit;
-	sigset_t		block_set;
 
-	sigemptyset(&block_set);
-	sigaddset(&block_set, SIGTERM);
-	sigaddset(&block_set, SIGQUIT);
+	sigemptyset(&sa_int.sa_mask);
 	sa_int.sa_handler = handle_sigint;
-	sa_int.sa_mask = block_set;
-	sa_int.sa_flags = 0;
+	sa_int.sa_flags = SA_RESTART;
 	if (sigaction(SIGINT, &sa_int, NULL) < 0)
 		snuff_it(data, "Error: sigaction (sigint) failed\n", NULL, 255);
-	sa_quit.sa_handler = handle_sigquit;
 	sigemptyset(&sa_quit.sa_mask);
-	sa_quit.sa_flags = 0;
+	sa_quit.sa_handler = handle_sigquit;
+	sa_quit.sa_flags = SA_RESTART;
 	if (sigaction(SIGQUIT, &sa_quit, NULL) < 0)
 		snuff_it(data, "Error: sigaction (sigquit) failed\n", NULL, 255);
 }
