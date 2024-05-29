@@ -14,17 +14,17 @@
 
 static void	handle_sigint(int signal_number)
 {
-	(void) signal_number;
+	g_o_on = signal_number;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	rl_redisplay();
 }
 
-static void	handle_sigquit(int signal_number)
+/*static void	handle_sigquit(int signal_number)
 {
-	(void) signal_number;
-}
+	g_o_on = signal_number;
+}*/
 
 void	set_signal_controls(t_data *data)
 {
@@ -37,7 +37,7 @@ void	set_signal_controls(t_data *data)
 	if (sigaction(SIGINT, &sa_int, NULL) < 0)
 		snuff_it(data, "Error: sigaction (sigint) failed\n", NULL, 255);
 	sigemptyset(&sa_quit.sa_mask);
-	sa_quit.sa_handler = handle_sigquit;
+	sa_quit.sa_handler = SIG_IGN;//handle_sigquit;
 	sa_quit.sa_flags = SA_RESTART;
 	if (sigaction(SIGQUIT, &sa_quit, NULL) < 0)
 		snuff_it(data, "Error: sigaction (sigquit) failed\n", NULL, 255);

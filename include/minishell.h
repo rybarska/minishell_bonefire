@@ -50,6 +50,14 @@ typedef enum e_token_type
 	EOF_TOKEN = 12
 }			t_token_type;
 
+typedef enum e_signal_mode
+{
+	INTERACTIVE = 0,
+	NON_INTERACTIVE = 1,
+	CHILD = 2,
+	HEREDOC = 3
+}			t_signal_mode;
+
 typedef struct s_token
 {
 	t_token_type	type;
@@ -130,6 +138,7 @@ typedef struct s_data
 	t_process	*child_list_tail;
 	t_env_var	*env_vars_head;
 	char		**ft_environ;
+	t_signal_mode	signal_mode;
 }			t_data;
 
 void	print_execs(t_exec *execs);

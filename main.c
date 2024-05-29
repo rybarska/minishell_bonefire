@@ -68,7 +68,7 @@ int	main(void)
 	if (!data.ft_environ)
 		snuff_it(&data, "Error: ft_strdup_array failed\n", NULL, 255);
 	set_signal_controls(&data);
-	while (g_o_on)
+	while (1)
 	{
 		get_all_cmd_paths(&data);
 		read_input(&data);
