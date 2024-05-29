@@ -20,7 +20,11 @@ void	ft_free_array(char **array)
 	if (array)
 	{
 		while (array[++i])
+		{
 			free(array[i]);
+			array[i] = NULL;
+		}
 		free(array);
+		array = NULL;
 	}
 }

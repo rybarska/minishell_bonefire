@@ -31,12 +31,14 @@ void	clean_up_env_vars(t_data *data)
 	data->env_vars_head = NULL;
 	if (data->ft_environ != NULL)
 		ft_free_array(data->ft_environ);
+	data->ft_environ = NULL;
 }
 
 void	clean_up_data(t_data *data)
 {
 	if (data->exec_list_head != NULL)
 		exec_lstclear(&data->exec_list_head);
+	data->exec_list_head = NULL;
 	if (data->token_list_head != NULL)
 		token_node_lstclear(&data->token_list_head);
 	data->token_list_tail = NULL;
