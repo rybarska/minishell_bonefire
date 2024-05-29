@@ -77,7 +77,6 @@ void	print_export_strings(t_data *data)
 
 int	check_env_var_name(t_data *data, char *name)
 {
-	(void) data;
 	int	i;
 
 	i = -1;
