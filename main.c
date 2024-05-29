@@ -14,6 +14,31 @@
 
 volatile sig_atomic_t	g_o_on = 1;
 
+void	handle_eof_or_ctrl_d(t_data *data)
+{
+	printf("exit\n");
+	exit_like_a_boss(data, 0);
+}
+
+void	read_input(t_data *data)
+{
+	char	*input;
+
+	input = readline("minishell> ");
+	if (!input)
+	{
+		handle_eof_or_ctrl_d(data);
+		return ;
+	}
+	add_history(input);
+	data->text = ft_strdup(input);
+	free(input);
+	if (!data->text)
+		snuff_it(data, "Error allocating memory for input\n", NULL, 255);
+	data->text_len = ft_strlen(data->text);
+	data->pos = 0;
+}
+
 static void	wait_for_children(t_data *data)
 {
 	t_process	*current;
@@ -51,12 +76,12 @@ int	main(void)
 		{
 			make_token_list(&data);
 			merge_unseparated(&data.token_list_head);
-			print_tokens(data.token_list_head);
+			//print_tokens(data.token_list_head);
 			if (check_token_syntax(&data) == 0)
 			{
 				make_executives(&data);
-				print_execs(data.exec_list_head);
-				print_envs(data.env_vars_head);
+				//print_execs(data.exec_list_head);
+				//print_envs(data.env_vars_head);
 				if (count_executives(&data) > 0)
 				{
 					execute_execs(&data);

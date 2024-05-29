@@ -6,7 +6,6 @@ SRC = ./main.c \
       ./utils.c \
       ./init.c \
       ./path.c \
-      ./parser.c \
       ./tokens.c \
       ./tokens_utils.c \
       ./tokens_redirections.c \

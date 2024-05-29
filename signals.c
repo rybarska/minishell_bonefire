@@ -12,12 +12,6 @@
 
 #include "minishell.h"
 
-void	handle_eof(t_data *data)
-{
-	printf("exit\n");
-	exit_like_a_boss(data, 0);
-}
-
 static void	handle_sigint(int signal_number)
 {
 	(void) signal_number;

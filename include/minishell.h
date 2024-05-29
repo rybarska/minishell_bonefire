@@ -199,7 +199,6 @@ void	token_node_lstclear(t_token_node **lst);
 void	close_fd_set_minus1(int *fd);
 void	close_all_fds(t_data *data);
 void	reset_ints(t_data *data);
-//void	free_token(t_data *data);
 /* cleanup */
 void	clean_up_data(t_data *data);
 void	clean_up_env_vars(t_data *data);
@@ -212,7 +211,6 @@ void	check_if_full_path(t_data *data, t_exec **exec, char *command);
 /* children */
 void	execute_execs(t_data *data);
 void	handle_parent(t_data *data, t_exec **exec);
-//void	make_child(t_data *data, t_exec **exec);
 /* children_lone */
 void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec);
 /* children_redirs */
@@ -221,14 +219,14 @@ void	process_out_files(t_data *data, t_exec **exec);
 void	process_in_files(t_data *data, t_exec **exec);
 int	has_in_redirs(t_data *data, t_redirection *in_redir);
 int	has_out_redirs(t_data *data, t_redirection *out_redir);
-/* here_doc */
-void	get_heredoc(t_data *data, t_redirection **redir);
-/* heredoc_expand */
-char	*heredoc_expand_var(t_data *data, char *arg);
 /* children_execve */
 void	exec_first_command(t_data *data, t_exec *exec);
 void	exec_mid_command(t_data *data, t_exec *exec);
 void	exec_last_command(t_data *data, t_exec *exec);
+/* here_doc */
+void	get_heredoc(t_data *data, t_redirection **redir);
+/* heredoc_expand */
+char	*heredoc_expand_var(t_data *data, char *arg);
 /* builtins */
 int	is_builtin(char *command);
 int	execute_builtin(t_data *data, t_exec **exec, char *command);
@@ -247,6 +245,5 @@ void	execute_exit(t_data *data);
 void	execute_pwd();
 /* signals */
 void	set_signal_controls(t_data *data);
-void	handle_eof(t_data *data);
 
 #endif
