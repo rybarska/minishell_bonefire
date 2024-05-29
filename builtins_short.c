@@ -42,14 +42,20 @@ void	execute_echo(t_exec **exec)
 	int	omit_newline;
 	int	print_index;
 	int	i;
+	int	j;
 
 	omit_newline = 0;
-	if ((*exec)->arguments[1] != NULL && ft_strncmp((*exec)->arguments[1], "-n", 2) == 0)
+	print_index = 1;
+	j = 2;
+	while ((*exec)->arguments[print_index] != NULL && ft_strncmp((*exec)->arguments[print_index], "-n", 2) == 0)
+	{
+		while ((*exec)->arguments[print_index][j] == 'n')
+			j++;
+		if ((*exec)->arguments[print_index][j] != '\0')
+			break ;
 		omit_newline = 1;
-	if (omit_newline)
-		print_index = 2;
-	else
-		print_index = 1;
+		print_index++;
+	}
 	i = print_index;
 	while ((*exec)->arguments[i])
 	{
