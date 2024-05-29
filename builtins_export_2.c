@@ -80,11 +80,13 @@ int	check_env_var_name(t_data *data, char *name)
 	int	i;
 
 	i = -1;
-	if (!ft_isalpha(name[0]) && name[0] != '_')
+	if (!name || !name[0])
+		return (boo(data, "(not a valid identifier)\n", name, 1), 1);
+	if (!ft_isalpha(name[0]) && name[0] != '_' && name[0] != '/')
 		return (boo(data, "(not a valid identifier)\n", name, 1), 1);
 	while (name[++i])
 	{
-		if (!ft_isalnum_or_(name[i]))
+		if (!ft_isalnum_or_(name[i]) && name[0] != '/')
 			return (boo(data, "(not a valid identifier)\n", name, 1), 1);
 	}
 	return (0);
