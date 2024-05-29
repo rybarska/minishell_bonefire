@@ -15,6 +15,7 @@
 void	execute_cd(t_data *data, char *dir)
 {
 	char	*home_dir;
+	char	curr_dir[PATH_MAX];
 
 	if (dir == NULL)
 	{
@@ -31,10 +32,10 @@ void	execute_cd(t_data *data, char *dir)
 		perror("cd");
 		return ;
 	}
-	/*if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
-		execute_export("PWD", curr_dir, 1) != 0)
+	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
+		execute_export(data, (char *[]){"PWD", curr_dir, NULL});
 	else
-		boo("error in getcwd\n");*/ //TODO: fix this when export is ready
+		perror("cd");
 }
 
 void	execute_echo(t_exec **exec)
@@ -80,7 +81,6 @@ void	execute_env(t_data *data)
 
 void	execute_exit(t_data *data)
 {
-	//clean_up_env_vars(data); //TODO: if clean_up_env_vars not called in cleanup
 	exit_like_a_boss(data, data->last_exit_code);
 }
 
