@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-volatile sig_atomic_t	g_o_on = 1;
+volatile sig_atomic_t	g_o_on = 0;
 
 void	handle_eof_or_ctrl_d(t_data *data)
 {

@@ -11,12 +11,11 @@
 /* ************************************************************************** */
 
 #include "include/minishell.h"
-#include "minishell.h"
-#include <signal.h>
 
 static void	handle_sigint(int signal_number)
 {
-	g_o_on = signal_number;
+	(void)signal_number;
+	//g_o_on = signal_number;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -25,8 +24,11 @@ static void	handle_sigint(int signal_number)
 
 static void	heredoc_sigint(int signal_number)
 {
-	(void)signal_number;
-	g_o_on = 86;
+	//(void)signal_number;
+	ioctl(STDIN_FILENO, TIOCSTI, "\n");
+	//write(STDOUT_FILENO, "\n", 1);
+	printf("number is: %d\n", signal_number);
+	g_o_on = signal_number;//86;
 }
 
 // static void	handle_sigquit(int signal_number)

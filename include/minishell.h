@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <errno.h>
 # include <signal.h>
+# include <sys/ioctl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"

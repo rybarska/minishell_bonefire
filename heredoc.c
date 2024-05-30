@@ -77,6 +77,12 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 	buffer = get_next_line(0);
 	while (buffer != NULL)
 	{
+		if (g_o_on == 2)
+		{
+			free(buffer);
+			g_o_on = 0;
+			break ;
+		}
 		if (ft_strlen(buffer) == delimiter_len
 			&& ft_strncmp(buffer, redir->delimiter, delimiter_len) == 0)
 		{
@@ -99,6 +105,7 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 
 void	get_heredoc(t_data *data, t_redirection **redir)
 {
+	set_mode(data, HERE_DOC);
 	init_temp_file(data, *redir);
 	write_temp_file(data, *redir);
 	close_fd_set_minus1(&(*redir)->fd);
