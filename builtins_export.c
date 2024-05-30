@@ -59,11 +59,7 @@ char	*get_or_duplicate_value(t_data *data, char *name, char *value)
 	{
 		duplicate_value = get_value_from_list(data, name);
 		if (!duplicate_value)
-		{
-			duplicate_value = ft_strdup("");
-			if (!duplicate_value)
-				snuff_it(data, "Error duplicating string\n", NULL, 255);
-		}
+			return (NULL);
 	}
 	else
 	{
@@ -81,6 +77,8 @@ static void	set_env_var(t_data *data, char *name, char *value)
 
 	temp = NULL;
 	final_value = get_or_duplicate_value(data, name, value);
+	if (!final_value)
+		return ;
 	temp = ft_strdup(final_value);
 	if (!temp)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
