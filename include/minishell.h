@@ -55,7 +55,7 @@ typedef enum e_signal_mode
 	INTERACTIVE = 0,
 	NON_INTERACTIVE = 1,
 	CHILD = 2,
-	HEREDOC = 3
+	HERE_DOC = 3
 }			t_signal_mode;
 
 typedef struct s_token
