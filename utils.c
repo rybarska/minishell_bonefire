@@ -62,3 +62,19 @@ int	has_unquoted_equals(char *str)
 	}
 	return (unquoted_equal);
 }
+
+void	count_pipes(t_data *data)
+{
+	int	pipe_counter;
+	t_token_node	*current;
+
+	pipe_counter = 0;
+	current = data->token_list_head;
+	while (current)
+	{
+		if (current->type == PIPE)
+			pipe_counter++;
+		current = current->next;
+	}
+	data->pipe_num = pipe_counter;
+}

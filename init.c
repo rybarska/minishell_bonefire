@@ -37,4 +37,5 @@ void	init_data(t_data *data)
 	data->env_vars_head = NULL;
 	data->ft_environ = NULL;
 	data->signal_mode = INTERACTIVE;
+	data->pipe_num = -1;
 }

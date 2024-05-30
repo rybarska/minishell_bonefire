@@ -140,6 +140,7 @@ typedef struct s_data
 	t_env_var	*env_vars_head;
 	char		**ft_environ;
 	t_signal_mode	signal_mode;
+	int		pipe_num;
 }			t_data;
 
 void	print_execs(t_exec *execs);
@@ -162,6 +163,7 @@ char	*parse_delimiter(t_data *data);
 void	boo(t_data *data, char *error_msg, char *name, int exit_code);
 char	*ft_getenv(t_data *data, char *name);
 int	has_unquoted_equals(char *str);
+void	count_pipes(t_data *data);
 /* tokens_utils */
 int	is_separating(t_token_type type);
 int	is_redirecting(t_token_type type);
