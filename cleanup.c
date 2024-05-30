@@ -56,6 +56,8 @@ void	clean_up_data(t_data *data)
 	data->child_list_head = NULL;
 	data->child_list_tail = NULL;
 	close_all_fds(data);
+	if (data->thrash_list_head)
+		clear_thrash_list(data);
 	reset_ints(data);
 }
 

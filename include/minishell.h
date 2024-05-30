@@ -116,6 +116,13 @@ typedef struct s_process
 	struct s_process	*next;
 }				t_process;
 
+typedef struct s_thrash_node
+{
+	char			*value;
+	struct s_token_node	*previous;
+	struct s_token_node	*next;
+}				t_thrash_node;
+
 typedef struct s_data
 {
 	t_exec		*exec_list_head;
@@ -141,6 +148,7 @@ typedef struct s_data
 	char		**ft_environ;
 	t_signal_mode	signal_mode;
 	int		pipe_num;
+	t_thrash_node	*thrash_list_head;
 }			t_data;
 
 void	print_execs(t_exec *execs);
@@ -258,5 +266,8 @@ void	execute_pwd();
 /* signals */
 void	set_signal_controls(t_data *data);
 void	set_mode(t_data *data, t_signal_mode mode);
+/* thrash list */
+void	clear_thrash_list(t_data *data);
+void	add_string_to_thrash_list(t_data *data, char *string);
 
 #endif

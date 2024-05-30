@@ -38,4 +38,5 @@ void	init_data(t_data *data)
 	data->ft_environ = NULL;
 	data->signal_mode = INTERACTIVE;
 	data->pipe_num = -1;
+	data->thrash_list_head = NULL;
 }
