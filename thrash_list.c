@@ -21,7 +21,8 @@ void	clear_thrash_list(t_data *data)
 	while (current != NULL)
 	{
 		next = current->next;
-		free(current->value);
+		if (current->value)
+			free(current->value);
 		current->value = NULL;
 		free(current);
 		current = next;
