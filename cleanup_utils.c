@@ -40,4 +40,5 @@ void	reset_ints(t_data *data)
 	data->index = -1;
 	data->exec_num = -1;
 	data->pid = -1;
+	data->pipe_num = -1;
 }
