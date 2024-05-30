@@ -22,10 +22,11 @@ static int	expand_name(t_data *data, char **var_value, char **temp_str, int *is_
 	char	*var_name_end;
 
 	(*var_value)++;
+	if (!ft_isalpha(**var_value) && **var_value != '_')
+		return ((*var_value)++, 0);
 	var_name_start = *var_value;
 	var_name_end = var_name_start;
 	while (*var_name_end && ft_isalnum_or_(*var_name_end))
-	//TODO: check if number on 1st position
 	{
 		if (*var_name_end == '\'' && !is_d_quoted)
 			*is_s_quoted = !*is_s_quoted;
