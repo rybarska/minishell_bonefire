@@ -119,8 +119,8 @@ typedef struct s_process
 typedef struct s_thrash_node
 {
 	char			*value;
-	struct s_token_node	*previous;
-	struct s_token_node	*next;
+	struct s_thrash_node	*previous;
+	struct s_thrash_node	*next;
 }				t_thrash_node;
 
 typedef struct s_data

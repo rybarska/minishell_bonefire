@@ -37,6 +37,7 @@ SRC = ./main.c \
       ./builtins_export_2.c \
       ./builtins_short.c \
       ./signals.c \
+      ./thrash_list.c \
 
 OBJ = $(SRC:%.c=%.o)
 

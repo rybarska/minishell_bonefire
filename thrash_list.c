@@ -40,7 +40,6 @@ static t_thrash_node	*create_thrash_node(t_data *data, char *string)
 	if (!new_node)
 		snuff_it(data, "Error creating thrash node", NULL, 255);
 	new_node->value = string;
-	if (new_token->value)
 	new_node->previous = NULL;
 	new_node->next = NULL;
 	return (new_node);
@@ -48,6 +47,8 @@ static t_thrash_node	*create_thrash_node(t_data *data, char *string)
 
 static void	add_thrash_node_to_list(t_data *data, t_thrash_node *new_node)
 {
+	t_thrash_node	*current;
+	
 	if (new_node == NULL)
 		return ;
 	current = data->thrash_list_head;
