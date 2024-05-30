@@ -36,4 +36,5 @@ void	init_data(t_data *data)
 	data->child_list_tail = NULL;
 	data->env_vars_head = NULL;
 	data->ft_environ = NULL;
+	data->signal_mode = INTERACTIVE;
 }
