@@ -42,12 +42,12 @@ void	process_cmd_and_redir_tokens(t_data *data, t_token_node **temp,
 			(*exec)->is_export = 1;
 			handle_command_token(data, temp, exec);
 		}
-		else if ((*temp)->type == ASSIGNMENT)
+		else if ((*temp)->type == ASSIGNMENT && data->pipe_num == 0)
 		{
 			put_env_in_list(data, *temp, 1, 0);
 			*temp = (*temp)->next;
 		}
-		else if (is_substantive((*temp)->type))
+		else if (is_substantive((*temp)->type) && (*temp)->type != ASSIGNMENT)
 			handle_command_token(data, temp, exec);
 		else if (is_redirecting((*temp)->type))
 		{
