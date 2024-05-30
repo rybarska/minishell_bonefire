@@ -44,10 +44,7 @@ static void	make_child(t_data *data, t_exec **exec)
 		snuff_it(data, "Error forking\n", NULL, 255);
 	if (data->pid == 0)
 	{
-		//printf("data->fd[0]: %d\n", data->fd[0]);
-		//printf("data->fd[1]: %d\n", data->fd[1]);
-		//printf("*data->std_in: %d\n", *data->std_in);
-		//dprintf(2, "EXEC NUM: %d, INDEX: %d\n", data->exec_num, data->index);
+		set_mode(data, CHILD);
 		if (data->index == 0)
 			exec_first_command(data, *exec);
 		else if (data->index == data->exec_num - 1)

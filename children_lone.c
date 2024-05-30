@@ -19,6 +19,7 @@ static void	execute_lone_external(t_data *data, t_exec **exec)
 		snuff_it(data, "Error forking\n", NULL, 255);
 	if (data->pid == 0)
 	{
+		set_mode(data, CHILD);
 		close_fd_set_minus1(&data->temp1_fd);
 		close_fd_set_minus1(&data->temp2_fd);
 		if (!(*exec)->cmd_exec_path || !(*exec)->arguments[0])

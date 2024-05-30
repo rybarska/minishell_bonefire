@@ -254,5 +254,6 @@ void	execute_exit(t_data *data);
 void	execute_pwd();
 /* signals */
 void	set_signal_controls(t_data *data);
+void	set_mode(t_data *data, t_signal_mode mode);
 
 #endif

@@ -24,7 +24,9 @@ void	read_input(t_data *data)
 {
 	char	*input;
 
+	set_mode(data, INTERACTIVE);
 	input = readline("minishell> ");
+	set_mode(data, NON_INTERACTIVE);
 	if (!input)
 	{
 		handle_eof_or_ctrl_d(data);
