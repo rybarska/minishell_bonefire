@@ -30,6 +30,8 @@ void	init_data(t_data *data)
 	data->std_in = -1;
 	data->temp1_fd = -1;
 	data->temp2_fd = -1;
+	data->is_s_quoted = -1;
+	data->is_d_quoted = -1;
 	data->pid = -1;
 	data->last_exit_code = 0;
 	data->child_list_head = NULL;

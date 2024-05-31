@@ -140,6 +140,8 @@ typedef struct s_data
 	int		std_in;
 	int		temp1_fd;
 	int		temp2_fd;
+	int		is_s_quoted;
+	int		is_d_quoted;
 	pid_t		pid;
 	int		last_exit_code;
 	t_process	*child_list_head;

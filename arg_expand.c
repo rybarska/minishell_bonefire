@@ -15,8 +15,7 @@
 // This function calls allocate_and_expand if it finds a variable name
 // and otherwise returns NULL.
 // It also keeps track of flags for single or double quotes.
-static void	expand_name(t_data *data, char **var_value, char **temp_str, int *is_d_quoted,
-	int *is_s_quoted) //TODO figure out what to do about 5 parametres
+static void	expand_name(t_data *data, char **var_value, char **temp_str) //TODO figure out what to do about 5 parametres
 {
 	char	*var_name_start;
 	char	*var_name_end;
@@ -31,10 +30,10 @@ static void	expand_name(t_data *data, char **var_value, char **temp_str, int *is
 	var_name_end = var_name_start;
 	while (*var_name_end && ft_isalnum_or_(*var_name_end))
 	{
-		if (*var_name_end == '\'' && !is_d_quoted)
-			*is_s_quoted = !*is_s_quoted;
-		if (*var_name_end == '\"' && !is_s_quoted)
-			*is_d_quoted = !*is_d_quoted;
+		if (*var_name_end == '\'' && !data->is_d_quoted)
+			data->is_s_quoted = !data->is_s_quoted;
+		if (*var_name_end == '\"' && !data->is_s_quoted)
+			data->is_d_quoted = !data->is_d_quoted;
 		var_name_end++;
 		(*var_value)++;
 	}
@@ -42,16 +41,15 @@ static void	expand_name(t_data *data, char **var_value, char **temp_str, int *is
 		allocate_and_expand(data, temp_str, var_name_start, var_name_end);
 }
 
-static char	*add_one_char(char **arg, char *temp_str,  int *is_d_quoted,
-	int *is_s_quoted)
+static char	*add_one_char(t_data *data, char **arg, char *temp_str)
 {
 	char	*temp;
 
 	temp = NULL;
-	if (**arg == '\'' && !*is_d_quoted)
-		*is_s_quoted = !*is_s_quoted;
-	if (**arg == '\"' && !*is_s_quoted)
-		*is_d_quoted = !*is_d_quoted;
+	if (**arg == '\'' && !data->is_d_quoted)
+		data->is_s_quoted = !data->is_s_quoted;
+	if (**arg == '\"' && !data->is_s_quoted)
+		data->is_d_quoted = !data->is_d_quoted;
 	temp = ft_strjoin_char(temp_str, **arg);
 	free(temp_str);
 	temp_str = temp;
@@ -89,27 +87,25 @@ static void	get_exit_status(t_data *data, char **temp_str, char **arg)
 char	*expand_arg(t_data *data, char *arg)
 {
 	char	*temp_str;
-	int	is_s_quoted;
-	int	is_d_quoted;
 
-	is_s_quoted = 0;
-	is_d_quoted = 0;
+	data->is_s_quoted = 0;
+	data->is_d_quoted = 0;
 	temp_str = ft_strdup("");
 	if (!temp_str)
 		snuff_it(data, "Error allocating memory for temp_str\n", NULL, 255);
 	while (*arg)
 	{
-		if (*arg == '$' && !is_s_quoted)
+		if (*arg == '$' && !data->is_s_quoted)
 		{
 			if (*(arg + 1) == '\0' || ft_iswhitespace(*(arg + 1)))
-				temp_str = add_one_char(&arg, temp_str, &is_d_quoted, &is_s_quoted);
+				temp_str = add_one_char(data, &arg, temp_str);
 			else if (*(arg + 1) == '?')
 				get_exit_status(data, &temp_str, &arg);
 			else
-				expand_name(data, &arg, &temp_str, &is_d_quoted, &is_s_quoted);
+				expand_name(data, &arg, &temp_str);
 		}
 		else
-			temp_str = add_one_char(&arg, temp_str, &is_d_quoted, &is_s_quoted);
+			temp_str = add_one_char(data, &arg, temp_str);
 	}
 	return (temp_str);
 }
