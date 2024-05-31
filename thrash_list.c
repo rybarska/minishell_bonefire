@@ -21,16 +21,21 @@ void	clear_thrash_list(t_data *data)
 	while (current != NULL)
 	{
 		next = current->next;
-		if (current->value)
-			free(current->value);
-		current->value = NULL;
+		//printf("current->value: %s\n", *(current->value));
+		if (current->value && *current->value)
+		{
+			free(*current->value);
+			//printf("current->value 2: %s\n", current->(*value));
+			*current->value = NULL;
+			//printf("current->value 3: %s\n", *current->value);
+		}
 		free(current);
 		current = next;
 	}
 	data->thrash_list_head = NULL;
 }
 
-static t_thrash_node	*create_thrash_node(t_data *data, char *string)
+static t_thrash_node	*create_thrash_node(t_data *data, char **string)
 {
 	t_thrash_node	*new_node;
 
@@ -39,6 +44,7 @@ static t_thrash_node	*create_thrash_node(t_data *data, char *string)
 	new_node = malloc(sizeof(t_thrash_node));
 	if (!new_node)
 		snuff_it(data, "Error creating thrash node", NULL, 255);
+	new_node->value = NULL;
 	new_node->value = string;
 	new_node->previous = NULL;
 	new_node->next = NULL;
@@ -63,7 +69,7 @@ static void	add_thrash_node_to_list(t_data *data, t_thrash_node *new_node)
 	}
 }
 
-void	add_string_to_thrash_list(t_data *data, char *string)
+void	add_string_to_thrash_list(t_data *data, char **string)
 {
 	t_thrash_node	*new_node;
 

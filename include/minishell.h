@@ -118,7 +118,7 @@ typedef struct s_process
 
 typedef struct s_thrash_node
 {
-	char			*value;
+	char			**value;
 	struct s_thrash_node	*previous;
 	struct s_thrash_node	*next;
 }				t_thrash_node;
@@ -270,6 +270,6 @@ void	set_signal_controls(t_data *data);
 void	set_mode(t_data *data, t_signal_mode mode);
 /* thrash list */
 void	clear_thrash_list(t_data *data);
-void	add_string_to_thrash_list(t_data *data, char *string);
+void	add_string_to_thrash_list(t_data *data, char **string);
 
 #endif
