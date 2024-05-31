@@ -23,8 +23,10 @@ void	clean_up_env_vars(t_data *data)
 		next = current->next;
 		if (current->name)
 			free(current->name);
+		current->name = NULL;
 		if (current->value)
 			free(current->value);
+		current->value = NULL;
 		free(current);
 		current = next;
 	}

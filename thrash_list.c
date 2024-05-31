@@ -24,7 +24,6 @@ void	clear_thrash_list(t_data *data)
 		if (current->value)
 			free(current->value);
 		current->value = NULL;
-		current->value = NULL;
 		free(current);
 		current = next;
 	}

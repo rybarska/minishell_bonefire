@@ -70,6 +70,7 @@ void	set_rdr_file_or_delimiter(t_data *data, t_token_node *temp, t_redirection *
 		if (!new_rdr->file)
 		{
 			free(new_rdr);
+			new_rdr = NULL;
 			snuff_it(data, "Error allocating memory for new_rdr->file",
 				NULL, 255);
 		}	
@@ -80,6 +81,7 @@ void	set_rdr_file_or_delimiter(t_data *data, t_token_node *temp, t_redirection *
 		if (!new_rdr->delimiter)
 		{
 			free(new_rdr);
+			new_rdr = NULL;
 			snuff_it(data, "Error allocating memory for new_rdr->delimiter",
 				NULL, 255);
 		}

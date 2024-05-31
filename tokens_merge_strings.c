@@ -20,6 +20,7 @@ void	remove_space_tokens(t_token_node **head)
 
 	curr = *head;
 	prev = NULL;
+	temp = NULL;
 	while (curr)
 	{
 		if (curr->type == 0)
@@ -29,6 +30,7 @@ void	remove_space_tokens(t_token_node **head)
 			temp = curr;
 			curr = curr->next;
 			free(temp);
+			temp = NULL;
 		}
 		else
 		{
@@ -54,6 +56,7 @@ void	merge_token_strings(t_token_node **current, t_token_node **prev)
 	if ((*current)->next != NULL)
 		(*current)->next->previous = *prev;
 	free((*current)->value);
+	(*current)->value = NULL;
 	free(*current);
 	*current = (*prev)->next;
 }

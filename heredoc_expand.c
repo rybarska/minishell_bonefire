@@ -24,6 +24,7 @@ static int	heredoc_add_expanded(char **temp_str, char *expanded)
 		return (255);
 	temp = ft_strjoin(*temp_str, expanded_dup);
 	free(expanded_dup);
+	expanded_dup = NULL;
 	free(*temp_str);
 	if (!temp)
 		return (255);
@@ -39,6 +40,7 @@ static int	heredoc_allocate_and_expand(t_data *data, char **temp_str, char *var_
 	char	*expanded;
 
 	expanded = NULL;
+	var_name = NULL;
 	var_name = (char *)malloc(sizeof(char)
 			* (var_name_end - var_name_start + 1));
 	if (!var_name)
@@ -46,6 +48,7 @@ static int	heredoc_allocate_and_expand(t_data *data, char **temp_str, char *var_
 	ft_strlcpy(var_name, var_name_start, var_name_end - var_name_start + 1);
 	expanded = ft_getenv(data, var_name);
 	free(var_name);
+	var_name = NULL;
 	if (expanded)
 	{
 		if (heredoc_add_expanded(temp_str, expanded) == 255)
@@ -128,6 +131,7 @@ char	*heredoc_expand_var(t_data *data, char *arg)
 			if (expand_name(data, &arg, &temp_str, &is_d_quoted, &is_s_quoted) == 255)
 			{
 				free(temp_str);
+				temp_str = NULL;
 				snuff_it(data, "Error allocating memory for var\n",
 					NULL, 255);
 			}

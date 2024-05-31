@@ -22,6 +22,7 @@ void	clear_token_list(t_data *data)
 	{
 		next = current->next;
 		free(current->value);
+		current->value = NULL;
 		free(current);
 		current = next;
 	}

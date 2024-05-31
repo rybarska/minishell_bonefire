@@ -83,6 +83,8 @@ void	put_env_in_list(t_data *data, t_token_node *node, int env_count,
 	char	*name_end;
 	char	*temp;
 
+	temp = NULL;
+	name_end = NULL;
 	while (env_count-- > 0 && node && node->value)
 	{
 		temp = ft_strdup(node->value);
@@ -97,6 +99,7 @@ void	put_env_in_list(t_data *data, t_token_node *node, int env_count,
 		else
 			add_or_update_env_var_list(data, temp, NULL, is_exported);
 		free(temp);
+		temp = NULL;
 		node = node->next;
 	}
 }

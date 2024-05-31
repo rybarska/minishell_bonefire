@@ -80,7 +80,10 @@ void	make_executives(t_data *data)
 		process_cmd_and_redir_tokens(data, &temp, &exec);
 		if ((exec->arguments == NULL || exec->arguments[0] == NULL)
 			&& exec->in_redirs == NULL && exec->out_redirs == NULL)
+		{
 			free(exec);
+			exec = NULL;
+		}
 		else
 			exec_lstadd_back(&exec_head, exec);
 		current = temp;

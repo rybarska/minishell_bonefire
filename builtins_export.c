@@ -88,8 +88,12 @@ static void	set_env_var(t_data *data, char *name, char *value)
 	else
 		add_var_to_env(data, name, temp);
 	free(temp);
+	temp = NULL;
 	if (final_value)
+	{
 		free(final_value);
+		final_value = NULL;
+	}
 }
 
 // This function looks for name and value of exported env var.

@@ -63,6 +63,8 @@ char	*parse_delimiter(t_data *data)
 	char	*temp_delimiter;
 	char	current_char;
 
+	delimiter = NULL;
+	temp = NULL;
 	start_pos = data->pos;
 	delimiter = ft_strdup("");
 	temp = NULL;
@@ -86,6 +88,7 @@ char	*parse_delimiter(t_data *data)
 		free(delimiter);
 		delimiter = temp_delimiter;
 		free(temp);
+		temp = NULL;
 	}
 	return (delimiter);
 }

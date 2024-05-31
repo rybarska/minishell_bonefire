@@ -51,7 +51,10 @@ static char	*add_one_char(t_data *data, char **arg, char *temp_str)
 	if (**arg == '\"' && !data->is_s_quoted)
 		data->is_d_quoted = !data->is_d_quoted;
 	temp = ft_strjoin_char(temp_str, **arg);
+	if (!temp)
+		snuff_it(data, "Error allocating in add_one_char\n", NULL, 255);
 	free(temp_str);
+	temp_str = NULL;
 	temp_str = temp;
 	(*arg)++;
 	return (temp_str);
@@ -62,14 +65,17 @@ static void	get_exit_status(t_data *data, char **temp_str, char **arg)
 	char	*exit_status_str;
 
 	(*arg) += 2;
+	exit_status_str = NULL;
 	exit_status_str = ft_itoa(data->last_exit_code);
 	if (!exit_status_str)
 	{
 		free(*temp_str);
+		temp_str = NULL;
 		snuff_it(data, "Error allocating memory for exit status\n", NULL, 255);
 	}
 	add_expanded(data, temp_str, exit_status_str);
 	free(exit_status_str);
+	exit_status_str = NULL;
 }
 
 /*void	free_temp_str_and_snuff_it(t_data *data, char **temp_str, char *arg)

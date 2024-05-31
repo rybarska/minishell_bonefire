@@ -52,6 +52,7 @@ static void	init_temp_file(t_data *data, t_redirection *redir)
 	int			random_value;
 
 	random_value = get_rand_value(data);
+	random_str = NULL;
 	random_str = ft_itoa(random_value);
 	if (!random_str)
 		snuff_it(data, "Error converting value to string\n", NULL, 255);
@@ -59,6 +60,7 @@ static void	init_temp_file(t_data *data, t_redirection *redir)
 	ft_strlcat(temp_filename, random_str, sizeof(temp_filename));
 	ft_strlcat(temp_filename, ".txt", sizeof(temp_filename));
 	free(random_str);
+	random_str = NULL;
 	redir->file = ft_strdup(temp_filename);
 	if (!redir->file)
 		snuff_it(data, "Error creating temp_filename\n", NULL, 255);
@@ -74,12 +76,14 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 	int		delimiter_len;
 
 	delimiter_len = ft_strlen(redir->delimiter);
+	buffer = NULL;
 	buffer = get_next_line(0);
 	while (buffer != NULL)
 	{
 		if (g_o_on == 2)
 		{
 			free(buffer);
+			buffer = NULL;
 			g_o_on = 0;
 			break ;
 		}
@@ -87,6 +91,7 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 			&& ft_strncmp(buffer, redir->delimiter, delimiter_len) == 0)
 		{
 			free(buffer);
+			buffer = NULL;
 			break ;
 		}
 		process_heredoc_vars(data, &buffer);
@@ -96,9 +101,11 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 			close_fd_set_minus1(&redir->fd);
 			unlink(redir->file);
 			free(buffer);
+			buffer = NULL;
 			snuff_it(data, "Error writing to here_doc\n", NULL, 255);
 		}
 		free(buffer);
+		buffer = NULL;
 		buffer = get_next_line(0);
 	}
 }

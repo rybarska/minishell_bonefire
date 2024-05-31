@@ -18,6 +18,7 @@ void	get_all_cmd_paths(t_data *data)
 	char	*temp;
 
 	i = 0;
+	temp = NULL;
 	while (data->ft_environ && data->ft_environ[i] != NULL)
 	{
 		if (ft_strncmp(data->ft_environ[i], "PATH=", 5) == 0)
@@ -35,6 +36,7 @@ void	get_all_cmd_paths(t_data *data)
 		temp = data->cmd_paths[i];
 		data->cmd_paths[i] = ft_strjoin(data->cmd_paths[i], "/");
 		free(temp);
+		temp = NULL;
 		if (data->cmd_paths[i] == NULL)
 			snuff_it(data, "Error activating paths\n", NULL, 255);
 	}
@@ -51,6 +53,8 @@ void	get_path_from_env(t_data *data, char *command)
 		{
 			data->found_path
 				= ft_strjoin(data->cmd_paths[i], command);
+			if (!data->found_path)
+				snuff_it(data, "Error allocating for found_path\n", NULL, 255);
 			if (access(data->found_path, R_OK | X_OK) == 0)
 				break ;
 			else

@@ -43,11 +43,13 @@ void	redir_lstclear(t_redirection **lst)
 		if (current->delimiter)
 		{
 			free(current->delimiter);
+			current->delimiter = NULL;
 			if (current->file)
 				unlink(current->file);
 		}
 		if (current->file)
 			free(current->file);
+		current->file = NULL;
 		close_fd_set_minus1(&current->fd);
 		free(current);
 		current = next;
@@ -66,8 +68,10 @@ void	redir_lst_close_fds(t_redirection **lst)
 	{
 		if (current->file)
 			free(current->file);
+		current->file = NULL;
 		if (current->delimiter)
 			free(current->delimiter);
+		current->delimiter = NULL;
 		if (current->fd >= 0)
 			close_fd_set_minus1(&current->fd);
 		free(current);
@@ -88,8 +92,10 @@ void	exec_lstclear(t_exec **lst)
 		next = current->next;
 		if (current->name)
 			free(current->name);
+		current->name = NULL;
 		if (current->cmd_exec_path)
 			free(current->cmd_exec_path);
+		current->cmd_exec_path = NULL;
 		if (current->arguments)
 			ft_free_array(current->arguments);
 		redir_lstclear(&current->in_redirs);
@@ -113,6 +119,7 @@ void	token_node_lstclear(t_token_node **lst)
 		next = current->next;
 		if (current->value)
 			free(current->value);
+		current->value = NULL;
 		if (current->split_words)
 			ft_free_array(current->split_words);
 		free(current);
