@@ -22,7 +22,7 @@ void	add_expanded(t_data *data, char **temp_str, char *expanded)
 	expanded_dup = ft_strdup(expanded);
 	if (!expanded_dup)
 		snuff_it(data, "Error allocating in add_expanded", NULL, 255);
-	add_string_to_thrash_list(data, &expanded_dup);
+	add_string_to_thrash_list(data, expanded_dup);
 	temp = ft_strjoin(*temp_str, expanded_dup);
 	//free(expanded_dup);
 	//expanded_dup = NULL;
