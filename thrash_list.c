@@ -24,6 +24,7 @@ void	clear_thrash_list(t_data *data)
 		if (current->value)
 			free(current->value);
 		current->value = NULL;
+		current->value = NULL;
 		free(current);
 		current = next;
 	}
@@ -51,24 +52,22 @@ static void	add_thrash_node_to_list(t_data *data, t_thrash_node *new_node)
 	
 	if (new_node == NULL)
 		return ;
-	current = data->thrash_list_head;
-	if (current == NULL)
-		current = new_node;
+	if (data->thrash_list_head == NULL)
+		data->thrash_list_head = new_node;
 	else
 	{
-		while (current)
+		current = data->thrash_list_head;
+		while (current->next != NULL)
 			current = current->next;
-		current = new_node;
+		current->next = new_node;
+		new_node->previous = current;
 	}
-	current->next = NULL;
 }
 
 void	add_string_to_thrash_list(t_data *data, char *string)
 {
 	t_thrash_node	*new_node;
-	t_thrash_node	*current;
 
-	current = data->thrash_list_head;
 	new_node = create_thrash_node(data, string);
 	add_thrash_node_to_list(data, new_node);
 }
