@@ -197,8 +197,8 @@ void	extend_redirection_lists(t_data *data, t_token_node *temp, t_exec **exec);
 /* arg_expand */
 char	*expand_arg(t_data *data, char *arg);
 /* arg_expand */
-int	add_expanded(char **temp_str, char *expanded);
-int	allocate_and_expand(t_data *data, char **temp_str, char *var_name_start,
+void	add_expanded(t_data *data, char **temp_str, char *expanded);
+void	allocate_and_expand(t_data *data, char **temp_str, char *var_name_start,
 	char *var_name_end);
 /* arg_rm_quotes */
 char	*rm_quotes(t_data *data, char *arg);
