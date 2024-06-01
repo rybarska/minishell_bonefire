@@ -31,6 +31,7 @@ static char	*parse_filename(t_data *data)
 	word = (char *)malloc((word_len + 1) * sizeof(char));
 	if (!word)
 		snuff_it(data, "Error allocating memory for filename\n", NULL, 255);
+	add_string_to_thrash_list(data, word);
 	ft_strlcpy(word, &(data->text[start_pos]), word_len + 1);
 	process_vars_and_quotes(data, &word);
 	return (word);

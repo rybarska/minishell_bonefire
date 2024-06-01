@@ -45,8 +45,8 @@ static t_token_node	*create_token_node(t_data *data, t_token *new_token)
 		new_node->value = ft_strdup(new_token->value);
 		if (!new_node->value)
 			snuff_it(data, "Error duplicating string", NULL, 255);
-		free(new_token->value);
-		new_token->value = NULL;
+		//free(new_token->value);
+		//new_token->value = NULL;
 	}
 	new_node->split_words = NULL;
 	new_node->num_split_words = 0;

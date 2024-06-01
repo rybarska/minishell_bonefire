@@ -22,6 +22,7 @@ static int	heredoc_add_expanded(char **temp_str, char *expanded)
 	expanded_dup = ft_strdup(expanded);
 	if (!expanded_dup)
 		return (255);
+	//add_string_to_thrash_list(data, expanded_dup);
 	temp = ft_strjoin(*temp_str, expanded_dup);
 	free(expanded_dup);
 	expanded_dup = NULL;
@@ -45,10 +46,11 @@ static int	heredoc_allocate_and_expand(t_data *data, char **temp_str, char *var_
 			* (var_name_end - var_name_start + 1));
 	if (!var_name)
 		return (255);
+	add_string_to_thrash_list(data, var_name);
 	ft_strlcpy(var_name, var_name_start, var_name_end - var_name_start + 1);
 	expanded = ft_getenv(data, var_name);
-	free(var_name);
-	var_name = NULL;
+	//free(var_name);
+	//var_name = NULL;
 	if (expanded)
 	{
 		if (heredoc_add_expanded(temp_str, expanded) == 255)

@@ -24,11 +24,13 @@ void	update_var_in_env(t_data *data, char *name, char *value)
 	temp_var = ft_strjoin(name, "=");
 	if (!temp_var)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
+	add_string_to_thrash_list(data, temp_var);
 	new_var = ft_strjoin(temp_var, value);
-	free(temp_var);
-	temp_var = NULL;
+	//free(temp_var);
+	//temp_var = NULL;
 	if (!new_var)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
+	//add_string_to_thrash_list(data, new_var);
 	while (data->ft_environ && data->ft_environ[i] != NULL)
 	{
 		if (ft_strncmp(data->ft_environ[i], name, ft_strlen(name)) == 0
@@ -57,18 +59,20 @@ void	add_var_to_env(t_data *data, char *name, char *value)
 	temp_var = ft_strjoin(name, "=");
 	if (!temp_var)
 		snuff_it(data, "Error allocating in add_var_to_env\n", NULL, 255);
+	add_string_to_thrash_list(data, temp_var);
 	new_var = ft_strjoin(temp_var, value);
-	free(temp_var);
-	temp_var = NULL;
+	//free(temp_var);
+	//temp_var = NULL;
 	if (!new_var)
 		snuff_it(data, "Error allocating in add_var_to_env\n", NULL, 255);
+	add_string_to_thrash_list(data, new_var);
 	while (data->ft_environ && data->ft_environ[i] != NULL)
 		i++;
 	temp = ft_str_arr_join(data->ft_environ, new_var);
 	if (!temp)
 		snuff_it(data, "Error allocating in add_var_to_env\n", NULL, 255);
-	free(new_var);
-	new_var = NULL;
+	//free(new_var);
+	//new_var = NULL;
 	ft_free_array(data->ft_environ);
 	data->ft_environ = temp;
 }

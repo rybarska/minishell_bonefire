@@ -25,6 +25,7 @@ char	*parse_var(t_data *data)
 	var_name = malloc(data->pos - start_pos + 1);
 	if (!var_name)
 		snuff_it(data, "Error allocating memory for var", NULL, 255);
+	add_string_to_thrash_list(data, var_name);
 	ft_strlcpy(var_name, data->text + start_pos, data->pos - start_pos + 1);
 	return (var_name);
 }
@@ -58,6 +59,7 @@ char	*parse_word(t_data *data)
 		word = (char *)malloc((word_len + 1) * sizeof(char));
 		if (!word)
 			snuff_it(data, "Error allocating memory for word\n", NULL, 255);
+		add_string_to_thrash_list(data, word);
 		ft_strlcpy(word, &(data->text[start_pos]), word_len + 1);
 	}
 	return (word);
@@ -74,6 +76,7 @@ char	*allocate_export_string(t_data *data)
 	allocated_string = (char *)malloc((word_len + 1) * sizeof(char));
 	if (!allocated_string)
 		snuff_it(data, "Error allocating memory for string\n", NULL, 255);
+	add_string_to_thrash_list(data, allocated_string);
 	ft_strlcpy(allocated_string, word, word_len + 1);
 	return (allocated_string);
 }

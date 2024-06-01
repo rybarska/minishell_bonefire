@@ -27,6 +27,7 @@ void	read_input(t_data *data)
 	input = NULL;
 	set_mode(data, INTERACTIVE);
 	input = readline("minishell> ");
+	add_string_to_thrash_list(data, input);
 	set_mode(data, NON_INTERACTIVE);
 	if (!input)
 	{
@@ -35,8 +36,8 @@ void	read_input(t_data *data)
 	}
 	add_history(input);
 	data->text = ft_strdup(input);
-	free(input);
-	input = NULL;
+	//free(input);
+	//input = NULL;
 	if (!data->text)
 		snuff_it(data, "Error allocating memory for input\n", NULL, 255);
 	data->text_len = ft_strlen(data->text);

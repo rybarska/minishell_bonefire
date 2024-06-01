@@ -79,21 +79,23 @@ static void	set_env_var(t_data *data, char *name, char *value)
 	final_value = get_or_duplicate_value(data, name, value);
 	if (!final_value)
 		return ;
+	add_string_to_thrash_list(data, final_value);
 	temp = ft_strdup(final_value);
 	if (!temp)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
+	add_string_to_thrash_list(data, temp);
 	process_vars_and_quotes(data, &temp);
 	if (is_var_in_env(data, name))
 		update_var_in_env(data, name, temp);
 	else
 		add_var_to_env(data, name, temp);
-	free(temp);
-	temp = NULL;
-	if (final_value)
+	//free(temp);
+	//temp = NULL;
+	/*if (final_value)
 	{
 		free(final_value);
 		final_value = NULL;
-	}
+	}*/
 }
 
 // This function looks for name and value of exported env var.
