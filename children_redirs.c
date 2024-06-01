@@ -14,6 +14,8 @@
 
 static void	handle_bad_infile(t_data *data, t_redirection *in_redir)
 {
+	if (in_redir->type == HEREDOC)
+		unlink(in_redir->file);
 	if (access(in_redir->file, F_OK) != 0)
 		snuff_it(data, "Error: file does not exist\n", in_redir->file, 1);
 	else if (access(in_redir->file, R_OK | X_OK) != 0)
