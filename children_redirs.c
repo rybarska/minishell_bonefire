@@ -57,13 +57,7 @@ void	process_in_files(t_data *data, t_exec **exec)
 	in_redir = (*exec)->in_redirs;
 	while (in_redir != NULL)
 	{
-		if (in_redir->type == INFILE)
-			in_redir->fd = open(in_redir->file, O_RDONLY);
-		else if (in_redir->type == HEREDOC)
-		{
-			get_heredoc(data, &in_redir);
-			in_redir->fd = open(in_redir->file, O_RDONLY);
-		}
+		in_redir->fd = open(in_redir->file, O_RDONLY);
 		if (in_redir->fd < 0)
 			handle_bad_infile(data, in_redir);
 		if (in_redir->next)
@@ -74,6 +68,19 @@ void	process_in_files(t_data *data, t_exec **exec)
 				snuff_it(data, "Error redirecting in_redir->fd\n", in_redir->file, 255);
 			close_fd_set_minus1(&in_redir->fd);
 		}
+		in_redir = in_redir->next;
+	}
+}
+
+void	process_heredocs(t_data *data, t_exec **exec)
+{
+	t_redirection	*in_redir;
+
+	in_redir = (*exec)->in_redirs;
+	while (in_redir != NULL)
+	{
+		if (in_redir->type == HEREDOC)
+			get_heredoc(data, &in_redir);
 		in_redir = in_redir->next;
 	}
 }

@@ -75,6 +75,7 @@ void	execute_execs(t_data *data)
 	while (curr_exec)
 	{
 		++(data->index);
+		process_heredocs(data, &curr_exec);
 		if (data->exec_num == 1)
 		{
 			close_fd_set_minus1(&data->std_in);
