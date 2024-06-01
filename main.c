@@ -17,7 +17,7 @@ volatile sig_atomic_t	g_o_on = 0;
 void	handle_eof_or_ctrl_d(t_data *data)
 {
 	printf("exit\n");
-	exit_like_a_boss(data, 0);
+	exit_like_a_boss(data, data->last_exit_code);
 }
 
 void	read_input(t_data *data)
@@ -27,6 +27,11 @@ void	read_input(t_data *data)
 	input = NULL;
 	set_mode(data, INTERACTIVE);
 	input = readline("minishell> ");
+	if (g_o_on == 2)
+	{
+		data->last_exit_code = 130;
+		g_o_on = 0;
+	}
 	add_string_to_thrash_list(data, input);
 	set_mode(data, NON_INTERACTIVE);
 	if (!input)
@@ -88,6 +93,7 @@ int	main(void)
 				make_executives(&data);
 				//print_execs(data.exec_list_head);
 				//print_envs(data.env_vars_head);
+				//take heredoc data();
 				if (count_executives(&data) > 0)
 				{
 					execute_execs(&data);

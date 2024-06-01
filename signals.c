@@ -15,7 +15,7 @@
 static void	handle_sigint(int signal_number)
 {
 	(void)signal_number;
-	//g_o_on = signal_number;
+	g_o_on = signal_number;
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line();
 	rl_replace_line("", 0);
