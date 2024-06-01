@@ -46,10 +46,10 @@ void	execute_echo(t_exec **exec)
 
 	omit_newline = 0;
 	i = 0;
-	j = 2;
 	while ((*exec)->arguments[++i] != NULL
 		&& ft_strncmp((*exec)->arguments[i], "-n", 2) == 0)
 	{
+		j = 2;
 		while ((*exec)->arguments[i][j] == 'n')
 			j++;
 		if ((*exec)->arguments[i][j] != '\0')
