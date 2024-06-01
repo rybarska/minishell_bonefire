@@ -89,13 +89,13 @@ void	print_export_strings(t_data *data)
 	}
 }
 
-int	check_env_var_name(t_data *data, char *name)
+int	check_env_var_name(t_data *data, char *name, char *value)
 {
 	int	i;
 
 	i = -1;
 	if (!name || !name[0])
-		return (boo(data, "(not a valid identifier)\n", name, 1), 1);
+		return (boo(data, "(not a valid identifier)\n", value, 1), 1);
 	if (!ft_isalpha(name[0]) && name[0] != '_' && name[0] != '/')
 		return (boo(data, "(not a valid identifier)\n", name, 1), 1);
 	while (name[++i])

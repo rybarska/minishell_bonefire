@@ -120,7 +120,7 @@ void	execute_export(t_data *data, char **args)
 			value = name_end + 1;
 		}
 		name = args[i];
-		if (check_env_var_name(data, name) == 0)
+		if (check_env_var_name(data, name, value) == 0)
 		{
 			set_env_var(data, name, value);
 		}
