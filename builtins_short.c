@@ -95,12 +95,15 @@ void	execute_exit(t_data *data, char **args)
 	exit_like_a_boss(data, data->last_exit_code);
 }
 
-void	execute_pwd()
+void	execute_pwd(t_data *data)
 {
 	char	curr_dir[PATH_MAX];
 
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
 		printf("%s\n", curr_dir);
 	else
-		perror("minishell");
+	{
+		perror("pwd");
+		boo(data, NULL, NULL, 1);
+	}
 }

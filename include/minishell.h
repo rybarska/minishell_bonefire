@@ -266,7 +266,7 @@ void	execute_cd(t_data *data, char *dir);
 void	execute_echo(t_exec **exec);
 void	execute_env(t_data *data, char **args);
 void	execute_exit(t_data *data, char **args);
-void	execute_pwd();
+void	execute_pwd(t_data *data);
 /* signals */
 void	set_signal_controls(t_data *data);
 void	set_mode(t_data *data, t_signal_mode mode);
