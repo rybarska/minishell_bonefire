@@ -174,6 +174,7 @@ void	boo(t_data *data, char *error_msg, char *name, int exit_code);
 char	*ft_getenv(t_data *data, char *name);
 int	has_unquoted_equals(char *str);
 void	count_pipes(t_data *data);
+void	wait_for_children(t_data *data);
 /* tokens_utils */
 int	is_separating(t_token_type type);
 int	is_redirecting(t_token_type type);

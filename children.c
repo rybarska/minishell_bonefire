@@ -62,9 +62,12 @@ static void	make_child(t_data *data, t_exec **exec)
 	close_fd_set_minus1(&data->fd[1]);
 }
 
+#include <stdbool.h>
+
 void	execute_execs(t_data *data)
 {
 	t_exec	*curr_exec;
+	bool flag = 0;
 
 	if (data->exec_num == 0)
 		return ;
@@ -82,8 +85,13 @@ void	execute_execs(t_data *data)
 			execute_lone_exec_no_pipe(data, &curr_exec);
 		}
 		else
+		{
 			make_child(data, &curr_exec);
+			flag = 1;
+		}
 		curr_exec = curr_exec->next;
 	}
 	close_fd_set_minus1(&data->std_in);
+	if (flag)
+		wait_for_children(data);
 }

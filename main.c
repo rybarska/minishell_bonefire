@@ -26,6 +26,7 @@ void	read_input(t_data *data)
 
 	input = NULL;
 	set_mode(data, INTERACTIVE);
+	printf("data->last_exit_code %d\n", data->last_exit_code);
 	input = readline("minishell> ");
 	if (g_o_on == 2)
 	{
@@ -49,26 +50,6 @@ void	read_input(t_data *data)
 	data->pos = 0;
 }
 
-static void	wait_for_children(t_data *data)
-{
-	t_process	*current;
-	int		last_exit_code;
-
-	current = data->child_list_head;
-	last_exit_code = 0;
-	while (current != NULL)
-	{
-		if (waitpid(current->child_pid, &current->status, WUNTRACED) < 0)
-			snuff_it(data, "Error: waitpid failed\n", NULL, 255);
-		if (WIFSIGNALED(current->status))
-			last_exit_code = WTERMSIG(current->status) + 128;
-		if (WIFEXITED(current->status))
-			last_exit_code = WEXITSTATUS(current->status);
-		current = current->next;;
-	}
-	data->last_exit_code = last_exit_code;
-}
-
 int	main(void)
 {
 	t_data		data;
@@ -87,17 +68,16 @@ int	main(void)
 			make_token_list(&data);
 			merge_unseparated(&data.token_list_head);
 			count_pipes(&data);
-			//print_tokens(data.token_list_head);
+			print_tokens(data.token_list_head);
 			if (check_token_syntax(&data) == 0)
 			{
 				make_executives(&data);
-				//print_execs(data.exec_list_head);
+				print_execs(data.exec_list_head);
 				//print_envs(data.env_vars_head);
-				//take heredoc data();
 				if (count_executives(&data) > 0)
 				{
 					execute_execs(&data);
-					wait_for_children(&data);
+					//wait_for_children(&data);
 				}
 			}
 		}

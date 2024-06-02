@@ -26,7 +26,7 @@ static void	execute_lone_external(t_data *data, t_exec **exec)
 			snuff_it(data, "Error: command not found\n",
 				(*exec)->arguments[0], 127);
 		if (execve((*exec)->cmd_exec_path, (*exec)->arguments, data->ft_environ) == -1)
-			snuff_it(data, "Is a directory or error executing first command\n", 
+			snuff_it(data, "Is a directory or error executing command\n", 
 				(*exec)->arguments[0], 126);
 	}
 	else
@@ -49,7 +49,7 @@ static void	close_temps_and_snuff_it(t_data *data, t_exec **exec)
 {
 	close_fd_set_minus1(&data->temp1_fd);
 	close_fd_set_minus1(&data->temp2_fd);
-	snuff_it(data, "Error redirecting\n", (*exec)->name, 255);
+	snuff_it(data, "Error redirecting temp fd\n", (*exec)->name, 255);
 }
 
 void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
@@ -68,7 +68,10 @@ void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
 	if ((*exec)->arguments && is_builtin((*exec)->arguments[0]))
 		execute_lone_builtin(data, exec);
 	else if ((*exec)->arguments)
+	{
 		execute_lone_external(data, exec);
+		wait_for_children(data);
+	}
 	if (dup2(data->temp1_fd, STDIN_FILENO))
 		close_temps_and_snuff_it(data, exec);
 	if (dup2(data->temp2_fd, STDOUT_FILENO) < 0)

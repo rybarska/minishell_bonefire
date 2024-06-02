@@ -40,8 +40,8 @@ static void	execute_unset(t_data *data, char **var_to_kill)
 	int	i;
 
 	i = 0;
-	if (var_to_kill[0] == NULL)
-		boo(data, "unset: Not enough arguments\n", NULL, 1);
+	if (var_to_kill[1] == NULL)
+		return (boo(data, "unset: Not enough arguments\n", NULL, 1));
 	while (var_to_kill[i] != NULL)
 	{
 		remove_from_env(data, var_to_kill[i]);

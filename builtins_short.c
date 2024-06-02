@@ -30,12 +30,16 @@ void	execute_cd(t_data *data, char *dir)
 	if (chdir(dir) != 0)
 	{
 		perror("cd");
+		data->last_exit_code = 1;
 		return ;
 	}
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
 		execute_export(data, (char *[]){"PWD", curr_dir, NULL});
 	else
+	{
 		perror("cd");
+		data->last_exit_code = 1;
+	}
 }
 
 void	execute_echo(t_exec **exec)

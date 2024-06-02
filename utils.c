@@ -78,3 +78,30 @@ void	count_pipes(t_data *data)
 	}
 	data->pipe_num = pipe_counter;
 }
+
+void	wait_for_children(t_data *data)
+{
+	t_process	*current;
+	int		last_exit_code;
+	int hehe;
+
+	current = data->child_list_head;
+	last_exit_code = 0;
+	while (current != NULL)
+	{
+		hehe = waitpid(current->child_pid, &current->status, WUNTRACED);
+		if (hehe < 0)
+		{
+			dprintf(2, "hehe is: %d\n", hehe);
+			snuff_it(data, "Error: waitpid failed\n", NULL, 255);
+		}
+		if (WIFSIGNALED(current->status))
+			last_exit_code = WTERMSIG(current->status) + 128;
+		else if (WIFEXITED(current->status))
+			last_exit_code = WEXITSTATUS(current->status);
+		else
+			last_exit_code = current->status;
+		current = current->next;
+	}
+	data->last_exit_code = last_exit_code;
+}
