@@ -71,7 +71,7 @@ int	execute_builtin(t_data *data, t_exec **exec, char *command)
 	else if (ft_strcmp(command, "echo") == 0)
 		execute_echo(exec);
 	else if (ft_strcmp(command, "env") == 0)
-		execute_env(data);
+		execute_env(data, (*exec)->arguments);
 	else if (ft_strcmp(command, "exit") == 0)
 		execute_exit(data, (*exec)->arguments);
 	else if (ft_strcmp(command, "export") == 0)

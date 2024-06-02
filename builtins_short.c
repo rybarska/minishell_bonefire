@@ -71,11 +71,16 @@ void	execute_echo(t_exec **exec)
 		printf("\n");
 }
 
-void	execute_env(t_data *data)
+void	execute_env(t_data *data, char **args)
 {
 	int	i;
 
 	i = 0;
+	if (args && args[1])
+	{
+		boo(data, "No such file or directory\n", args[1], 127);
+		return ;
+	}
 	while (data->ft_environ && data->ft_environ[i] != NULL)
 	{
 		printf("%s\n", data->ft_environ[i]);
