@@ -16,7 +16,9 @@ void	boo(t_data *data, char *error_msg, char *name, int exit_code)
 {
 	if (name)
 	{
+		write(2, "\'", 1);
 		write(2, name, ft_strlen(name));
+		write(2, "\'", 1);
 		write(2, ": ", 2);
 	}
 	write(2, error_msg, ft_strlen(error_msg));
