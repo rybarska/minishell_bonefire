@@ -83,8 +83,10 @@ void	execute_env(t_data *data)
 	}
 }
 
-void	execute_exit(t_data *data)
+void	execute_exit(t_data *data, char **args)
 {
+	if (args && args[1])
+		data->last_exit_code = ft_atoi(args[1]);
 	exit_like_a_boss(data, data->last_exit_code);
 }
 

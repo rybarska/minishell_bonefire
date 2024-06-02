@@ -73,7 +73,7 @@ int	execute_builtin(t_data *data, t_exec **exec, char *command)
 	else if (ft_strcmp(command, "env") == 0)
 		execute_env(data);
 	else if (ft_strcmp(command, "exit") == 0)
-		execute_exit(data);
+		execute_exit(data, (*exec)->arguments);
 	else if (ft_strcmp(command, "export") == 0)
 		execute_export(data, (*exec)->arguments);
 	else if (ft_strcmp(command, "pwd") == 0)
