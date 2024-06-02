@@ -22,7 +22,7 @@ void	execute_cd(t_data *data, char *dir)
 		home_dir = ft_getenv(data, "HOME");
 		if (home_dir == NULL)
 		{
-			boo(data, "expected argument to \"cd\"\n", NULL, 2);
+			boo(data, "expected argument to \"cd\"\n", NULL, 1);
 			return ;
 		}
 		dir = home_dir;
