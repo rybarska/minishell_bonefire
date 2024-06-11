@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 16:08:55 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:19:59 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ void	look_for_path(t_data *data, t_exec **exec, char *command)
 	if ((*exec)->cmd_exec_path)
 	{
 		dprintf(2, "FOUND IN HASHTABLE!\n");
-		(*exec)->cmd_exec_path = ft_strdup((*exec)->cmd_exec_path);
-		if (!(*exec)->cmd_exec_path)
-		{
-			//handle errors here
-		}
 		return ;
 	}
 	check_if_full_path(data, exec, command);

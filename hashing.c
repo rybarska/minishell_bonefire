@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/11 16:04:39 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:16:15 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*hash_lookup(t_keyvalue **hashtable, char *key)
 	while (proxy && proxy->hash2 != secure_hash)
 		proxy = proxy->next;
 	if (proxy)
-		return (proxy->val);
+		return (ft_strdup(proxy->val));
 	else
 		return (NULL);
 }
