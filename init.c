@@ -6,13 +6,13 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:41:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:24:37 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:36:44 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void init_hastable(t_data *data)
+void init_hashtable(t_data *data)
 {
 	data->hashtab = ft_calloc(sizeof(t_keyvalue *), HASHTABLE_SIZE);
 	if (!data->hashtab)
@@ -51,5 +51,5 @@ void	init_data(t_data *data)
 	data->is_d_quoted = -1;
 	data->pid = -1;
 	data->last_exit_code = 0;
-	init_hastable(data);
+	init_hashtable(data);
 }

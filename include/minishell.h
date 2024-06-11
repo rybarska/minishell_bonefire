@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:20:32 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:36:40 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,11 +126,11 @@ typedef struct s_thrash_node
 
 typedef struct s_keyvalue
 {
-	char				*key;
-	char				*val;
-	size_t				hash2;
-	struct s_keyvalue	*next;
-}				t_keyvalue;
+	char						*key;
+	char						*val;
+	size_t						hash2;
+	struct s_keyvalue			*next;
+}								t_keyvalue;
 
 typedef struct s_data
 {
@@ -303,5 +303,9 @@ void							set_mode(t_data *data, t_signal_mode mode);
 void							clear_thrash_list(t_data *data);
 void							add_string_to_thrash_list(t_data *data,
 									char *string);
+/* hashtable */
+void							init_hashtable(t_data *data);
+size_t							get_hash(char *keyvalue);
+size_t							get_hash2(char *keyvalue);
 
 #endif
