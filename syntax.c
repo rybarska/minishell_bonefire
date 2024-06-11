@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/10 22:47:54 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/10 22:47:56 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:35 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int	check_quote_syntax(t_data *data)
 {
 	char	*temp_str;
-	int	is_s_quoted;
-	int	is_d_quoted;
+	int		is_s_quoted;
+	int		is_d_quoted;
 
 	is_s_quoted = 0;
 	is_d_quoted = 0;
@@ -43,15 +43,17 @@ int	check_token_syntax(t_data *data)
 
 	current = data->token_list_head;
 	if (current->type == EOF_TOKEN)
-		return 0;
+		return (0);
 	while (current)
 	{
 		if (is_redirecting(current->type) && !(current->value))
-			return (boo(data, "Syntax error near unexpected token\n", NULL, 2), 2);
+			return (boo(data, "Syntax error near unexpected token\n", NULL, 2),
+				2);
 		else if (current->type == PIPE && (current->previous == NULL
-			|| current->next == NULL || current->next->type == EOF_TOKEN
-			|| current->next->type == PIPE))
-			return (boo(data, "Syntax error near unexpected token\n", NULL, 2), 2);
+				|| current->next == NULL || current->next->type == EOF_TOKEN
+				|| current->next->type == PIPE))
+			return (boo(data, "Syntax error near unexpected token\n", NULL, 2),
+				2);
 		else
 			current = current->next;
 	}

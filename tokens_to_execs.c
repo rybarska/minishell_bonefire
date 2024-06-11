@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_to_execs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 21:39:12 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/03/13 21:39:16 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:20 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_command_token(t_data *data, t_token_node **temp,
-	t_exec **exec)
+void	handle_command_token(t_data *data, t_token_node **temp, t_exec **exec)
 {
 	t_token_node	*current;
-	int		arg_count;
+	int				arg_count;
 
 	current = *temp;
 	arg_count = 0;
@@ -33,7 +32,7 @@ void	handle_command_token(t_data *data, t_token_node **temp,
 }
 
 void	process_cmd_and_redir_tokens(t_data *data, t_token_node **temp,
-	t_exec **exec)
+		t_exec **exec)
 {
 	while (*temp != NULL)
 	{

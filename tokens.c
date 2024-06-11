@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:45:54 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/03/10 19:49:16 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:48 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ char	*parse_var(t_data *data)
 	char	*var_name;
 
 	start_pos = data->pos;
-	while (ft_isalnum_or_(data->text[data->pos])
-		|| data->text[data->pos] == '$'
+	while (ft_isalnum_or_(data->text[data->pos]) || data->text[data->pos] == '$'
 		|| data->text[data->pos] == '{' || data->text[data->pos] == '}')
 		data->pos++;
 	var_name = malloc(data->pos - start_pos + 1);
@@ -32,18 +31,16 @@ char	*parse_var(t_data *data)
 
 int	starts_next_token(int c)
 {
-	if (ft_iswhitespace(c) || c == '|'
-		|| c == '<' || c == '>'
-		|| c == '\"' || c == '\''
-		|| c == '$' || c == '\0')
+	if (ft_iswhitespace(c) || c == '|' || c == '<' || c == '>' || c == '\"'
+		|| c == '\'' || c == '$' || c == '\0')
 		return (1);
 	return (0);
 }
 
 char	*parse_word(t_data *data)
 {
-	int	start_pos;
-	int	word_len;
+	int		start_pos;
+	int		word_len;
 	char	*word;
 
 	start_pos = data->pos;
@@ -69,7 +66,7 @@ char	*allocate_export_string(t_data *data)
 {
 	char	*word;
 	char	*allocated_string;
-	int	word_len;
+	int		word_len;
 
 	word = "export";
 	word_len = ft_strlen(word);
@@ -88,7 +85,7 @@ t_token	get_next_token(t_data *data)
 	else if (data->text[data->pos] == '\'')
 		return ((t_token){SINGLE_QUOTE, parse_single_quotes(data), NULL, 0});
 	else if (data->text[data->pos] == '\"')
-		return ((t_token){DOUBLE_QUOTE, parse_double_quotes(data), NULL, 0});	
+		return ((t_token){DOUBLE_QUOTE, parse_double_quotes(data), NULL, 0});
 	else if (data->text[data->pos] == '$')
 		return ((t_token){VAR, parse_var(data), NULL, 0});
 	else if (data->text[data->pos] == '|')

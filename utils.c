@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:38:22 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/13 15:38:24 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:53 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	boo(t_data *data, char *error_msg, char *name, int exit_code)
 
 char	*ft_getenv(t_data *data, char *name)
 {
-	int	i;
+	int		i;
 	size_t	name_len;
 
 	if (data == NULL || name == NULL)
@@ -38,7 +38,7 @@ char	*ft_getenv(t_data *data, char *name)
 	{
 		if (!ft_strncmp(data->ft_environ[i], name, name_len)
 			&& data->ft_environ[i][name_len] == '=')
-			return (data->ft_environ[i] +name_len + 1);
+			return (data->ft_environ[i] + name_len + 1);
 	}
 	return (NULL);
 }
@@ -67,7 +67,7 @@ int	has_unquoted_equals(char *str)
 
 void	count_pipes(t_data *data)
 {
-	int	pipe_counter;
+	int				pipe_counter;
 	t_token_node	*current;
 
 	pipe_counter = 0;
@@ -84,8 +84,8 @@ void	count_pipes(t_data *data)
 void	wait_for_children(t_data *data)
 {
 	t_process	*current;
-	int		last_exit_code;
-	int hehe;
+	int			last_exit_code;
+	int			hehe;
 
 	current = data->child_list_head;
 	last_exit_code = 0;

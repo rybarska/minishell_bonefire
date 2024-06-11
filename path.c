@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:45:09 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/07 18:45:11 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:19 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,14 @@ void	get_all_cmd_paths(t_data *data)
 
 void	get_path_from_env(t_data *data, char *command)
 {
-	int		i;
+	int	i;
 
 	i = -1;
 	if (data->cmd_paths != NULL)
 	{
 		while (data->cmd_paths[++i])
 		{
-			data->found_path
-				= ft_strjoin(data->cmd_paths[i], command);
+			data->found_path = ft_strjoin(data->cmd_paths[i], command);
 			if (!data->found_path)
 				snuff_it(data, "Error allocating for found_path\n", NULL, 255);
 			if (access(data->found_path, R_OK | X_OK) == 0)
@@ -75,8 +74,7 @@ void	check_if_full_path(t_data *data, t_exec **exec, char *command)
 	{
 		if (ft_strchr(command, '$'))
 			command = expand_arg(data, command);
-		if (ft_strchr(command, '\'')
-			|| ft_strchr(command, '\"'))
+		if (ft_strchr(command, '\'') || ft_strchr(command, '\"'))
 			command = rm_quotes(data, command);
 		if (access(command, R_OK | X_OK) == 0)
 		{

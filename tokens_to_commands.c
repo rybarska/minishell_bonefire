@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_to_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/18 20:03:28 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:11 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
-	t_exec *exec)
+		t_exec *exec)
 {
 	t_token_node	*current;
 	int				i;
-	char		*temp;
+	char			*temp;
 
 	current = node;
 	temp = NULL;
@@ -32,10 +32,10 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 			temp = ft_strdup(current->value);
 			if (!temp)
 				snuff_it(data, "Error allocating memory\n", NULL, 255);
-			//if (!exec->is_export)
+			// if (!exec->is_export)
 			process_vars_and_quotes(data, &temp);
 			exec->arguments[i] = temp;
-			//printf("exec->arguments[%d]: %s\n", i, exec->arguments[i]);
+			// printf("exec->arguments[%d]: %s\n", i, exec->arguments[i]);
 			i++;
 		}
 		current = current->next;
@@ -43,9 +43,9 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 	exec->arguments[i] = NULL;
 }
 
-void	look_for_path(t_data *data, t_exec **exec, char	*command)
+void	look_for_path(t_data *data, t_exec **exec, char *command)
 {
-	//check if hashed
+	// check if hashed
 	check_if_full_path(data, exec, command);
 	if (!(*exec)->is_full_path && data->cmd_paths != NULL)
 		get_path_from_env(data, command);
@@ -60,7 +60,7 @@ void	look_for_path(t_data *data, t_exec **exec, char	*command)
 }
 
 void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
-	t_exec **exec)
+		t_exec **exec)
 {
 	char	*temp;
 
@@ -70,12 +70,13 @@ void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
 		free(data->found_path);
 		data->found_path = NULL;
 	}
-	if (node && node->value && (is_substantive(node->type) || node->type == EXPORT))
+	if (node && node->value && (is_substantive(node->type)
+			|| node->type == EXPORT))
 	{
 		temp = ft_strdup(node->value);
 		if (!temp)
 			snuff_it(data, "Error duplicating string\n", NULL, 255);
-		//if (!(*exec)->is_export)
+		// if (!(*exec)->is_export)
 		process_vars_and_quotes(data, &temp);
 		(*exec)->name = temp;
 		if (is_builtin(temp))

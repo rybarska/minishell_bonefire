@@ -3,19 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 21:58:08 by arybarsk          #+#    #+#             */
-/*   Updated: 2023/10/05 22:53:41 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:51 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
-# include <stdlib.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+# include <stdlib.h>
+# include <unistd.h>
 
 char	*get_next_line(int fd);
 void	*ft_memmove(void *to, const void *from, size_t n);

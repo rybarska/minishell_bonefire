@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_short.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 22:50:57 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/16 22:51:00 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:13 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ void	execute_echo(t_exec **exec)
 
 	omit_newline = 0;
 	i = 0;
-	while ((*exec)->arguments[++i] != NULL
-		&& ft_strncmp((*exec)->arguments[i], "-n", 2) == 0)
+	while ((*exec)->arguments[++i] != NULL && ft_strncmp((*exec)->arguments[i],
+			"-n", 2) == 0)
 	{
 		j = 2;
 		while ((*exec)->arguments[i][j] == 'n')

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children_redirs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:17:19 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/11 21:17:21 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:37 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,16 +26,18 @@ static void	handle_bad_infile(t_data *data, t_redirection *in_redir)
 
 void	process_out_files(t_data *data, t_exec **exec)
 {
-	(void) data;
 	t_redirection	*out_redir;
 
+	(void)data;
 	out_redir = (*exec)->out_redirs;
 	while (out_redir != NULL)
 	{
 		if (out_redir->type == TRUNCATE)
-			out_redir->fd = open(out_redir->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+			out_redir->fd = open(out_redir->file, O_CREAT | O_WRONLY | O_TRUNC,
+					0644);
 		else if (out_redir->type == APPEND)
-			out_redir->fd = open(out_redir->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+			out_redir->fd = open(out_redir->file, O_CREAT | O_WRONLY | O_APPEND,
+					0644);
 		if (out_redir->fd < 0)
 			snuff_it(data, "Error: permission denied\n", out_redir->file, 126);
 		if (out_redir->next)
@@ -43,9 +45,10 @@ void	process_out_files(t_data *data, t_exec **exec)
 		else
 		{
 			if (dup2(out_redir->fd, STDOUT_FILENO) < 0)
-				snuff_it(data, "Error redirecting out_redir->fd\n", out_redir->file, 255);
+				snuff_it(data, "Error redirecting out_redir->fd\n",
+					out_redir->file, 255);
 			close_fd_set_minus1(&out_redir->fd);
-		}	
+		}
 		out_redir = out_redir->next;
 	}
 }
@@ -65,7 +68,8 @@ void	process_in_files(t_data *data, t_exec **exec)
 		else
 		{
 			if (dup2(in_redir->fd, STDIN_FILENO) < 0)
-				snuff_it(data, "Error redirecting in_redir->fd\n", in_redir->file, 255);
+				snuff_it(data, "Error redirecting in_redir->fd\n",
+					in_redir->file, 255);
 			close_fd_set_minus1(&in_redir->fd);
 		}
 		in_redir = in_redir->next;

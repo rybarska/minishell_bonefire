@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   children_execve.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:44:46 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/04/29 19:44:50 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:26 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	execute_external_or_builtin(t_data *data, t_exec *exec)
 	if (is_builtin(exec->arguments[0]))
 	{
 		if (execute_builtin(data, &exec, exec->arguments[0]) != 0)
-			snuff_it(data, "Error: command not found\n", exec->arguments[0], 127);
+			snuff_it(data, "Error: command not found\n", exec->arguments[0],
+				127);
 		exit_like_a_boss(data, data->last_exit_code);
 	}
 	if (!exec->cmd_exec_path || !exec->arguments[0])

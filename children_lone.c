@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children_lone.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/25 17:44:11 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/25 17:44:13 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:32 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ static void	execute_lone_external(t_data *data, t_exec **exec)
 		close_fd_set_minus1(&data->temp1_fd);
 		close_fd_set_minus1(&data->temp2_fd);
 		if (!(*exec)->cmd_exec_path || !(*exec)->arguments[0])
-			snuff_it(data, "Error: command not found\n",
-				(*exec)->arguments[0], 127);
-		if (execve((*exec)->cmd_exec_path, (*exec)->arguments, data->ft_environ) == -1)
-			snuff_it(data, "Is a directory or error executing command\n", 
+			snuff_it(data, "Error: command not found\n", (*exec)->arguments[0],
+				127);
+		if (execve((*exec)->cmd_exec_path, (*exec)->arguments,
+				data->ft_environ) == -1)
+			snuff_it(data, "Is a directory or error executing command\n",
 				(*exec)->arguments[0], 126);
 	}
 	else
@@ -41,8 +42,8 @@ static void	execute_lone_builtin(t_data *data, t_exec **exec)
 		close_fd_set_minus1(&data->temp2_fd);
 	}
 	if (execute_builtin(data, exec, (*exec)->arguments[0]) != 0)
-		snuff_it(data, "Error: command not found\n",
-			(*exec)->arguments[0], 127);
+		snuff_it(data, "Error: command not found\n", (*exec)->arguments[0],
+			127);
 }
 
 static void	close_temps_and_snuff_it(t_data *data, t_exec **exec)

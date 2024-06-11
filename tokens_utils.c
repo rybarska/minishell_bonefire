@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 18:23:53 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/04/26 18:23:55 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:23 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,15 @@ int	is_separating(t_token_type type)
 
 int	is_redirecting(t_token_type type)
 {
-	if ( type == INFILE || type == TRUNCATE || type == APPEND || type == HEREDOC)
+	if (type == INFILE || type == TRUNCATE || type == APPEND || type == HEREDOC)
 		return (1);
 	return (0);
 }
 
 int	is_substantive(t_token_type type)
 {
-	if ( type == WORD || type == VAR || type == SINGLE_QUOTE || type == DOUBLE_QUOTE
-		|| type == ASSIGNMENT)
+	if (type == WORD || type == VAR || type == SINGLE_QUOTE
+		|| type == DOUBLE_QUOTE || type == ASSIGNMENT)
 		return (1);
 	return (0);
 }
@@ -46,8 +46,7 @@ void	process_vars_and_quotes(t_data *data, char **string)
 		free(*string);
 		*string = expanded;
 	}
-	if (ft_strchr(*string, '\'')
-		|| ft_strchr(*string, '\"'))
+	if (ft_strchr(*string, '\'') || ft_strchr(*string, '\"'))
 	{
 		quotes_rm = rm_quotes(data, *string);
 		free(*string);
