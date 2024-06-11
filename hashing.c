@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/11 19:24:16 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 19:32:42 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ size_t	get_hash(char *keyvalue)
 	hash2 = 0;
 	while (keyvalue[counter])
 	{
-		__asm__("movq $31, %%rdx; pushq %%rbx;"
+		__asm__ volatile ("movq $31, %%rdx; pushq %%rbx;"
 				"xorq %%rbx, %%rbx; movb %2, %%bl;"
 				"mulq %%rdx; addq %%rbx, %%rax;"
 				"divq %%rcx; popq %%rbx;"
@@ -53,7 +53,7 @@ size_t	get_hash2(char *keyvalue)
 	hash2 = 0;
 	while (keyvalue[counter])
 	{
-		__asm__("movq $17, %%rdx; pushq %%rbx;"
+		__asm__ volatile ("movq $17, %%rdx; pushq %%rbx;"
 				"xorq %%rbx, %%rbx; movb %2, %%bl;"
 				"mulq %%rdx; addq %%rbx, %%rax;"
 				"addq %%rcx, %%rax; popq %%rbx;"
@@ -89,9 +89,9 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 
 char	*hash_lookup(t_keyvalue **hashtable, char *key)
 {
-	size_t index;
-	size_t secure_hash;
-	t_keyvalue *proxy;
+	size_t		index;
+	size_t		secure_hash;
+	t_keyvalue	*proxy;
 
 	index = get_hash(key);
 	if (!hashtable[index])
@@ -106,25 +106,25 @@ char	*hash_lookup(t_keyvalue **hashtable, char *key)
 		return (NULL);
 }
 
-void free_hashtable(t_keyvalue **hashtable)
+void	free_hashtable(t_keyvalue **hashtable)
 {
-    size_t      index;
-    t_keyvalue *proxy;
-    t_keyvalue *prev;
+	size_t		index;
+	t_keyvalue	*proxy;
+	t_keyvalue	*prev;
 
-    index = 0;
-    while (index < HASHTABLE_SIZE)
-    {
-        proxy = hashtable[index];
-        while (proxy)
-        {
-            free(proxy->key);
-            free(proxy->val);
-            prev = proxy;
-            proxy = proxy->next;
-            free(prev);
-        }
-        index++;
-    }
-    free(hashtable);
+	index = 0;
+	while (index < HASHTABLE_SIZE)
+	{
+		proxy = hashtable[index];
+		while (proxy)
+		{
+			free(proxy->key);
+			free(proxy->val);
+			prev = proxy;
+			proxy = proxy->next;
+			free(prev);
+		}
+		index++;
+	}
+	free(hashtable);
 }
