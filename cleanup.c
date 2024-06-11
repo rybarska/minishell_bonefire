@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cleanup.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:45:15 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/03/21 18:45:18 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 19:27:14 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ void	snuff_it(t_data *data, char *error_msg, char *name, int exit_code)
 	write(2, error_msg, ft_strlen(error_msg));
 	clean_up_data(data);
 	clean_up_env_vars(data);
+	free_hashtable(data->hashtab);
 	exit(exit_code);
 }
 
@@ -81,5 +82,6 @@ void	exit_like_a_boss(t_data *data, int exit_code)
 {
 	clean_up_data(data);
 	clean_up_env_vars(data);
+	free_hashtable(data->hashtab);
 	exit(exit_code);
 }

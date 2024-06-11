@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 16:19:59 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 17:56:33 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,7 @@ void	look_for_path(t_data *data, t_exec **exec, char *command)
 		if (!(*exec)->cmd_exec_path)
 			snuff_it(data, "Error allocating for exec\n", NULL, 255);
 		if (!store_data(data->hashtab, command, data->found_path))
-		{
-			//call cleanup / error function here
-		}
+			snuff_it(data, "Error in hashtable storage\n", NULL, 255);
 		free(data->found_path);
 		data->found_path = NULL;
 	}
