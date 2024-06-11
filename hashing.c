@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/11 15:28:41 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:49:43 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,40 @@ size_t	get_hash2(char *keyvalue)
 		counter++;
 	}
 	return (hash);
+}
+
+int	store_data(t_keyvalue **hashtable, char *key, char *val)
+{
+	t_keyvalue	*new;
+	size_t		index;
+
+	new = malloc(sizeof(t_keyvalue));
+	if (!new)
+		return (0);
+	new->key = key;
+	new->val = val;
+	new->hash2 = get_hash2(key);
+	index = get_hash(key);
+	new->next = hashtable[index];
+	hashtable[index] = new;
+	return (1);
+}
+
+char *hash_lookup(t_keyvalue **hashtable, char *key)
+{
+    size_t      index;
+    size_t      secure_hash;
+    t_keyvalue  *proxy;
+    
+    index = get_hash(key);
+    if (!hashtable[index])
+        return (NULL);
+    secure_hash = get_hash2(key);
+    proxy = hashtable[index];
+    while (proxy && proxy->hash2 != secure_hash)
+        proxy = proxy->next;
+    if (proxy)
+        return (proxy->val);
+    else
+        return (NULL);
 }

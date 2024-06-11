@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:36:40 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:50:14 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,5 +307,7 @@ void							add_string_to_thrash_list(t_data *data,
 void							init_hashtable(t_data *data);
 size_t							get_hash(char *keyvalue);
 size_t							get_hash2(char *keyvalue);
+int								store_data(t_keyvalue **hashtable, char *key, char *val);
+char 							*hash_lookup(t_keyvalue **hashtable, char *key);
 
 #endif
