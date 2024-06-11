@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:27:29 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 15:20:32 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ extern char						**environ;
 # define MAX_FILENAME_LEN 42
 # define MAX_PATH_LEN 1024
 # define HISTORY_SIZE 100
+# define HASHTABLE_SIZE 1000
 
 typedef enum e_token_type
 {
@@ -123,6 +124,14 @@ typedef struct s_thrash_node
 	struct s_thrash_node		*next;
 }								t_thrash_node;
 
+typedef struct s_keyvalue
+{
+	char				*key;
+	char				*val;
+	size_t				hash2;
+	struct s_keyvalue	*next;
+}				t_keyvalue;
+
 typedef struct s_data
 {
 	t_exec						*exec_list_head;
@@ -151,6 +160,7 @@ typedef struct s_data
 	t_signal_mode				signal_mode;
 	int							pipe_num;
 	t_thrash_node				*thrash_list_head;
+	t_keyvalue					**hashtab;
 }								t_data;
 
 void							print_execs(t_exec *execs);
