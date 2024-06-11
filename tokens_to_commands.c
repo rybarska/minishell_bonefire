@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:27:11 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:08:55 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,17 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 
 void	look_for_path(t_data *data, t_exec **exec, char *command)
 {
-	// check if hashed
+	(*exec)->cmd_exec_path = hash_lookup(data->hashtab, command);
+	if ((*exec)->cmd_exec_path)
+	{
+		dprintf(2, "FOUND IN HASHTABLE!\n");
+		(*exec)->cmd_exec_path = ft_strdup((*exec)->cmd_exec_path);
+		if (!(*exec)->cmd_exec_path)
+		{
+			//handle errors here
+		}
+		return ;
+	}
 	check_if_full_path(data, exec, command);
 	if (!(*exec)->is_full_path && data->cmd_paths != NULL)
 		get_path_from_env(data, command);
@@ -54,6 +64,10 @@ void	look_for_path(t_data *data, t_exec **exec, char *command)
 		(*exec)->cmd_exec_path = ft_strdup(data->found_path);
 		if (!(*exec)->cmd_exec_path)
 			snuff_it(data, "Error allocating for exec\n", NULL, 255);
+		if (!store_data(data->hashtab, command, data->found_path))
+		{
+			//call cleanup / error function here
+		}
 		free(data->found_path);
 		data->found_path = NULL;
 	}

@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:50:14 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 16:02:26 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <sys/ioctl.h>
 # include <sys/wait.h>
 # include <unistd.h>
+# include <stddef.h> //for size_t
 
 extern volatile sig_atomic_t	g_o_on;
 
