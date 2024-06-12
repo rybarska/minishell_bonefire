@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 17:56:33 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/12 22:24:19 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	look_for_path(t_data *data, t_exec **exec, char *command)
 	(*exec)->cmd_exec_path = hash_lookup(data->hashtab, command);
 	if ((*exec)->cmd_exec_path)
 	{
-		dprintf(2, "FOUND IN HASHTABLE!\n");
+		//dprintf(2, "FOUND IN HASHTABLE!\n");
 		return ;
 	}
 	check_if_full_path(data, exec, command);

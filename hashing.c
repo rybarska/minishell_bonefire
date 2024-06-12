@@ -6,82 +6,50 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/11 21:05:24 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/12 22:23:48 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// size_t	get_hash(char *keyvalue)
-// {
-// 	size_t	hash;
-// 	size_t	counter;
-// 	size_t	hash2;
-// 	size_t	hashsize;
-
-// 	if (keyvalue == NULL)
-// 		return (0);
-// 	hashsize = HASHTABLE_SIZE;
-// 	hash = 0;
-// 	counter = 0;
-// 	hash2 = 0;
-// 	while (keyvalue[counter])
-// 	{
-// 		 __asm__ volatile ("movq $31, %%rdx; pushq %%rbx;"
-// 				"xorq %%rbx, %%rbx; movb %2, %%bl;"
-// 				"mulq %%rdx; addq %%rbx, %%rax;"
-// 				"divq %%rcx; popq %%rbx;"
-// 				: "=d"(hash2)
-// 				: "a"(hash), "r"(keyvalue[counter]), "c"(hashsize)
-// 				:
-//         );
-// 		hash = hash2;
-// 		counter++;
-// 	}
-// 	return (hash);
-// }
-
 size_t	get_hash(char *keyvalue)
 {
 	size_t	hash;
 
-	__asm__ volatile ("pushq %%rbx; lea (%1), %%rbx; xorq %%rdx, %%rdx;"
-		"1:"
-		"movb (%%rbx), %%al; cmpb %%al, %%al; jz 2f;"
-		"imulq $31, %%rdx; movzx %%al, %%rax;"
-		"addq %%rax, %%rdx; movl %2, %%eax; divq %%rdx;"
+	__asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xorq %%rax, %%rax;"
+		"xorq %%rcx, %%rcx; xorq %%rdx, %%rdx; 1:"
+		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
+		"imulq $31, %%rax; movzx %%cl, %%rcx;"
+		"addq %%rcx, %%rax; div %2; movq %%rdx, %%rax;"
 		"incq %%rbx; jmp 1b;"
 		"2:"
 		"mov %%rdx, %0; popq %%rbx;"
 		: "=r"(hash)
 		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
-		: "rax", "rdx");
+		: "rax", "rdx", "rcx"
+    );
+    //dprintf(2, "index hash for: %s is: %zu\n", keyvalue, hash);
 	return (hash);
 }
 
 size_t	get_hash2(char *keyvalue)
 {
 	size_t	hash;
-	size_t	counter;
-	size_t	hash2;
 
-	if (keyvalue == NULL)
-		return (0);
-	hash = 0;
-	counter = 0;
-	hash2 = 0;
-	while (keyvalue[counter])
-	{
-		__asm__ volatile("movq $17, %%rdx; pushq %%rbx;"
-							"xorq %%rbx, %%rbx; movb %2, %%bl;"
-							"mulq %%rdx; addq %%rbx, %%rax;"
-							"addq %%rcx, %%rax; popq %%rbx;"
-							: "=a"(hash2)
-							: "a"(hash), "r"(keyvalue[counter]), "c"(counter)
-							:);
-		hash = hash2;
-		counter++;
-	}
+	__asm__ volatile ("pushq %%rbx; lea (%1), %%rbx;"
+		"xor %%rax, %%rax; xor %%r8, %%r8;"
+        "1:"
+		"movb (%%rbx), %%dl; cmpb $0, %%dl; jz 2f;"
+		"movl $17, %%ecx; movzx %%dl, %%rdx;"
+		"mulq %%rcx; add %%rdx, %%rax; add %%r8, %%rax;"
+		"inc %%rbx; inc %%r8; jmp 1b;"
+		"2:"
+		"mov %%rax, %0; popq %%rbx;"
+		: "=r"(hash)
+		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
+		: "rax", "rdx"
+    );
+    //dprintf(2, "secure hash for: %s is: %zu\n", keyvalue, hash);
 	return (hash);
 }
 
@@ -147,3 +115,58 @@ void	free_hashtable(t_keyvalue **hashtable)
 	}
 	free(hashtable);
 }
+
+// size_t	get_hash(char *keyvalue)
+// {
+// 	size_t	hash;
+// 	size_t	counter;
+// 	size_t	hash2;
+// 	size_t	hashsize;
+
+// 	if (keyvalue == NULL)
+// 		return (0);
+// 	hashsize = HASHTABLE_SIZE;
+// 	hash = 0;
+// 	counter = 0;
+// 	hash2 = 0;
+// 	while (keyvalue[counter])
+// 	{
+// 		 __asm__ volatile ("movq $31, %%rdx; pushq %%rbx;"
+// 				"xorq %%rbx, %%rbx; movb %2, %%bl;"
+// 				"mulq %%rdx; addq %%rbx, %%rax;"
+// 				"divq %%rcx; popq %%rbx;"
+// 				: "=d"(hash2)
+// 				: "a"(hash), "r"(keyvalue[counter]), "c"(hashsize)
+// 				:
+//         );
+// 		hash = hash2;
+// 		counter++;
+// 	}
+// 	return (hash);
+// }
+
+// size_t	get_hash2(char *keyvalue)
+// {
+// 	size_t	hash;
+// 	size_t	counter;
+// 	size_t	hash2;
+
+// 	if (keyvalue == NULL)
+// 		return (0);
+// 	hash = 0;
+// 	counter = 0;
+// 	hash2 = 0;
+// 	while (keyvalue[counter])
+// 	{
+// 		__asm__ volatile("movq $17, %%rdx; pushq %%rbx;"
+// 							"xorq %%rbx, %%rbx; movb %2, %%bl;"
+// 							"mulq %%rdx; addq %%rbx, %%rax;"
+// 							"addq %%rcx, %%rax; popq %%rbx;"
+// 							: "=a"(hash2)
+// 							: "a"(hash), "r"(keyvalue[counter]), "c"(counter)
+// 							:);
+// 		hash = hash2;
+// 		counter++;
+// 	}
+// 	return (hash);
+// }

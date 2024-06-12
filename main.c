@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:57:43 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:26:13 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/11 22:07:57 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ int	main(void)
 			make_token_list(&data);
 			merge_unseparated(&data.token_list_head);
 			count_pipes(&data);
-			print_tokens(data.token_list_head);
+			//print_tokens(data.token_list_head);
 			if (check_token_syntax(&data) == 0)
 			{
 				make_executives(&data);
-				print_execs(data.exec_list_head);
+				//print_execs(data.exec_list_head);
 				// print_envs(data.env_vars_head);
 				if (count_executives(&data) > 0)
 				{
