@@ -38,7 +38,7 @@ void	execute_cd(t_data *data, char *dir)
 	else
 	{
 		perror("cd");
-		data->last_exit_code = 1;
+		boo(data, NULL, NULL, 1);
 	}
 }
 
