@@ -38,6 +38,7 @@ SRC = ./main.c \
       ./builtins_short.c \
       ./signals.c \
       ./thrash_list.c \
+      ./hashing.c \
 
 OBJ = $(SRC:%.c=%.o)
 

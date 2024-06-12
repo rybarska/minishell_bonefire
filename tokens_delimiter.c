@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_delimiter.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 23:16:15 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/04/26 23:16:20 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:54 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static char	*parse_double_quotes_delimiter(t_data *data)
 
 	data->pos++;
 	start_pos = data->pos;
-	while (data->text[data->pos] != '\0'
-		&& data->text[data->pos] != '\"')
+	while (data->text[data->pos] != '\0' && data->text[data->pos] != '\"')
 		data->pos++;
 	if (data->text[data->pos] == '\"')
 		data->pos++;
@@ -45,8 +44,7 @@ static char	*parse_delimiter_inner(t_data *data)
 	else if (data->text[data->pos] == '$')
 	{
 		data->pos++;
-		if (data->text[data->pos] == '\''
-			|| data->text[data->pos] == '\"')
+		if (data->text[data->pos] == '\'' || data->text[data->pos] == '\"')
 			temp = ft_strdup("");
 		else
 			temp = ft_strdup("$");
@@ -59,7 +57,7 @@ static char	*parse_delimiter_inner(t_data *data)
 
 char	*parse_delimiter(t_data *data)
 {
-	int	start_pos;
+	int		start_pos;
 	char	*delimiter;
 	char	*temp;
 	char	*temp_delimiter;
@@ -79,18 +77,18 @@ char	*parse_delimiter(t_data *data)
 	}
 	if (ft_strchr("|><\n", data->text[data->pos]))
 		return (NULL);
-	while (data->text[data->pos]
-		&& !ft_strchr("|>< \n", data->text[data->pos]))
+	while (data->text[data->pos] && !ft_strchr("|>< \n", data->text[data->pos]))
 	{
 		temp = parse_delimiter_inner(data);
-		//add_string_to_thrash_list(data, temp);
+		// add_string_to_thrash_list(data, temp);
 		temp_delimiter = ft_strjoin(delimiter, temp);
 		if (!temp_delimiter)
-			snuff_it(data, "Error allocating memory for temp_delimiter", NULL, 255);
+			snuff_it(data, "Error allocating memory for temp_delimiter", NULL,
+				255);
 		free(delimiter);
 		delimiter = temp_delimiter;
-		//free(temp);
-		//temp = NULL;
+		// free(temp);
+		// temp = NULL;
 	}
 	add_string_to_thrash_list(data, delimiter);
 	return (delimiter);

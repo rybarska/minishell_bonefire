@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_merge_strings.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 16:54:02 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/04/10 16:54:05 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:00 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	check_assign_type(t_token_node **head)
 
 	curr = *head;
 	while (curr)
-	{	
+	{
 		if (is_substantive(curr->type) && has_unquoted_equals(curr->value))
 			curr->type = ASSIGNMENT;
 		/*if ((curr->type == EXPORT || curr->type == ASSIGNMENT)

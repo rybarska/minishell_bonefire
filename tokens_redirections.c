@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_redirections.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:57:59 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/03/15 15:58:01 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:07 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 static char	*parse_filename(t_data *data)
 {
-	int	start_pos;
-	int	word_len;
+	int		start_pos;
+	int		word_len;
 	char	*word;
 
 	start_pos = data->pos;
 	if (data->pos < data->text_len && (data->text[data->pos] == '\n'
-		|| data->text[data->pos] == '\0' || data->text[data->pos] == '|'
-		|| data->text[data->pos] == '<' || data->text[data->pos] == '>'))
-			return (NULL);
+			|| data->text[data->pos] == '\0' || data->text[data->pos] == '|'
+			|| data->text[data->pos] == '<' || data->text[data->pos] == '>'))
+		return (NULL);
 	while (data->pos < data->text_len && data->text[data->pos] != ' '
 		&& data->text[data->pos] != '\0' && data->text[data->pos] != '|'
 		&& data->text[data->pos] != '<' && data->text[data->pos] != '>')
-			data->pos++;
+		data->pos++;
 	word_len = data->pos - start_pos;
 	word = (char *)malloc((word_len + 1) * sizeof(char));
 	if (!word)

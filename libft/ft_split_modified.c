@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_modified.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 11:29:13 by arybarsk          #+#    #+#             */
-/*   Updated: 2023/09/19 20:47:08 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:37 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	*free_whole_array(int i, char **array)
 
 char	**ft_split(char const *s, char const *delimiters)
 {
-	int	i;
+	int		i;
 	char	**array;
 
 	i = 0;
@@ -88,6 +88,7 @@ char	**ft_split(char const *s, char const *delimiters)
 }
 /*
 #include <stdio.h>
+
 int	main(void)
 {
 	char	string[] = "ooooo go with the flow I tell you sooooo";

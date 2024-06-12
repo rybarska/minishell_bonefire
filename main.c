@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:57:43 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/03/10 19:57:46 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 22:07:57 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	read_input(t_data *data)
 	}
 	add_history(input);
 	data->text = ft_strdup(input);
-	//free(input);
-	//input = NULL;
+	// free(input);
+	// input = NULL;
 	if (!data->text)
 		snuff_it(data, "Error allocating memory for input\n", NULL, 255);
 	data->text_len = ft_strlen(data->text);
@@ -52,7 +52,7 @@ void	read_input(t_data *data)
 
 int	main(void)
 {
-	t_data		data;
+	t_data	data;
 
 	init_data(&data);
 	data.ft_environ = ft_strdup_array(environ);
@@ -68,16 +68,16 @@ int	main(void)
 			make_token_list(&data);
 			merge_unseparated(&data.token_list_head);
 			count_pipes(&data);
-			print_tokens(data.token_list_head);
+			//print_tokens(data.token_list_head);
 			if (check_token_syntax(&data) == 0)
 			{
 				make_executives(&data);
-				print_execs(data.exec_list_head);
-				//print_envs(data.env_vars_head);
+				//print_execs(data.exec_list_head);
+				// print_envs(data.env_vars_head);
 				if (count_executives(&data) > 0)
 				{
 					execute_execs(&data);
-					//wait_for_children(&data);
+					// wait_for_children(&data);
 				}
 			}
 		}

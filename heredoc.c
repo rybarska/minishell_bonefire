@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:22:00 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/01 18:22:02 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:03 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ static void	process_heredoc_vars(t_data *data, char **string)
 	}
 }
 
-//This is a custom rand function using /dev/urandom as source of random value.
-//The random value is limited to INT_MAX in the return statement.
+// This is a custom rand function using /dev/urandom as source of random value.
+// The random value is limited to INT_MAX in the return statement.
 static int	get_rand_value(t_data *data)
 {
 	int		random_value;
@@ -42,14 +42,14 @@ static int	get_rand_value(t_data *data)
 	return (random_value % INT_MAX);
 }
 
-//This function converts the random value returned from the previous function
-//into a random string.
-//The random string is incorporated into filenames to make them unique. 
+// This function converts the random value returned from the previous function
+// into a random string.
+// The random string is incorporated into filenames to make them unique.
 static void	init_temp_file(t_data *data, t_redirection *redir)
 {
-	char		temp_filename[MAX_FILENAME_LEN];
-	char		*random_str;
-	int			random_value;
+	char	temp_filename[MAX_FILENAME_LEN];
+	char	*random_str;
+	int		random_value;
 
 	random_value = get_rand_value(data);
 	random_str = NULL;
@@ -60,13 +60,12 @@ static void	init_temp_file(t_data *data, t_redirection *redir)
 	ft_strlcpy(temp_filename, "temp_doc_", sizeof(temp_filename));
 	ft_strlcat(temp_filename, random_str, sizeof(temp_filename));
 	ft_strlcat(temp_filename, ".txt", sizeof(temp_filename));
-	//free(random_str);
-	//random_str = NULL;
+	// free(random_str);
+	// random_str = NULL;
 	redir->file = ft_strdup(temp_filename);
 	if (!redir->file)
 		snuff_it(data, "Error creating temp_filename\n", NULL, 255);
-	redir->fd = open(redir->file,
-			O_CREAT | O_WRONLY | O_TRUNC, 0644);
+	redir->fd = open(redir->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	if (redir->fd < 0)
 		snuff_it(data, "Error creating temp_file\n", NULL, 255);
 }
@@ -86,8 +85,8 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 			g_o_on = 0;
 			break ;
 		}
-		if (ft_strlen(buffer) == delimiter_len
-			&& ft_strncmp(buffer, redir->delimiter, delimiter_len) == 0)
+		if (ft_strlen(buffer) == delimiter_len && ft_strncmp(buffer,
+				redir->delimiter, delimiter_len) == 0)
 		{
 			free(buffer);
 			break ;

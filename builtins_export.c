@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:28:12 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/20 21:28:13 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:02 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ static void	set_env_var(t_data *data, char *name, char *value)
 		update_var_in_env(data, name, temp);
 	else
 		add_var_to_env(data, name, temp);
-	//free(temp);
-	//temp = NULL;
+	// free(temp);
+	// temp = NULL;
 	/*if (final_value)
 	{
 		free(final_value);
@@ -102,7 +102,7 @@ static void	set_env_var(t_data *data, char *name, char *value)
 // It calls set_env_var, which leads to modification of data->ft_environ.
 void	execute_export(t_data *data, char **args)
 {
-	int	i;
+	int		i;
 	char	*name_end;
 	char	*name;
 	char	*value;

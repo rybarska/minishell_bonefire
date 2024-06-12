@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   children.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:43:33 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/04/29 19:43:35 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:18 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	handle_parent(t_data *data, t_exec **exec)
 {
-	(void) *exec;
 	t_process	*new_process;
 
+	(void)*exec;
 	new_process = (t_process *)malloc(sizeof(t_process));
 	if (!new_process)
 		snuff_it(data, "Error allocating memory for new process\n", NULL, 255);
@@ -67,8 +67,9 @@ static void	make_child(t_data *data, t_exec **exec)
 void	execute_execs(t_data *data)
 {
 	t_exec	*curr_exec;
-	bool flag = 0;
+	bool	flag;
 
+	flag = 0;
 	if (data->exec_num == 0)
 		return ;
 	data->std_in = dup(STDIN_FILENO);

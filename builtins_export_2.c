@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_export_2.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/24 23:34:15 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/24 23:34:17 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:25:06 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	update_var_in_env(t_data *data, char *name, char *value)
 {
-	int	i;
+	int		i;
 	char	*temp_var;
 	char	*new_var;
 
@@ -26,11 +26,11 @@ void	update_var_in_env(t_data *data, char *name, char *value)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
 	add_string_to_thrash_list(data, temp_var);
 	new_var = ft_strjoin(temp_var, value);
-	//free(temp_var);
-	//temp_var = NULL;
+	// free(temp_var);
+	// temp_var = NULL;
 	if (!new_var)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
-	//add_string_to_thrash_list(data, new_var);
+	// add_string_to_thrash_list(data, new_var);
 	while (data->ft_environ && data->ft_environ[i] != NULL)
 	{
 		if (ft_strncmp(data->ft_environ[i], name, ft_strlen(name)) == 0
@@ -48,7 +48,7 @@ void	update_var_in_env(t_data *data, char *name, char *value)
 
 void	add_var_to_env(t_data *data, char *name, char *value)
 {
-	int	i;
+	int		i;
 	char	*temp_var;
 	char	*new_var;
 	char	**temp;
@@ -61,8 +61,8 @@ void	add_var_to_env(t_data *data, char *name, char *value)
 		snuff_it(data, "Error allocating in add_var_to_env\n", NULL, 255);
 	add_string_to_thrash_list(data, temp_var);
 	new_var = ft_strjoin(temp_var, value);
-	//free(temp_var);
-	//temp_var = NULL;
+	// free(temp_var);
+	// temp_var = NULL;
 	if (!new_var)
 		snuff_it(data, "Error allocating in add_var_to_env\n", NULL, 255);
 	add_string_to_thrash_list(data, new_var);
@@ -71,8 +71,8 @@ void	add_var_to_env(t_data *data, char *name, char *value)
 	temp = ft_str_arr_join(data->ft_environ, new_var);
 	if (!temp)
 		snuff_it(data, "Error allocating in add_var_to_env\n", NULL, 255);
-	//free(new_var);
-	//new_var = NULL;
+	// free(new_var);
+	// new_var = NULL;
 	ft_free_array(data->ft_environ);
 	data->ft_environ = temp;
 }

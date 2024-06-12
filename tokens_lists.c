@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_lists.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 20:55:44 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/03/13 20:55:47 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:29:25 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static t_token_node	*create_token_node(t_data *data, t_token *new_token)
 		new_node->value = ft_strdup(new_token->value);
 		if (!new_node->value)
 			snuff_it(data, "Error duplicating string", NULL, 255);
-		//free(new_token->value);
-		//new_token->value = NULL;
+		// free(new_token->value);
+		// new_token->value = NULL;
 	}
 	new_node->split_words = NULL;
 	new_node->num_split_words = 0;
@@ -81,7 +81,6 @@ void	make_token_list(t_data *data)
 	while (1)
 	{
 		new_token = get_next_token(data);
-		//printf("Processing token: type, value %d, %s\n", new_token.type, new_token.value);
 		new_node = create_token_node(data, &new_token);
 		add_token_node(data, new_node);
 		if (new_token.type == EOF_TOKEN)

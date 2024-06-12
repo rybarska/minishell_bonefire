@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   thrash_list.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 22:47:45 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/30 22:47:47 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:39 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static t_thrash_node	*create_thrash_node(t_data *data, char *string)
 static void	add_thrash_node_to_list(t_data *data, t_thrash_node *new_node)
 {
 	t_thrash_node	*current;
-	
+
 	if (new_node == NULL)
 		return ;
 	if (data->thrash_list_head == NULL)

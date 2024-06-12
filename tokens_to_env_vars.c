@@ -3,21 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   tokens_to_env_vars.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:45 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/18 20:03:48 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:27:16 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	update_env_var_in_list(t_data *data, char *name, char *value, int is_exported)
+int	update_env_var_in_list(t_data *data, char *name, char *value,
+		int is_exported)
 {
 	t_env_var	*current;
 
 	if (!name || name[0] == '\0')
-		return (boo(data, "Invalid env var name\n", NULL, 2), 0); //TODO check exit code / return value
+		return (boo(data, "Invalid env var name\n", NULL, 2), 0);
+			// TODO check exit code / return value
 	current = data->env_vars_head;
 	while (current != NULL)
 	{
@@ -52,8 +54,8 @@ void	add_env_var_to_list(t_data *data, t_env_var *new_env_var)
 	}
 }
 
-void	add_or_update_env_var_list(t_data *data, char *name,
-	char *value, int is_exported)
+void	add_or_update_env_var_list(t_data *data, char *name, char *value,
+		int is_exported)
 {
 	t_env_var	*new_env_var;
 
@@ -64,7 +66,7 @@ void	add_or_update_env_var_list(t_data *data, char *name,
 		snuff_it(data, "Error allocating for env var\n", NULL, 255);
 	new_env_var->name = ft_strdup(name);
 	if (!new_env_var->name)
-			snuff_it(data, "Error duplicating string\n", NULL, 255);
+		snuff_it(data, "Error duplicating string\n", NULL, 255);
 	new_env_var->value = NULL;
 	if (value)
 	{
@@ -78,7 +80,7 @@ void	add_or_update_env_var_list(t_data *data, char *name,
 }
 
 void	put_env_in_list(t_data *data, t_token_node *node, int env_count,
-	int is_exported)
+		int is_exported)
 {
 	char	*name_end;
 	char	*temp;

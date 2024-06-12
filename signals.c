@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:58:54 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/05/21 17:58:56 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/11 14:26:30 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static void	heredoc_sigint(int signal_number)
 {
 	//(void)signal_number;
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	//write(STDOUT_FILENO, "\n", 1);
+	// write(STDOUT_FILENO, "\n", 1);
 	printf("number is: %d\n", signal_number);
-	g_o_on = signal_number;//86;
+	g_o_on = signal_number; // 86;
 }
 
 // static void	handle_sigquit(int signal_number)
@@ -38,7 +38,6 @@ static void	heredoc_sigint(int signal_number)
 
 void	set_signal_controls(t_data *data)
 {
-	
 	if (data->signal_mode == INTERACTIVE)
 		signal(SIGINT, &handle_sigint);
 	else if (data->signal_mode == CHILD)
@@ -47,7 +46,6 @@ void	set_signal_controls(t_data *data)
 		signal(SIGINT, SIG_IGN);
 	else if (data->signal_mode == HERE_DOC)
 		signal(SIGINT, &heredoc_sigint);
-
 	if (data->signal_mode == INTERACTIVE)
 		signal(SIGQUIT, SIG_IGN);
 	else if (data->signal_mode == CHILD)
@@ -62,7 +60,7 @@ void	set_signal_controls(t_data *data)
 // {
 // 	struct sigaction	sa_int;
 // 	struct sigaction	sa_quit;
-	
+
 // 	sigemptyset(&sa_int.sa_mask);
 // 	if (data->signal_mode == INTERACTIVE)
 // 		sa_int.sa_sigaction = &handle_sigint;
