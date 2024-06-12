@@ -17,13 +17,14 @@ size_t	get_hash(char *keyvalue)
 	size_t	hash;
 
 	__asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xorq %%rax, %%rax;"
-		"xorq %%rcx, %%rcx; xorq %%rdx, %%rdx; 1:"
+		"xorq %%rcx, %%rcx; xorq %%rdx, %%rdx;" 
+		"1:"
 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
 		"imulq $31, %%rax; movzx %%cl, %%rcx;"
 		"addq %%rcx, %%rax; div %2; movq %%rdx, %%rax;"
 		"incq %%rbx; jmp 1b;"
 		"2:"
-		"mov %%rdx, %0; popq %%rbx;"
+		"mov %%rax, %0; popq %%rbx;"
 		: "=r"(hash)
 		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
 		: "rax", "rdx", "rcx"
@@ -38,7 +39,7 @@ size_t	get_hash2(char *keyvalue)
 
 	__asm__ volatile ("pushq %%rbx; lea (%1), %%rbx;"
 		"xor %%rax, %%rax; xor %%r8, %%r8;"
-        "1:"
+        	"1:"
 		"movb (%%rbx), %%dl; cmpb $0, %%dl; jz 2f;"
 		"movl $17, %%ecx; movzx %%dl, %%rdx;"
 		"mulq %%rcx; add %%rdx, %%rax; add %%r8, %%rax;"
