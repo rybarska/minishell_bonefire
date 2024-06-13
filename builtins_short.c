@@ -26,6 +26,7 @@ void	execute_cd(t_data *data, char *dir)
 			return ;
 		}
 		dir = home_dir;
+		data->last_exit_code = 0;
 	}
 	if (chdir(dir) != 0)
 	{
@@ -34,7 +35,10 @@ void	execute_cd(t_data *data, char *dir)
 		return ;
 	}
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
+	{
 		execute_export(data, (char *[]){"PWD", curr_dir, NULL});
+		data->last_exit_code = 0;
+	}
 	else
 	{
 		perror("cd");
@@ -42,7 +46,7 @@ void	execute_cd(t_data *data, char *dir)
 	}
 }
 
-void	execute_echo(t_exec **exec)
+void	execute_echo(t_data *data, t_exec **exec)
 {
 	int	omit_newline;
 	int	i;
@@ -69,6 +73,7 @@ void	execute_echo(t_exec **exec)
 	}
 	if (!omit_newline)
 		printf("\n");
+	data->last_exit_code = 0;
 }
 
 void	execute_env(t_data *data, char **args)
@@ -86,6 +91,7 @@ void	execute_env(t_data *data, char **args)
 		printf("%s\n", data->ft_environ[i]);
 		i++;
 	}
+	data->last_exit_code = 0;
 }
 
 void	execute_exit(t_data *data, char **args)
@@ -100,7 +106,10 @@ void	execute_pwd(t_data *data)
 	char	curr_dir[PATH_MAX];
 
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
+	{
 		printf("%s\n", curr_dir);
+		data->last_exit_code = 0;
+	}
 	else
 	{
 		perror("pwd");

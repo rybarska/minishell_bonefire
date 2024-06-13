@@ -48,6 +48,7 @@ static void	execute_unset(t_data *data, char **var_to_kill)
 		remove_from_env(data, var_to_kill[i]);
 		i++;
 	}
+	data->last_exit_code = 0;
 }
 
 int	is_builtin(char *command)
@@ -67,7 +68,7 @@ int	execute_builtin(t_data *data, t_exec **exec, char *command)
 	if (ft_strcmp(command, "cd") == 0)
 		execute_cd(data, (*exec)->arguments[1]);
 	else if (ft_strcmp(command, "echo") == 0)
-		execute_echo(exec);
+		execute_echo(data, exec);
 	else if (ft_strcmp(command, "env") == 0)
 		execute_env(data, (*exec)->arguments);
 	else if (ft_strcmp(command, "exit") == 0)

@@ -115,7 +115,10 @@ void	execute_export(t_data *data, char **args)
 			separate_name_and_value(data, &value_to_pass, &name_end, &value);
 		name = args[i];
 		if (check_env_var_name(data, name, value_to_pass) == 0)
+		{
 			set_env_var(data, name, value);
+			data->last_exit_code = 0;
+		}
 		if (name_end)
 			*name_end = '=';
 		i++;
