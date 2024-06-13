@@ -12,6 +12,21 @@
 
 #include "minishell.h"
 
+int	is_var_in_env(t_data *data, char *name)
+{
+	int	i;
+
+	i = 0;
+	while (data->ft_environ && data->ft_environ[i] != NULL)
+	{
+		if (ft_strncmp(data->ft_environ[i], name, ft_strlen(name)) == 0
+			&& data->ft_environ[i][ft_strlen(name)] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 void	update_var_in_env(t_data *data, char *name, char *value)
 {
 	int		i;

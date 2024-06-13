@@ -12,21 +12,6 @@
 
 #include "minishell.h"
 
-static int	is_var_in_env(t_data *data, char *name)
-{
-	int	i;
-
-	i = 0;
-	while (data->ft_environ && data->ft_environ[i] != NULL)
-	{
-		if (ft_strncmp(data->ft_environ[i], name, ft_strlen(name)) == 0
-			&& data->ft_environ[i][ft_strlen(name)] == '=')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
 static char	*get_value_from_list(t_data *data, char *name)
 {
 	t_env_var	*current_var;
@@ -98,6 +83,16 @@ static void	set_env_var(t_data *data, char *name, char *value)
 	}*/
 }
 
+void	separate_name_and_value(t_data *data, char **value_to_pass, char **name_end, char **value)
+{
+	*value_to_pass = ft_strdup(*name_end);
+	if (!*value_to_pass)
+		snuff_it(data, "Error duplicating string\n", NULL, 255);
+	add_string_to_thrash_list(data, *value_to_pass);
+	**name_end = '\0';
+	*value = *name_end + 1;
+}
+
 // This function looks for name and value of exported env var.
 // It calls set_env_var, which leads to modification of data->ft_environ.
 void	execute_export(t_data *data, char **args)
@@ -106,6 +101,7 @@ void	execute_export(t_data *data, char **args)
 	char	*name_end;
 	char	*name;
 	char	*value;
+	char	*value_to_pass;
 
 	i = 1;
 	if (!args[1])
@@ -113,17 +109,13 @@ void	execute_export(t_data *data, char **args)
 	while (args[i])
 	{
 		value = NULL;
+		value_to_pass = NULL;
 		name_end = ft_strchr(args[i], '=');
 		if (name_end)
-		{
-			*name_end = '\0';
-			value = name_end + 1;
-		}
+			separate_name_and_value(data, &value_to_pass, &name_end, &value);
 		name = args[i];
-		if (check_env_var_name(data, name, value) == 0)
-		{
+		if (check_env_var_name(data, name, value_to_pass) == 0)
 			set_env_var(data, name, value);
-		}
 		if (name_end)
 			*name_end = '=';
 		i++;
