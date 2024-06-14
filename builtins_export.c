@@ -74,16 +74,10 @@ static void	set_env_var(t_data *data, char *name, char *value)
 		update_var_in_env(data, name, temp);
 	else
 		add_var_to_env(data, name, temp);
-	// free(temp);
-	// temp = NULL;
-	/*if (final_value)
-	{
-		free(final_value);
-		final_value = NULL;
-	}*/
 }
 
-void	separate_name_and_value(t_data *data, char **value_to_pass, char **name_end, char **value)
+void	separate_name_and_value(t_data *data, char **value_to_pass,
+	char **name_end, char **value)
 {
 	*value_to_pass = ft_strdup(*name_end);
 	if (!*value_to_pass)
@@ -103,10 +97,10 @@ void	execute_export(t_data *data, char **args)
 	char	*value;
 	char	*value_to_pass;
 
-	i = 1;
 	if (!args[1])
 		return (print_export_strings(data));
-	while (args[i])
+	i = 0;
+	while (args[++i])
 	{
 		value = NULL;
 		value_to_pass = NULL;
@@ -121,6 +115,5 @@ void	execute_export(t_data *data, char **args)
 		}
 		if (name_end)
 			*name_end = '=';
-		i++;
 	}
 }

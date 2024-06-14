@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void init_hashtable(t_data *data)
+void	init_hashtable(t_data *data)
 {
 	data->hashtab = ft_calloc(sizeof(t_keyvalue *), HASHTABLE_SIZE);
 	if (!data->hashtab)

@@ -28,12 +28,6 @@ void	execute_cd(t_data *data, char *dir)
 		dir = home_dir;
 		data->last_exit_code = 0;
 	}
-	if (chdir(dir) != 0)
-	{
-		perror("cd");
-		data->last_exit_code = 1;
-		return ;
-	}
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
 	{
 		execute_export(data, (char *[]){"PWD", curr_dir, NULL});
@@ -42,7 +36,7 @@ void	execute_cd(t_data *data, char *dir)
 	else
 	{
 		perror("cd");
-		boo(data, NULL, NULL, 1);
+		data->last_exit_code = 1;
 	}
 }
 
@@ -54,8 +48,8 @@ void	execute_echo(t_data *data, t_exec **exec)
 
 	omit_newline = 0;
 	i = 0;
-	while ((*exec)->arguments[++i] != NULL && ft_strncmp((*exec)->arguments[i],
-			"-n", 2) == 0)
+	while ((*exec)->arguments[++i]
+		&& ft_strncmp((*exec)->arguments[i], "-n", 2) == 0)
 	{
 		j = 2;
 		while ((*exec)->arguments[i][j] == 'n')
