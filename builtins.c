@@ -68,7 +68,10 @@ int	execute_builtin(t_data *data, t_exec **exec, char *command)
 	if (ft_strcmp(command, "cd") == 0)
 		execute_cd(data, (*exec)->arguments[1]);
 	else if (ft_strcmp(command, "echo") == 0)
-		execute_echo(data, exec);
+	{
+		execute_echo(exec);
+		data->last_exit_code = 0;
+	}
 	else if (ft_strcmp(command, "env") == 0)
 		execute_env(data, (*exec)->arguments);
 	else if (ft_strcmp(command, "exit") == 0)

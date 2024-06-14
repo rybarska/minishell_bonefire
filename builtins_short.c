@@ -40,7 +40,7 @@ void	execute_cd(t_data *data, char *dir)
 	}
 }
 
-void	execute_echo(t_data *data, t_exec **exec)
+void	execute_echo(t_exec **exec)
 {
 	int	omit_newline;
 	int	i;
@@ -67,7 +67,6 @@ void	execute_echo(t_data *data, t_exec **exec)
 	}
 	if (!omit_newline)
 		printf("\n");
-	data->last_exit_code = 0;
 }
 
 void	execute_env(t_data *data, char **args)
