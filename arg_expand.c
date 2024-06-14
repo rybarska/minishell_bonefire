@@ -16,7 +16,6 @@
 // and otherwise returns NULL.
 // It also keeps track of flags for single or double quotes.
 static void	expand_name(t_data *data, char **var_value, char **temp_str)
-		// TODO figure out what to do about 5 parametres
 {
 	char	*var_name_start;
 	char	*var_name_end;
@@ -79,19 +78,10 @@ static void	get_exit_status(t_data *data, char **temp_str, char **arg)
 	exit_status_str = NULL;
 }
 
-/*void	free_temp_str_and_snuff_it(t_data *data, char **temp_str, char *arg)
-{
-	char	*temp_str;
-
-	free(*temp_str);
-	snuff_it(data, "Error allocating memory for var\n", arg, 255);
-}*/
 // This function sets flags for single or double quotes.
 // It calls expand_name if it finds a variable outside quotes
 // or inside double quotes.
 // Otherwise it just adds characters one by one to temp_str.
-// Btw expand_name calls allocate_and_expand. If there is malloc failure there
-// then it returns 255, and then snuff_it is called here.
 char	*expand_arg(t_data *data, char *arg)
 {
 	char	*temp_str;
