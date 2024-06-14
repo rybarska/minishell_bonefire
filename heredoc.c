@@ -60,8 +60,6 @@ static void	init_temp_file(t_data *data, t_redirection *redir)
 	ft_strlcpy(temp_filename, "temp_doc_", sizeof(temp_filename));
 	ft_strlcat(temp_filename, random_str, sizeof(temp_filename));
 	ft_strlcat(temp_filename, ".txt", sizeof(temp_filename));
-	// free(random_str);
-	// random_str = NULL;
 	redir->file = ft_strdup(temp_filename);
 	if (!redir->file)
 		snuff_it(data, "Error creating temp_filename\n", NULL, 255);
@@ -79,18 +77,9 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 	buffer = get_next_line(0);
 	while (buffer != NULL)
 	{
-		if (g_o_on == 2)
-		{
-			free(buffer);
-			g_o_on = 0;
+		if ((g_o_on == 2) || (ft_strlen(buffer) == delimiter_len
+				&& ft_strncmp(buffer, redir->delimiter, delimiter_len) == 0))
 			break ;
-		}
-		if (ft_strlen(buffer) == delimiter_len && ft_strncmp(buffer,
-				redir->delimiter, delimiter_len) == 0)
-		{
-			free(buffer);
-			break ;
-		}
 		process_heredoc_vars(data, &buffer);
 		if ((write(redir->fd, buffer, ft_strlen(buffer)) < 0)
 			|| (write(redir->fd, "\n", 1) < 0))
@@ -103,6 +92,9 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 		free(buffer);
 		buffer = get_next_line(0);
 	}
+	free(buffer);
+	if (g_o_on == 2)
+		g_o_on = 0;
 }
 
 void	get_heredoc(t_data *data, t_redirection **redir)

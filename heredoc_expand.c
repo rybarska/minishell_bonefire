@@ -24,8 +24,6 @@ static void	heredoc_add_expanded(t_data *data, char **temp_str, char *expanded)
 		snuff_it(data, "Error allocating in heredoc_add_expanded", NULL, 255);
 	add_string_to_thrash_list(data, expanded_dup);
 	temp = ft_strjoin(*temp_str, expanded_dup);
-	//free(expanded_dup);
-	//expanded_dup = NULL;
 	free(*temp_str);
 	if (!temp)
 		snuff_it(data, "Error allocating in heredoc_add_expanded", NULL, 255);
@@ -48,8 +46,6 @@ static void	heredoc_allocate_and_expand(t_data *data, char **temp_str,
 	add_string_to_thrash_list(data, var_name);
 	ft_strlcpy(var_name, var_name_start, var_name_end - var_name_start + 1);
 	expanded = ft_getenv(data, var_name);
-	// free(var_name);
-	// var_name = NULL;
 	if (expanded)
 		heredoc_add_expanded(data, temp_str, expanded);
 }
@@ -59,8 +55,8 @@ static void	heredoc_allocate_and_expand(t_data *data, char **temp_str,
 // It also keeps track of flags for single or double quotes.
 static void	expand_name(t_data *data, char **var_value, char **temp_str)
 {
-	char *var_name_start;
-	char *var_name_end;
+	char	*var_name_start;
+	char	*var_name_end;
 
 	(*var_value)++;
 	var_name_start = *var_value;
@@ -76,7 +72,7 @@ static void	expand_name(t_data *data, char **var_value, char **temp_str)
 	}
 	if (var_name_end != var_name_start)
 		heredoc_allocate_and_expand(data, temp_str, var_name_start,
-				var_name_end);
+			var_name_end);
 }
 
 static char	*add_one_char(t_data *data, char **arg, char *temp_str)

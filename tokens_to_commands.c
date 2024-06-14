@@ -32,10 +32,8 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 			temp = ft_strdup(current->value);
 			if (!temp)
 				snuff_it(data, "Error allocating memory\n", NULL, 255);
-			// if (!exec->is_export)
 			process_vars_and_quotes(data, &temp);
 			exec->arguments[i] = temp;
-			// printf("exec->arguments[%d]: %s\n", i, exec->arguments[i]);
 			i++;
 		}
 		current = current->next;
@@ -47,10 +45,7 @@ void	look_for_path(t_data *data, t_exec **exec, char *command)
 {
 	(*exec)->cmd_exec_path = hash_lookup(data->hashtab, command);
 	if ((*exec)->cmd_exec_path)
-	{
-		//dprintf(2, "FOUND IN HASHTABLE!\n");
 		return ;
-	}
 	check_if_full_path(data, exec, command);
 	if (!(*exec)->is_full_path && data->cmd_paths != NULL)
 		get_path_from_env(data, command);
@@ -83,7 +78,6 @@ void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
 		temp = ft_strdup(node->value);
 		if (!temp)
 			snuff_it(data, "Error duplicating string\n", NULL, 255);
-		// if (!(*exec)->is_export)
 		process_vars_and_quotes(data, &temp);
 		(*exec)->name = temp;
 		if (is_builtin(temp))
