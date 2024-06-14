@@ -62,7 +62,19 @@ static void	make_child(t_data *data, t_exec **exec)
 	close_fd_set_minus1(&data->fd[1]);
 }
 
-#include <stdbool.h>
+void	execute_lone_or_children(t_data *data, t_exec **curr_exec, bool *flag)
+{
+	if (data->exec_num == 1)
+	{
+		close_fd_set_minus1(&data->std_in);
+		execute_lone_exec_no_pipe(data, curr_exec);
+	}
+	else
+	{
+		make_child(data, curr_exec);
+		*flag = 1;
+	}
+}
 
 void	execute_execs(t_data *data)
 {
@@ -80,16 +92,7 @@ void	execute_execs(t_data *data)
 	{
 		++(data->index);
 		process_heredocs(data, &curr_exec);
-		if (data->exec_num == 1)
-		{
-			close_fd_set_minus1(&data->std_in);
-			execute_lone_exec_no_pipe(data, &curr_exec);
-		}
-		else
-		{
-			make_child(data, &curr_exec);
-			flag = 1;
-		}
+		execute_lone_or_children(data, &curr_exec, &flag);
 		curr_exec = curr_exec->next;
 	}
 	close_fd_set_minus1(&data->std_in);
