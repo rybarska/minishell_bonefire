@@ -61,34 +61,24 @@ char	*parse_delimiter(t_data *data)
 	char	*delimiter;
 	char	*temp;
 	char	*temp_delimiter;
-	char	current_char;
 
 	delimiter = NULL;
 	temp = NULL;
 	start_pos = data->pos;
-	current_char = data->text[data->pos];
 	delimiter = ft_strdup("");
 	if (!delimiter)
 		snuff_it(data, "Error allocating memory for delimiter", NULL, 255);
-	while (ft_iswhitespace(current_char))
-	{
+	while (ft_iswhitespace(data->text[data->pos]))
 		data->pos++;
-		current_char = data->text[data->pos];
-	}
-	if (ft_strchr("|><\n", data->text[data->pos]))
-		return (NULL);
 	while (data->text[data->pos] && !ft_strchr("|>< \n", data->text[data->pos]))
 	{
 		temp = parse_delimiter_inner(data);
-		// add_string_to_thrash_list(data, temp);
 		temp_delimiter = ft_strjoin(delimiter, temp);
 		if (!temp_delimiter)
 			snuff_it(data, "Error allocating memory for temp_delimiter", NULL,
 				255);
 		free(delimiter);
 		delimiter = temp_delimiter;
-		// free(temp);
-		// temp = NULL;
 	}
 	add_string_to_thrash_list(data, delimiter);
 	return (delimiter);

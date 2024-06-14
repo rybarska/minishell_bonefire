@@ -24,8 +24,6 @@ void	add_expanded(t_data *data, char **temp_str, char *expanded)
 		snuff_it(data, "Error allocating in add_expanded", NULL, 255);
 	add_string_to_thrash_list(data, expanded_dup);
 	temp = ft_strjoin(*temp_str, expanded_dup);
-	// free(expanded_dup);
-	// expanded_dup = NULL;
 	free(*temp_str);
 	if (!temp)
 		snuff_it(data, "Error allocating in add_expanded", NULL, 255);
@@ -48,11 +46,6 @@ void	allocate_and_expand(t_data *data, char **temp_str, char *var_name_start,
 	add_string_to_thrash_list(data, var_name);
 	ft_strlcpy(var_name, var_name_start, var_name_end - var_name_start + 1);
 	expanded = ft_getenv(data, var_name);
-	// write ft_getenv that gets it from ft_environ
-	// IF: not there, THEN: look locals
-	// move local allocs into struct & update snuff_it function
-	// free(var_name);
-	// var_name = NULL;
 	if (expanded)
 		add_expanded(data, temp_str, expanded);
 }

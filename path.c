@@ -17,13 +17,12 @@ void	get_all_cmd_paths(t_data *data)
 	int		i;
 	char	*temp;
 
-	i = 0;
+	i = -1;
 	temp = NULL;
-	while (data->ft_environ && data->ft_environ[i] != NULL)
+	while (data->ft_environ && data->ft_environ[++i] != NULL)
 	{
 		if (ft_strncmp(data->ft_environ[i], "PATH=", 5) == 0)
 			break ;
-		i++;
 	}
 	if (!data->ft_environ[i])
 		return ;

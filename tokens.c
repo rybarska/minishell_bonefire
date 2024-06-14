@@ -62,7 +62,7 @@ char	*parse_word(t_data *data)
 	return (word);
 }
 
-char	*allocate_export_string(t_data *data)
+static char	*alloc_exp(t_data *data)
 {
 	char	*word;
 	char	*allocated_string;
@@ -102,10 +102,7 @@ t_token	get_next_token(t_data *data)
 	}
 	else if (ft_strncmp(data->text + data->pos, "export", 6) == 0
 		&& (starts_next_token(data->text[data->pos + 6])))
-	{
-		data->pos += 6;
-		return ((t_token){EXPORT, allocate_export_string(data), NULL, 0});
-	}
+		return (data->pos += 6, (t_token){EXPORT, alloc_exp(data), NULL, 0});
 	else
 		return ((t_token){WORD, parse_word(data), NULL, 0});
 }
