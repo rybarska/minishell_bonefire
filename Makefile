@@ -13,6 +13,7 @@ SRC = ./main.c \
       ./tokens_quotes.c \
       ./tokens_lists.c \
       ./tokens_merge_strings.c \
+      ./vars_and_quotes.c \
       ./syntax.c \
       ./exec_utils.c \
       ./redir_utils.c \

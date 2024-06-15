@@ -34,22 +34,3 @@ int	is_substantive(t_token_type type)
 		return (1);
 	return (0);
 }
-
-void	process_vars_and_quotes(t_data *data, char **string)
-{
-	char	*expanded;
-	char	*quotes_rm;
-
-	if (ft_strchr(*string, '$'))
-	{
-		expanded = expand_arg(data, *string);
-		free(*string);
-		*string = expanded;
-	}
-	if (ft_strchr(*string, '\'') || ft_strchr(*string, '\"'))
-	{
-		quotes_rm = rm_quotes(data, *string);
-		free(*string);
-		*string = quotes_rm;
-	}
-}
