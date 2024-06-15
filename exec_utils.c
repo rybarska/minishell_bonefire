@@ -56,7 +56,6 @@ int	count_executives(t_data *data)
 	current = data->exec_list_head;
 	while (current != NULL)
 	{
-		// if (current->arguments[0] && !is_builtin(current->arguments[0]))
 		exec_counter++;
 		current = current->next;
 	}
