@@ -22,7 +22,7 @@ int	count_words(char const *s, char *delimiters)
 		return (0);
 	while (*s)
 	{
-		while (ft_strchr(delimiters, *s)
+		while (ft_strchr(delimiters, *s))
 			s++;
 		if (*s)
 			words++;
