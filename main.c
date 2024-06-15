@@ -42,8 +42,6 @@ void	read_input(t_data *data)
 	}
 	add_history(input);
 	data->text = ft_strdup(input);
-	// free(input);
-	// input = NULL;
 	if (!data->text)
 		snuff_it(data, "Error allocating memory for input\n", NULL, 255);
 	data->text_len = ft_strlen(data->text);
@@ -75,13 +73,10 @@ int	main(void)
 				//print_execs(data.exec_list_head);
 				// print_envs(data.env_vars_head);
 				if (count_executives(&data) > 0)
-				{
 					execute_execs(&data);
-					// wait_for_children(&data);
-				}
 			}
 		}
 		clean_up_data(&data);
 	}
-	return (data.last_exit_code);
+	//return (data.last_exit_code);
 }
