@@ -285,7 +285,7 @@ int								execute_builtin(t_data *data, t_exec **exec,
 /* builtins_export */
 void							execute_export(t_data *data, char **args);
 /* builtins_export_2 */
-int							is_var_in_env(t_data *data, char *name);
+int								is_var_in_env(t_data *data, char *name);
 void							update_var_in_env(t_data *data, char *name,
 									char *value);
 void							add_var_to_env(t_data *data, char *name,
@@ -310,8 +310,9 @@ void							add_string_to_thrash_list(t_data *data,
 void							init_hashtable(t_data *data);
 size_t							get_hash(char *keyvalue);
 size_t							get_hash2(char *keyvalue);
-int								store_data(t_keyvalue **hashtable, char *key, char *val);
-char 							*hash_lookup(t_keyvalue **hashtable, char *key);
-void 							free_hashtable(t_keyvalue **hashtable);
+int								store_data(t_keyvalue **hashtable,
+									char *key, char *val);
+char							*hash_lookup(t_keyvalue **hashtable, char *key);
+void							free_hashtable(t_keyvalue **hashtable);
 
 #endif
