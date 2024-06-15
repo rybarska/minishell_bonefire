@@ -15,6 +15,7 @@ SRC = ./main.c \
       ./tokens_merge_strings.c \
       ./syntax.c \
       ./exec_utils.c \
+      ./redir_utils.c \
       ./tokens_to_execs.c \
       ./tokens_to_commands.c \
       ./tokens_to_env_vars.c \
