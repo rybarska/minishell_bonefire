@@ -17,6 +17,7 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 {
 	t_token_node	*current;
 	int				i;
+	int				j;
 	char			*temp;
 
 	current = node;
@@ -32,9 +33,16 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 			temp = ft_strdup(current->value);
 			if (!temp)
 				snuff_it(data, "Error allocating memory\n", NULL, 255);
-			process_vars_and_quotes(data, &temp);
-			exec->arguments[i] = temp;
+			//process_vars_and_quotes(data, &temp);
+			//process_vars(data, &temp);
+			j = 0;
+			while (current->split_words[j])
+			{
+				exec->arguments[i] = current->split_words[j];
+			}
+			//process_quotes(data, &temp);
 			i++;
+			j++;
 		}
 		current = current->next;
 	}

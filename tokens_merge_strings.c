@@ -12,13 +12,30 @@
 
 #include "minishell.h"
 
-void	remove_space_tokens(t_token_node **head)
+void	split_and_count_strings(t_data *data)
+{
+	t_token_node	*curr;
+
+	curr = data->token_list_head;
+	while (curr)
+	{
+		if (curr->value)
+		{
+			curr->split_words = ft_split_returns(data, curr->value, &curr->num_split_words);
+			if (!curr->split_words)
+				snuff_it(data, "Error allocating memory for split\n", NULL, 255);
+		}
+		curr = curr->next;
+	}
+}
+
+void	remove_space_tokens(t_data *data)
 {
 	t_token_node	*curr;
 	t_token_node	*prev;
 	t_token_node	*temp;
 
-	curr = *head;
+	curr = data->token_list_head;
 	prev = NULL;
 	temp = NULL;
 	while (curr)
@@ -40,7 +57,7 @@ void	remove_space_tokens(t_token_node **head)
 	}
 }
 
-void	merge_token_strings(t_token_node **current, t_token_node **prev)
+void	merge_token_strings(t_data *data, t_token_node **current, t_token_node **prev)
 {
 	char	*merged_value;
 
@@ -48,7 +65,7 @@ void	merge_token_strings(t_token_node **current, t_token_node **prev)
 		return ;
 	merged_value = ft_strjoin((*prev)->value, (*current)->value);
 	if (!merged_value)
-		return ;
+		snuff_it(data, "Error allocating memory for merged value\n", NULL, 255);
 	free((*prev)->value);
 	(*prev)->value = merged_value;
 	(*prev)->type = (*current)->type;
@@ -61,39 +78,37 @@ void	merge_token_strings(t_token_node **current, t_token_node **prev)
 	*current = (*prev)->next;
 }
 
-void	check_assign_type(t_token_node **head)
+void	check_assign_type(t_data *data)
 {
 	t_token_node	*curr;
 
-	curr = *head;
+	curr = data->token_list_head;
 	while (curr)
 	{
 		if (is_substantive(curr->type) && has_unquoted_equals(curr->value))
 			curr->type = ASSIGNMENT;
-		/*if ((curr->type == EXPORT || curr->type == ASSIGNMENT)
-			&& ft_strchr(curr->value, ' '))
-			curr->split_words = ft_split(curr->value, ' ');*/
 		curr = curr->next;
 	}
 }
 
-void	merge_unseparated(t_token_node **head)
+void	merge_unseparated(t_data *data)
 {
 	t_token_node	*curr;
 	t_token_node	*prev;
 
-	curr = *head;
+	curr = data->token_list_head;
 	prev = NULL;
 	while (curr)
 	{
 		if (prev && !is_separating(prev->type) && !is_separating(curr->type))
-			merge_token_strings(&curr, &prev);
+			merge_token_strings(data, &curr, &prev);
 		else
 		{
 			prev = curr;
 			curr = curr->next;
 		}
 	}
-	check_assign_type(head);
-	remove_space_tokens(head);
+	check_assign_type(data);
+	remove_space_tokens(data);
+	split_and_count_strings(data);
 }

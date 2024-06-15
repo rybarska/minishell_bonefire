@@ -64,7 +64,7 @@ int	main(void)
 		if (check_quote_syntax(&data) == 0)
 		{
 			make_token_list(&data);
-			merge_unseparated(&data.token_list_head);
+			merge_unseparated(&data);
 			count_pipes(&data);
 			//print_tokens(data.token_list_head);
 			if (check_token_syntax(&data) == 0)

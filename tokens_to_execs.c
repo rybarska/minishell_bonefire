@@ -16,13 +16,18 @@ void	handle_command_token(t_data *data, t_token_node **temp, t_exec **exec)
 {
 	t_token_node	*current;
 	int				arg_count;
+	int				i;
 
 	current = *temp;
 	arg_count = 0;
 	while (*temp && (*temp)->value)
 	{
 		if (*temp && (is_substantive((*temp)->type) || (*temp)->type == EXPORT))
-			++arg_count;
+		{
+			i = -1;
+			while ((*temp)->split_words[++i])
+				++arg_count;
+		}
 		if (*temp && is_redirecting((*temp)->type))
 			extend_redirection_lists(data, *temp, exec);
 		*temp = (*temp)->next;

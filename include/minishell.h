@@ -205,7 +205,7 @@ void							make_token_list(t_data *data);
 void							clear_token_list(t_data *data);
 void							print_tokens(t_token_node *head);
 /* tokens_merge_strings */
-void							merge_unseparated(t_token_node **head);
+void							merge_unseparated(t_data *data);
 /* syntax */
 int								check_quote_syntax(t_data *data);
 int								check_token_syntax(t_data *data);
