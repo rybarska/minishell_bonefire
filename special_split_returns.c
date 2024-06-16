@@ -15,8 +15,8 @@
 char	*ft_substr_prot(t_data *data, char *s, int start, int len)
 {
 	char			*new_string;
-	unsigned int	i;
-	unsigned int	s_len;
+	int	i;
+	int	s_len;
 
 	i = start;
 	s_len = ft_strlen((char *)s);

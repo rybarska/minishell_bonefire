@@ -319,4 +319,6 @@ int								store_data(t_keyvalue **hashtable,
 char							*hash_lookup(t_keyvalue **hashtable, char *key);
 void							free_hashtable(t_keyvalue **hashtable);
 
+char	**ft_split_returns(t_data *data, char *str, int *elements);
+
 #endif
