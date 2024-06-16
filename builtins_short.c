@@ -12,34 +12,6 @@
 
 #include "minishell.h"
 
-void	execute_cd(t_data *data, char *dir)
-{
-	char	*home_dir;
-	char	curr_dir[PATH_MAX];
-
-	if (dir == NULL)
-	{
-		home_dir = ft_getenv(data, "HOME");
-		if (home_dir == NULL)
-		{
-			boo(data, "expected argument to \"cd\"\n", NULL, 1);
-			return ;
-		}
-		dir = home_dir;
-		data->last_exit_code = 0;
-	}
-	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
-	{
-		execute_export(data, (char *[]){"PWD", curr_dir, NULL});
-		data->last_exit_code = 0;
-	}
-	else
-	{
-		perror("cd");
-		data->last_exit_code = 1;
-	}
-}
-
 void	execute_echo(t_exec **exec)
 {
 	int	omit_newline;

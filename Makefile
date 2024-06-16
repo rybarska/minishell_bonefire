@@ -35,6 +35,7 @@ SRC = ./main.c \
       ./cleanup_utils.c \
       ./cleanup.c \
       ./builtins.c \
+      ./builtins_cd.c \
       ./builtins_export.c \
       ./builtins_export_2.c \
       ./builtins_short.c \
