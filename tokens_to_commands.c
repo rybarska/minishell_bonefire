@@ -38,6 +38,7 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 		current = current->next;
 	}
 	exec->arguments[i] = NULL;
+	//printf("array[0]: %s, array[1]: %s, array[2]: %s\n", exec->arguments[0], exec->arguments[1], exec->arguments[2]);
 }
 
 void	look_for_path(t_data *data, t_exec **exec, char *command)
@@ -74,15 +75,16 @@ void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
 	if (node && node->value && (is_substantive(node->type)
 			|| node->type == EXPORT))
 	{
-		temp = ft_strdup(node->value);
+		//temp = ft_strdup(node->value);
+		make_cmd_array(data, node, arg_count, *exec);
+		//process_vars_and_quotes(data, &temp);
+		temp = ft_strdup((*exec)->arguments[0]);
 		if (!temp)
 			snuff_it(data, "Error duplicating string\n", NULL, 255);
-		process_vars_and_quotes(data, &temp);
 		(*exec)->name = temp;
 		if (is_builtin(temp))
 			(*exec)->cmd_exec_path = NULL;
 		else
 			look_for_path(data, exec, temp);
-		make_cmd_array(data, node, arg_count, *exec);
 	}
 }
