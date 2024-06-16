@@ -74,7 +74,7 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 	int		delimiter_len;
 
 	delimiter_len = ft_strlen(redir->delimiter);
-	buffer = get_next_line(0);
+	buffer = get_next_line(data, 0);
 	while (buffer != NULL)
 	{
 		if ((g_o_on == 2) || (ft_strlen(buffer) == delimiter_len
@@ -90,7 +90,7 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 			snuff_it(data, "Error writing to here_doc\n", NULL, 255);
 		}
 		free(buffer);
-		buffer = get_next_line(0);
+		buffer = get_next_line(data, 0);
 	}
 	free(buffer);
 	if (g_o_on == 2)

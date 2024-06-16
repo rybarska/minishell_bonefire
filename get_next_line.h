@@ -16,8 +16,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+#include "minishell.h"
 
-char	*get_next_line(int fd);
+char	*get_next_line(t_data *data, int fd);
 void	*ft_memmove(void *to, const void *from, size_t n);
 char	*ft_strdup(const char *s);
 char	*ft_strjoin(char const *s1, char const *s2);

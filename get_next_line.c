@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include "minishell.h"
 
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 {
@@ -31,15 +32,16 @@ unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
 	return (length);
 }
 
-ssize_t	read_to_keeper(int fd, char **state_keeper)
+ssize_t	read_to_keeper(t_data *data, int fd, char **state_keeper)
 {
 	char	*buffer;
 	char	*temp;
 	ssize_t	readout;
 
+	temp = NULL;
 	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)
-		return (-1);
+		snuff_it(data, "Error allocating in get_next_line\n", NULL, 255);
 	readout = 0;
 	while (!ft_strchr(*state_keeper, '\n'))
 	{
@@ -48,6 +50,8 @@ ssize_t	read_to_keeper(int fd, char **state_keeper)
 			break ;
 		buffer[readout] = '\0';
 		temp = ft_strjoin(*state_keeper, buffer);
+		if (!temp)
+			snuff_it(data, "Error allocating in get_next_line\n", NULL, 255);
 		free(*state_keeper);
 		*state_keeper = temp;
 	}
@@ -55,7 +59,7 @@ ssize_t	read_to_keeper(int fd, char **state_keeper)
 	return (readout);
 }
 
-char	*cut_line_from_keeper(char **state_keeper)
+char	*cut_line_from_keeper(t_data *data, char **state_keeper)
 {
 	char	*line;
 	char	*found_newline;
@@ -71,7 +75,7 @@ char	*cut_line_from_keeper(char **state_keeper)
 		line_len = ft_strlen(*state_keeper) - rest_of_keeper;
 		line = (char *)malloc(sizeof(char) * (line_len));
 		if (!line)
-			return (NULL);
+			snuff_it(data, "Error allocating in get_next_line\n", NULL, 255);
 		ft_strlcpy(line, *state_keeper, line_len);
 		ft_memmove(*state_keeper, found_newline + 1, rest_of_keeper + 1);
 	}
@@ -79,12 +83,12 @@ char	*cut_line_from_keeper(char **state_keeper)
 	{
 		line = ft_strdup(*state_keeper);
 		if (!line)
-			return (NULL);
+			snuff_it(data, "Error allocating in get_next_line\n", NULL, 255);
 	}
 	return (line);
 }
 
-char	*get_next_line(int fd)
+char	*get_next_line(t_data *data, int fd)
 {
 	static char	*state_keeper;
 	ssize_t		result;
@@ -99,10 +103,11 @@ char	*get_next_line(int fd)
 		if (!state_keeper)
 			return (NULL);
 	}
-	result = read_to_keeper(fd, &state_keeper);
+	result = read_to_keeper(data, fd, &state_keeper);
 	if (result < 0)
-		return (free(state_keeper), state_keeper = NULL, NULL);
-	line = cut_line_from_keeper(&state_keeper);
+		return (free(state_keeper), state_keeper = NULL, 
+			snuff_it(data, "Error reading in get_next_line\n", NULL, 255), NULL);
+	line = cut_line_from_keeper(data, &state_keeper);
 	if (!(ft_strchr(line, '\n')))
 	{
 		free(state_keeper);
