@@ -12,18 +12,24 @@
 
 #include "minishell.h"
 
-void	split_and_count_strings(t_data *data)
+void	expand_and_split_and_process_quotes(t_data *data)
 {
 	t_token_node	*curr;
+	int				i;
 
 	curr = data->token_list_head;
 	while (curr)
 	{
 		if (curr->value)
 		{
-			curr->split_words = ft_split_returns(data, curr->value, &curr->num_split_words);
+			process_vars(data, &curr->value);
+			curr->split_words = ft_split_returns(data,
+					curr->value, &curr->num_split_words);
 			if (!curr->split_words)
-				snuff_it(data, "Error allocating memory for split\n", NULL, 255);
+				snuff_it(data, "Error allocating for split\n", NULL, 255);
+			i = -1;
+			while (curr->split_words[i])
+				process_quotes(data, &curr->split_words[++i]);
 		}
 		curr = curr->next;
 	}
@@ -57,7 +63,8 @@ void	remove_space_tokens(t_data *data)
 	}
 }
 
-void	merge_token_strings(t_data *data, t_token_node **current, t_token_node **prev)
+void	merge_token_strings(t_data *data, t_token_node **current,
+		t_token_node **prev)
 {
 	char	*merged_value;
 
@@ -110,5 +117,5 @@ void	merge_unseparated(t_data *data)
 	}
 	check_assign_type(data);
 	remove_space_tokens(data);
-	split_and_count_strings(data);
+	expand_and_split_and_process_quotes(data);
 }
