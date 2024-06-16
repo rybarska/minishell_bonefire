@@ -38,7 +38,6 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 		current = current->next;
 	}
 	exec->arguments[i] = NULL;
-	//printf("array[0]: %s, array[1]: %s, array[2]: %s\n", exec->arguments[0], exec->arguments[1], exec->arguments[2]);
 }
 
 void	look_for_path(t_data *data, t_exec **exec, char *command)
