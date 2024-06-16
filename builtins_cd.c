@@ -16,7 +16,7 @@ void	update_env_vars(t_data *data, char *old_dir)
 {
 	char	curr_dir[PATH_MAX];
 
-	execute_export(data, (char *[]){"OLDPWD", old_dir, NULL});	
+	execute_export(data, (char *[]){"OLDPWD", old_dir, NULL});
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
 	{
 		execute_export(data, (char *[]){"PWD", curr_dir, NULL});
@@ -51,7 +51,6 @@ void	change_directory(t_data *data, char *dir)
 void	execute_cd(t_data *data, char *dir)
 {
 	char	*home_dir;
-
 
 	if (dir == NULL)
 	{
