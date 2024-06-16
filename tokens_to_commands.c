@@ -26,16 +26,14 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 	if (!exec->arguments)
 		snuff_it(data, "Error allocating memory for exec args\n", NULL, 255);
 	i = 0;
-	while (i < arg_count && current != NULL && current->value != NULL)
+	while (i < arg_count && current != NULL && current->split_words != NULL)
 	{
-		if (is_substantive(current->type) || current->type == EXPORT)
+		j = 0;
+		while (current->split_words[j])
 		{
-			temp = ft_strdup(current->value);
-			if (!temp)
+			exec->arguments[i++] = ft_strdup(current->split_words[j++]);
+			if (!exec->arguments[i - 1])
 				snuff_it(data, "Error allocating memory\n", NULL, 255);
-			j = 0;
-			while (current->split_words[j])
-				exec->arguments[i++] = current->split_words[j++];
 		}
 		current = current->next;
 	}
