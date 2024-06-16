@@ -28,8 +28,8 @@ void	expand_and_split_and_process_quotes(t_data *data)
 			if (!curr->split_words)
 				snuff_it(data, "Error allocating for split\n", NULL, 255);
 			i = -1;
-			while (curr->split_words[i])
-				process_quotes(data, &curr->split_words[++i]);
+			while (curr->split_words[++i])
+				process_quotes(data, &curr->split_words[i]);
 		}
 		curr = curr->next;
 	}
