@@ -23,7 +23,8 @@ void	expand_and_split_and_process_quotes(t_data *data)
 		if (curr->value)
 		{
 			process_vars(data, &curr->value);
-			curr->split_words = ft_split_returns(data, curr->value, &curr->num_split_words);
+			curr->split_words = ft_split_returns(data,
+					curr->value, &curr->num_split_words);
 			if (!curr->split_words)
 				snuff_it(data, "Error allocating for split\n", NULL, 255);
 			i = -1;
