@@ -75,9 +75,7 @@ void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
 	if (node && node->value && (is_substantive(node->type)
 			|| node->type == EXPORT))
 	{
-		//temp = ft_strdup(node->value);
 		make_cmd_array(data, node, arg_count, *exec);
-		//process_vars_and_quotes(data, &temp);
 		temp = ft_strdup((*exec)->arguments[0]);
 		if (!temp)
 			snuff_it(data, "Error duplicating string\n", NULL, 255);
