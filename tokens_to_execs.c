@@ -16,7 +16,6 @@ void	handle_command_token(t_data *data, t_token_node **temp, t_exec **exec)
 {
 	t_token_node	*current;
 	int				arg_count;
-	int				i;
 
 	current = *temp;
 	arg_count = 0;
