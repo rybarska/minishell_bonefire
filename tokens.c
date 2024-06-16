@@ -81,15 +81,15 @@ static char	*alloc_exp(t_data *data)
 t_token	get_next_token(t_data *data)
 {
 	if (data->pos >= data->text_len)
-		return ((t_token){EOF_TOKEN, NULL, NULL, 0});
+		return ((t_token){EOF_TOKEN, NULL});
 	else if (data->text[data->pos] == '\'')
-		return ((t_token){SINGLE_QUOTE, parse_single_quotes(data), NULL, 0});
+		return ((t_token){SINGLE_QUOTE, parse_single_quotes(data)});
 	else if (data->text[data->pos] == '\"')
-		return ((t_token){DOUBLE_QUOTE, parse_double_quotes(data), NULL, 0});
+		return ((t_token){DOUBLE_QUOTE, parse_double_quotes(data)});
 	else if (data->text[data->pos] == '$')
-		return ((t_token){VAR, parse_var(data), NULL, 0});
+		return ((t_token){VAR, parse_var(data)});
 	else if (data->text[data->pos] == '|')
-		return (data->pos++, (t_token){PIPE, NULL, NULL, 0});
+		return (data->pos++, (t_token){PIPE, NULL});
 	else if (data->text[data->pos] == '<')
 		return (parse_in_redirections(data));
 	else if (data->text[data->pos] == '>')
@@ -98,11 +98,11 @@ t_token	get_next_token(t_data *data)
 	{
 		while (ft_iswhitespace(data->text[data->pos]))
 			data->pos++;
-		return ((t_token){WHITESPACE, NULL, NULL, 0});
+		return ((t_token){WHITESPACE, NULL});
 	}
 	else if (ft_strncmp(data->text + data->pos, "export", 6) == 0
 		&& (starts_next_token(data->text[data->pos + 6])))
-		return (data->pos += 6, (t_token){EXPORT, alloc_exp(data), NULL, 0});
+		return (data->pos += 6, (t_token){EXPORT, alloc_exp(data)});
 	else
-		return ((t_token){WORD, parse_word(data), NULL, 0});
+		return ((t_token){WORD, parse_word(data)});
 }

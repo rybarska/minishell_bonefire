@@ -66,8 +66,6 @@ typedef struct s_token
 {
 	t_token_type				type;
 	char						*value;
-	char						**split_words;
-	int							num_split_words;
 }								t_token;
 
 typedef struct s_token_node
@@ -188,12 +186,18 @@ char							*ft_getenv(t_data *data, char *name);
 int								has_unquoted_equals(char *str);
 void							count_pipes(t_data *data);
 void							wait_for_children(t_data *data);
+
 /* tokens_utils */
 int								is_separating(t_token_type type);
 int								is_redirecting(t_token_type type);
 int								is_substantive(t_token_type type);
+
+/* vars_and_quotes */
 void							process_vars_and_quotes(t_data *data,
 									char **string);
+void							process_vars(t_data *data, char **string);
+void							process_quotes(t_data *data, char **string);
+
 /* execs_utils */
 t_exec							*make_empty_exec(t_data *data);
 void							exec_lstadd_back(t_exec **lst, t_exec *new);

@@ -49,14 +49,14 @@ t_token	parse_in_redirections(t_data *data)
 		while (ft_iswhitespace(data->text[data->pos]))
 			data->pos++;
 		delimiter = parse_delimiter(data);
-		return ((t_token){HEREDOC, delimiter, NULL, 0});
+		return ((t_token){HEREDOC, delimiter});
 	}
 	else
 	{
 		while (ft_iswhitespace(data->text[data->pos]))
 			data->pos++;
 		infile_name = parse_filename(data);
-		return ((t_token){INFILE, infile_name, NULL, 0});
+		return ((t_token){INFILE, infile_name});
 	}
 }
 
@@ -71,13 +71,13 @@ t_token	parse_out_redirections(t_data *data)
 		while (ft_iswhitespace(data->text[data->pos]))
 			data->pos++;
 		outfile_name = parse_filename(data);
-		return ((t_token){APPEND, outfile_name, NULL, 0});
+		return ((t_token){APPEND, outfile_name});
 	}
 	else
 	{
 		while (ft_iswhitespace(data->text[data->pos]))
 			data->pos++;
 		outfile_name = parse_filename(data);
-		return ((t_token){TRUNCATE, outfile_name, NULL, 0});
+		return ((t_token){TRUNCATE, outfile_name});
 	}
 }
