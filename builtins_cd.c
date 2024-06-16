@@ -16,7 +16,7 @@ void	update_env_vars(t_data *data, char *old_dir)
 {
 	char	curr_dir[PATH_MAX];
 	char	*res;
-	
+
 	res = ft_strjoin("OLDPWD=", old_dir);
 	if (!res)
 		snuff_it(data, "Error allocating for dir name\n", NULL, 255);
