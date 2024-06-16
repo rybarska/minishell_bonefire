@@ -29,6 +29,9 @@ int	update_env_var_in_list(t_data *data, char *name, char *value,
 				if (current->value)
 					free(current->value);
 				current->value = ft_strdup(value);
+				if (!current->value)
+					snuff_it(data, "Error allocating in update_var_to_env\n",
+						NULL, 255);
 			}
 			current->is_exported = is_exported;
 			return (1);
