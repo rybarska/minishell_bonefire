@@ -48,6 +48,8 @@ static char	*parse_delimiter_inner(t_data *data)
 			temp = ft_strdup("");
 		else
 			temp = ft_strdup("$");
+		if (!temp)
+			snuff_it(data, "Error allocating for delimiter\n", NULL, 255);
 		add_string_to_thrash_list(data, temp);
 	}
 	else
