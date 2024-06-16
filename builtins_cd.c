@@ -16,10 +16,12 @@ void	update_env_vars(t_data *data, char *old_dir)
 {
 	char	curr_dir[PATH_MAX];
 
-	execute_export(data, (char *[]){"OLDPWD", old_dir, NULL});
+	char *res = ft_strjoin("OLDPWD=", old_dir);
+	execute_export(data, (char *[]){"export", res, NULL});
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
 	{
-		execute_export(data, (char *[]){"PWD", curr_dir, NULL});
+		res = ft_strjoin("PWD=", curr_dir);
+		execute_export(data, (char *[]){"export", res, NULL});
 		data->last_exit_code = 0;
 	}
 	else
