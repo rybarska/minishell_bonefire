@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/17 20:52:41 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 21:04:37 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ typedef struct s_data
 	int							pipe_num;
 	t_thrash_node				*thrash_list_head;
 	t_keyvalue					**hashtab;
-	bool						clear_hashtab;
 }								t_data;
 
 void							print_execs(t_exec *execs);

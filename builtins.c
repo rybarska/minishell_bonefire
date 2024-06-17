@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 22:50:41 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:30:41 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 21:05:27 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static void	execute_unset(t_data *data, char **var_to_kill)
 		return (boo(data, "unset: Not enough arguments\n", NULL, 1));
 	while (var_to_kill[i] != NULL)
 	{
+		if (ft_strcmp(var_to_kill[i], "PATH") == 0)
+			free_hashtable(data->hashtab, false);
 		remove_from_env(data, var_to_kill[i]);
 		i++;
 	}

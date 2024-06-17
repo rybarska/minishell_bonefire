@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/17 20:51:33 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 21:07:56 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,13 +108,11 @@ void	free_hashtable(t_keyvalue **hashtable, bool end_flag)
 		{
 			free(proxy->key);
 			free(proxy->val);
-			proxy->key = NULL;
-			proxy->val = NULL;
 			prev = proxy;
 			proxy = proxy->next;
-			if (end_flag)
-				free(prev);
+			free(prev);
 		}
+		hashtable[index] = NULL;
 		index++;
 	}
 	if (end_flag)
