@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 19:24:33 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 21:04:37 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,7 @@ size_t							get_hash2(char *keyvalue);
 int								store_data(t_keyvalue **hashtable,
 									char *key, char *val);
 char							*hash_lookup(t_keyvalue **hashtable, char *key);
-void							free_hashtable(t_keyvalue **hashtable);
+void							free_hashtable(t_keyvalue **hashtable, bool end_flag);
 
 char							**ft_split_returns(t_data *data,
 									char *str, int *elements);
