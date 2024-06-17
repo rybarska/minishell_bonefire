@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/17 21:07:56 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 21:30:27 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 	t_keyvalue	*new;
 	size_t		index;
 
+	index = get_hash(key);
+	if (hashtable[index])
+		return (1);
 	new = malloc(sizeof(t_keyvalue));
 	if (!new)
 		return (0);
@@ -69,7 +72,6 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 	if (!new->val)
 		return (free(new->key), free(new), 0);
 	new->hash2 = get_hash2(key);
-	index = get_hash(key);
 	new->next = hashtable[index];
 	hashtable[index] = new;
 	return (1);
