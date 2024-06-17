@@ -30,7 +30,7 @@ int	is_redirecting(t_token_type type)
 int	is_substantive(t_token_type type)
 {
 	if (type == WORD || type == VAR || type == SINGLE_QUOTE
-		|| type == DOUBLE_QUOTE || type == ASSIGNMENT)
+		|| type == DOUBLE_QUOTE || type == ASSIGNMENT || type == EXPORT)
 		return (1);
 	return (0);
 }
