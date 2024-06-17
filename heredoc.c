@@ -13,11 +13,11 @@
 #include "get_next_line.h"
 #include "minishell.h"
 
-static void	process_heredoc_vars(t_data *data, char **string)
+static void	process_heredoc_vars(t_data *data, t_redirection *redir, char **string)
 {
 	char	*expanded;
 
-	if (ft_strchr(*string, '$'))
+	if (ft_strchr(*string, '$') && !(redir->has_quotes))
 	{
 		expanded = heredoc_expand_var(data, *string);
 		free(*string);
@@ -80,7 +80,7 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 		if ((g_o_on == 2) || (ft_strlen(buffer) == delimiter_len
 				&& ft_strncmp(buffer, redir->delimiter, delimiter_len) == 0))
 			break ;
-		process_heredoc_vars(data, &buffer);
+		process_heredoc_vars(data, redir, &buffer);
 		if ((write(redir->fd, buffer, ft_strlen(buffer)) < 0)
 			|| (write(redir->fd, "\n", 1) < 0))
 		{

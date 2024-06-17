@@ -67,6 +67,7 @@ void	extend_redirection_lists(t_data *data, t_token_node *temp,
 	new_rdr->delimiter = NULL;
 	set_rdr_file_or_delimiter(data, temp, new_rdr);
 	new_rdr->fd = -1;
+	new_rdr->has_quotes = temp->has_quotes;
 	new_rdr->next = NULL;
 	if (new_rdr->type == 6 || new_rdr->type == 9)
 		redir_lstadd_back(&((*exec)->in_redirs), new_rdr);

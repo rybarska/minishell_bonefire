@@ -74,6 +74,7 @@ typedef struct s_token_node
 	char						*value;
 	char						**split_words;
 	int							num_split_words;
+	int					has_quotes;
 	struct s_token_node			*previous;
 	struct s_token_node			*next;
 }								t_token_node;
@@ -84,6 +85,7 @@ typedef struct s_redirection
 	char						*file;
 	char						*delimiter;
 	int							fd;
+	int							has_quotes;
 	struct s_redirection		*previous;
 	struct s_redirection		*next;
 }								t_redirection;
@@ -151,6 +153,7 @@ typedef struct s_data
 	int							temp2_fd;
 	int							is_s_quoted;
 	int							is_d_quoted;
+	int							has_quotes;
 	pid_t						pid;
 	int							last_exit_code;
 	t_process					*child_list_head;

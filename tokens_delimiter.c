@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+static char	*parse_single_quotes_delimiter(t_data *data)
+{
+	int		start_pos;
+	char	*word;
+
+	data->pos++;
+	start_pos = data->pos;
+	while (data->text[data->pos] != '\0' && data->text[data->pos] != '\'')
+		data->pos++;
+	if (data->text[data->pos] == '\'')
+		data->pos++;
+	word = ft_substr(data->text, start_pos, data->pos - 1 - start_pos);
+	if (!word)
+		snuff_it(data, "Error allocating memory for delimiter\n", NULL, 255);
+	add_string_to_thrash_list(data, word);
+	return (word);
+}
+
 static char	*parse_double_quotes_delimiter(t_data *data)
 {
 	int		start_pos;
@@ -25,7 +43,7 @@ static char	*parse_double_quotes_delimiter(t_data *data)
 		data->pos++;
 	word = ft_substr(data->text, start_pos, data->pos - 1 - start_pos);
 	if (!word)
-		snuff_it(data, "Error allocating memory for delimiter", NULL, 255);
+		snuff_it(data, "Error allocating memory for delimiter\n", NULL, 255);
 	add_string_to_thrash_list(data, word);
 	return (word);
 }
@@ -35,8 +53,10 @@ static char	*parse_delimiter_inner(t_data *data)
 	char	*temp;
 
 	temp = NULL;
+	if (data->text[data->pos] == '\'' || data->text[data->pos] == '\"')
+		data->has_quotes = 1;
 	if (data->text[data->pos] == '\'')
-		temp = parse_single_quotes(data);
+		temp = parse_single_quotes_delimiter(data);
 	else if (data->text[data->pos] == '\"')
 		temp = parse_double_quotes_delimiter(data);
 	else if (ft_isalnum_or_(data->text[data->pos]))

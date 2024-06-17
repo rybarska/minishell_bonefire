@@ -48,6 +48,7 @@ static t_token_node	*create_token_node(t_data *data, t_token *new_token)
 	}
 	new_node->split_words = NULL;
 	new_node->num_split_words = 0;
+	new_node->has_quotes = data->has_quotes;
 	new_node->previous = NULL;
 	new_node->next = NULL;
 	return (new_node);
@@ -78,6 +79,7 @@ void	make_token_list(t_data *data)
 	new_token.type = WHITESPACE;
 	while (1)
 	{
+		data->has_quotes = 0;
 		new_token = get_next_token(data);
 		new_node = create_token_node(data, &new_token);
 		add_token_node(data, new_node);
