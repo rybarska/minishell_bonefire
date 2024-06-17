@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/12 22:23:48 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 20:51:33 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ char	*hash_lookup(t_keyvalue **hashtable, char *key)
 		return (NULL);
 }
 
-void	free_hashtable(t_keyvalue **hashtable)
+void	free_hashtable(t_keyvalue **hashtable, bool end_flag)
 {
 	size_t		index;
 	t_keyvalue	*proxy;
@@ -108,13 +108,17 @@ void	free_hashtable(t_keyvalue **hashtable)
 		{
 			free(proxy->key);
 			free(proxy->val);
+			proxy->key = NULL;
+			proxy->val = NULL;
 			prev = proxy;
 			proxy = proxy->next;
-			free(prev);
+			if (end_flag)
+				free(prev);
 		}
 		index++;
 	}
-	free(hashtable);
+	if (end_flag)
+		free(hashtable);
 }
 
 // size_t	get_hash(char *keyvalue)

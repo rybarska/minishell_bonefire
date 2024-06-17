@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:41:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 15:36:44 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 20:43:55 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	init_hashtable(t_data *data)
 		ft_putstr_fd("Error: malloc failure at hashtable creation\n", 2);
 		exit(255);
 	}
+	data->clear_hashtab = false;
 	data->child_list_head = NULL;
 	data->child_list_tail = NULL;
 	data->env_vars_head = NULL;
