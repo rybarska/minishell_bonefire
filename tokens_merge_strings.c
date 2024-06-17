@@ -20,7 +20,7 @@ void	expand_and_split_and_process_quotes(t_data *data)
 	curr = data->token_list_head;
 	while (curr)
 	{
-		if (curr->value && is_substantive(curr->type))
+		if (curr->value)
 		{
 			process_vars(data, &curr->value);
 			curr->split_words = ft_split_returns(data,

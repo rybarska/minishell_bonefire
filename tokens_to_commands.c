@@ -29,7 +29,8 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 	while (i < arg_count && current != NULL)
 	{
 		j = 0;
-		while (current->split_words != NULL && current->split_words[j])
+		while (current->split_words != NULL && current->split_words[j]
+			&& is_substantive(current->type))
 		{
 			exec->arguments[i++] = ft_strdup(current->split_words[j++]);
 			if (!exec->arguments[i - 1])
