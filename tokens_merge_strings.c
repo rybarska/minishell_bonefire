@@ -12,35 +12,15 @@
 
 #include "minishell.h"
 
-int	is_delim_with_quotes(t_token_node *node)
+/*int	is_delim_with_quotes(t_token_node *node)
 {
-	char	*delimiter;
-
-	delimiter = NULL;
-	if (node->type == HEREDOC)
-	{
-		delimiter = node->value;
-		while (*delimiter)
-		{
-			if (*delimiter == '\"' || *delimiter == '\'')
-				return (1);
-			delimiter++;
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
 	while (data->text[data->pos] && !ft_strchr("|>< \n", data->text[data->pos]))
 	{
 		if (data->text[data->pos] == '\"' || data->text[data->pos] == '\'')
 			return (1);
 	}
 	return (0);
-}
+}*/
 
 void	expand_and_split_and_process_quotes(t_data *data)
 {
@@ -50,7 +30,7 @@ void	expand_and_split_and_process_quotes(t_data *data)
 	curr = data->token_list_head;
 	while (curr)
 	{
-		if (curr->value)
+		if (curr->value && is_substantive(curr->type))
 		{
 			process_vars(data, &curr->value);
 			curr->split_words = ft_split_returns(data,
