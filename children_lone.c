@@ -70,7 +70,7 @@ void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
 		execute_lone_builtin(data, exec);
 	else if ((*exec)->arguments)
 	{
-		printf("we have: %s\n", (*exec)->arguments[0]);
+		//printf("we have: %s\n", (*exec)->arguments[0]);
 		execute_lone_external(data, exec);
 		wait_for_children(data);
 	}
