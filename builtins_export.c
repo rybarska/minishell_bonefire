@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/20 21:28:12 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:25:02 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/17 21:03:54 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ static void	set_env_var(t_data *data, char *name, char *value)
 	char	*final_value;
 
 	temp = NULL;
+	if (ft_strcmp(name, "PATH") == 0)
+		free_hashtable(data->hashtab, false);
 	final_value = get_or_duplicate_value(data, name, value);
 	if (!final_value)
 		return ;
