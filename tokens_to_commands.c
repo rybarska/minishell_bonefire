@@ -35,7 +35,7 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 			exec->arguments[i++] = ft_strdup(current->split_words[j++]);
 			if (!exec->arguments[i - 1])
 				snuff_it(data, "Error allocating memory\n", NULL, 255);
-			dprintf(2, "dup happened");
+			//dprintf(2, "dup happened");
 		}
 		current = current->next;
 	}

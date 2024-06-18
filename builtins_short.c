@@ -61,8 +61,20 @@ void	execute_env(t_data *data, char **args)
 
 void	execute_exit(t_data *data, char **args)
 {
-	if (args && args[1])
-		data->last_exit_code = ft_atoi(args[1]);
+	if (args && args[1][0] && args[2])
+	{
+		boo(data, "too many arguments\n", "exit", 1);
+		data->last_exit_code = 1;
+		return ;
+	}
+	else if (args && args[1])
+	{
+		data->last_exit_code = get_input_num(args[1]);
+		if (data->last_exit_code == -264)
+			boo(data, "numeric argument required\n", args[1], 2);
+		else if (data->last_exit_code < 0 || data->last_exit_code > 255)
+			boo(data, "Number outside range (0 to 255)\n", args[1], 69);
+	}
 	exit_like_a_boss(data, data->last_exit_code);
 }
 

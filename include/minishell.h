@@ -32,6 +32,8 @@ extern volatile sig_atomic_t	g_o_on;
 
 extern char						**environ;
 
+# define MAX_INT 2147483647
+# define MIN_INT -2147483648
 # define MAX_FILENAME_LEN 42
 # define MAX_PATH_LEN 1024
 # define HISTORY_SIZE 100
@@ -309,6 +311,8 @@ void							execute_pwd(t_data *data);
 /* signals */
 void							set_signal_controls(t_data *data);
 void							set_mode(t_data *data, t_signal_mode mode);
+/* num_check */
+int							get_input_num(char *numstr);
 /* thrash list */
 void							clear_thrash_list(t_data *data);
 void							add_string_to_thrash_list(t_data *data,

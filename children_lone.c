@@ -36,7 +36,7 @@ static void	execute_lone_external(t_data *data, t_exec **exec)
 
 static void	execute_lone_builtin(t_data *data, t_exec **exec)
 {
-	if (ft_strcmp((*exec)->arguments[0], "exit") == 0)
+	if (ft_strcmp((*exec)->arguments[0], "exit") == 0 && !(*exec)->arguments[2])
 	{
 		close_fd_set_minus1(&data->temp1_fd);
 		close_fd_set_minus1(&data->temp2_fd);
@@ -74,7 +74,7 @@ void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
 		execute_lone_external(data, exec);
 		wait_for_children(data);
 	}
-	if (dup2(data->temp1_fd, STDIN_FILENO))
+	if (dup2(data->temp1_fd, STDIN_FILENO) < 0)
 		close_temps_and_snuff_it(data, exec);
 	if (dup2(data->temp2_fd, STDOUT_FILENO) < 0)
 		close_temps_and_snuff_it(data, exec);

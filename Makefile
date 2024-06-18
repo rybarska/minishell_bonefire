@@ -40,6 +40,7 @@ SRC = ./main.c \
       ./builtins_export_2.c \
       ./builtins_short.c \
       ./signals.c \
+      ./num_check.c \
       ./thrash_list.c \
       ./hashing.c \
       ./special_split_returns.c \
