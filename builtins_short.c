@@ -71,9 +71,9 @@ void	execute_exit(t_data *data, char **args)
 	{
 		data->last_exit_code = get_input_num(args[1]);
 		if (data->last_exit_code == -264)
-			boo(data, "numeric argument required\n", args[1], 2);
+			boo(data, "numeric argument required\n", "exit", 2);
 		else if (data->last_exit_code < 0 || data->last_exit_code > 255)
-			boo(data, "Number outside range (0 to 255)\n", args[1], 69);
+			boo(data, "Number outside range (0 to 255)\n", "exit", 69);
 	}
 	exit_like_a_boss(data, data->last_exit_code);
 }
