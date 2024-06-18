@@ -25,8 +25,9 @@ static void	handle_sigint(int signal_number)
 static void	heredoc_sigint(int signal_number)
 {
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	printf("number is: %d\n", signal_number);
+	//printf("number is: %d\n", signal_number);
 	g_o_on = signal_number;
+	//printf("g_o_on is: %d\n", g_o_on);
 }
 
 void	set_signal_controls(t_data *data)

@@ -92,9 +92,9 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 		free(buffer);
 		buffer = get_next_line(data, 0);
 	}
+	if (buffer == NULL)
+		printf("warning: here-document delimited by end-of-file\n");
 	free(buffer);
-	if (g_o_on == 2)
-		g_o_on = 0;
 }
 
 void	get_heredoc(t_data *data, t_redirection **redir)
@@ -102,5 +102,11 @@ void	get_heredoc(t_data *data, t_redirection **redir)
 	set_mode(data, HERE_DOC);
 	init_temp_file(data, *redir);
 	write_temp_file(data, *redir);
+	if (g_o_on == 2)
+	{
+		data->last_exit_code = 130;
+		g_o_on = 0;
+		exit_like_a_boss(data, data->last_exit_code);
+	}
 	close_fd_set_minus1(&(*redir)->fd);
 }
