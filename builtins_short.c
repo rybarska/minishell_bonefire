@@ -61,7 +61,7 @@ void	execute_env(t_data *data, char **args)
 
 void	execute_exit(t_data *data, char **args)
 {
-	if (args && args[1][0] && args[2])
+	if (args && args[1] && args[1][0] && args[2])
 	{
 		boo(data, "too many arguments\n", "exit", 1);
 		data->last_exit_code = 1;
