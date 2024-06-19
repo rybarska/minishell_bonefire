@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:38:22 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:27:53 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/19 21:16:48 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	wait_for_children(t_data *data)
 		hehe = waitpid(current->child_pid, &current->status, WUNTRACED);
 		if (hehe < 0)
 		{
-			dprintf(2, "hehe is: %d\n", hehe);
+			//dprintf(2, "hehe is: %d\n", hehe);
 			snuff_it(data, "Error: waitpid failed\n", NULL, 255);
 		}
 		if (WIFSIGNALED(current->status))

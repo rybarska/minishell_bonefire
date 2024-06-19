@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:44:46 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:25:26 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/19 21:23:27 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	execute_external_or_builtin(t_data *data, t_exec *exec)
 	process_in_files(data, &exec);
 	process_out_files(data, &exec);
 	if (!exec->arguments)
-		return ;
+		exit_like_a_boss(data, data->last_exit_code);
 	if (is_builtin(exec->arguments[0]))
 	{
 		if (execute_builtin(data, &exec, exec->arguments[0]) != 0)
