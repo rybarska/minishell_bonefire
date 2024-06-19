@@ -107,6 +107,5 @@ void	get_heredoc(t_data *data, t_redirection **redir)
 	{
 		data->last_exit_code = 130;
 		g_o_on = 0;
-		exit_like_a_boss(data, data->last_exit_code);
 	}
 }
