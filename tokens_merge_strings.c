@@ -12,16 +12,6 @@
 
 #include "minishell.h"
 
-/*int	is_delim_with_quotes(t_token_node *node)
-{
-	while (data->text[data->pos] && !ft_strchr("|>< \n", data->text[data->pos]))
-	{
-		if (data->text[data->pos] == '\"' || data->text[data->pos] == '\'')
-			return (1);
-	}
-	return (0);
-}*/
-
 void	expand_and_split_and_process_quotes(t_data *data)
 {
 	t_token_node	*curr;
@@ -30,11 +20,13 @@ void	expand_and_split_and_process_quotes(t_data *data)
 	curr = data->token_list_head;
 	while (curr)
 	{
-		if (curr->value && is_substantive(curr->type))
+		if (is_substantive(curr->type) && curr->value)
 		{
 			process_vars(data, &curr->value);
 			curr->split_words = ft_split_returns(data,
 					curr->value, &curr->num_split_words);
+			//curr->split_words = ft_split_bonefire(data,
+			//		curr->value, &curr->num_split_words);
 			if (!curr->split_words)
 				snuff_it(data, "Error allocating for split\n", NULL, 255);
 			i = -1;

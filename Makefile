@@ -44,6 +44,7 @@ SRC = ./main.c \
       ./thrash_list.c \
       ./hashing.c \
       ./special_split_returns.c \
+      ./ft_split_bonefire.c \
 
 OBJ = $(SRC:%.c=%.o)
 

@@ -328,5 +328,7 @@ void							free_hashtable(t_keyvalue **hashtable, bool end_flag);
 
 char							**ft_split_returns(t_data *data,
 									char *str, int *elements);
+char							**ft_split_bonefire(t_data *data,
+									char *str, int *elements);
 
 #endif
