@@ -89,7 +89,7 @@ void	execute_pwd(t_data *data)
 	}
 	else
 	{
+		data->last_exit_code = 1;
 		perror("pwd");
-		boo(data, NULL, NULL, 1);
 	}
 }
