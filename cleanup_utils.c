@@ -17,7 +17,7 @@ void	close_fd_set_minus1(int *fd)
 	if (fd != NULL && *fd != -1)
 	{
 		if (close(*fd) < 0)
-			perror("Error closing file descriptor\n");
+			perror("file descriptor");
 		*fd = -1;
 	}
 }
