@@ -36,39 +36,27 @@ void	update_env_vars(t_data *data, char *old_dir)
 	}
 }
 
-void	change_directory(t_data *data, char *dir)
-{
-	char	curr_dir[PATH_MAX];
-
-	if (getcwd(curr_dir, sizeof(curr_dir)) == NULL)
-	{
-		perror("cd");
-		data->last_exit_code = 1;
-		return ;
-	}
-	if (chdir(dir))
-	{
-		perror("cd");
-		data->last_exit_code = 1;
-		return ;
-	}
-	update_env_vars(data, curr_dir);
-}
-
 void	execute_cd(t_data *data, char *dir)
 {
 	char	*home_dir;
 
-	if (dir == NULL)
+	if (dir == NULL || ft_strcmp(dir, "") == 0 || ft_strcmp(dir, "HOME") == 0)
 	{
 		home_dir = ft_getenv(data, "HOME");
 		if (home_dir == NULL)
 		{
 			boo(data, "cd: HOME not set\n", NULL, 1);
+			data->last_exit_code = 1;
 			return ;
 		}
 		dir = home_dir;
 		data->last_exit_code = 0;
 	}
-	change_directory(data, dir);
+	if (chdir(dir) == -1)
+	{
+		perror("cd");
+		data->last_exit_code = 1;
+		return ;
+	}
+	update_env_vars(data, dir);
 }
