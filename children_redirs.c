@@ -17,18 +17,17 @@ static void	handle_bad_infile(t_data *data, t_redirection *in_redir)
 	if (in_redir->type == HEREDOC)
 		unlink(in_redir->file);
 	if (access(in_redir->file, F_OK) != 0)
-		snuff_it(data, "Error: file does not exist\n", in_redir->file, 1);
+		boo(data, "Error: file does not exist\n", in_redir->file, 1);
 	else if (access(in_redir->file, R_OK | X_OK) != 0)
-		snuff_it(data, "Error opening file\n", in_redir->file, 126);
+		boo(data, "Error opening file\n", in_redir->file, 126);
 	else
-		snuff_it(data, "Error: bad file\n", in_redir->file, 126);
+		boo(data, "Error: bad file\n", in_redir->file, 126);
 }
 
-void	process_out_files(t_data *data, t_exec **exec)
+int	process_out_files(t_data *data, t_exec **exec)
 {
 	t_redirection	*out_redir;
 
-	(void)data;
 	out_redir = (*exec)->out_redirs;
 	while (out_redir != NULL)
 	{
@@ -39,7 +38,7 @@ void	process_out_files(t_data *data, t_exec **exec)
 			out_redir->fd = open(out_redir->file, O_CREAT | O_WRONLY | O_APPEND,
 					0644);
 		if (out_redir->fd < 0)
-			snuff_it(data, "Error: permission denied\n", out_redir->file, 126);
+			return (boo(data, "Error: permission denied\n", out_redir->file, 126), 1);
 		if (out_redir->next)
 			close_fd_set_minus1(&out_redir->fd);
 		else
@@ -51,9 +50,10 @@ void	process_out_files(t_data *data, t_exec **exec)
 		}
 		out_redir = out_redir->next;
 	}
+	return (0);
 }
 
-void	process_in_files(t_data *data, t_exec **exec)
+int	process_in_files(t_data *data, t_exec **exec)
 {
 	t_redirection	*in_redir;
 
@@ -62,7 +62,10 @@ void	process_in_files(t_data *data, t_exec **exec)
 	{
 		in_redir->fd = open(in_redir->file, O_RDONLY);
 		if (in_redir->fd < 0)
+		{
 			handle_bad_infile(data, in_redir);
+			return (1);
+		}
 		if (in_redir->next)
 			close_fd_set_minus1(&in_redir->fd);
 		else
@@ -74,6 +77,7 @@ void	process_in_files(t_data *data, t_exec **exec)
 		}
 		in_redir = in_redir->next;
 	}
+	return (0);
 }
 
 void	process_heredocs(t_data *data, t_exec **exec)

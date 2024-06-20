@@ -271,8 +271,8 @@ void							execute_lone_exec_no_pipe(t_data *data,
 									t_exec **exec);
 /* children_redirs */
 void							close_redir_fds(t_redirection *redir);
-void							process_out_files(t_data *data, t_exec **exec);
-void							process_in_files(t_data *data, t_exec **exec);
+int							process_out_files(t_data *data, t_exec **exec);
+int							process_in_files(t_data *data, t_exec **exec);
 void							process_heredocs(t_data *data, t_exec **exec);
 int								has_in_redirs(t_data *data,
 									t_redirection *in_redir);

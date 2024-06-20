@@ -64,8 +64,10 @@ void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
 		close_fd_set_minus1(&data->temp1_fd);
 		snuff_it(data, "Error duplicating STDOUT_FILENO\n", NULL, 255);
 	}
-	process_in_files(data, exec);
-	process_out_files(data, exec);
+	if (process_in_files(data, exec) > 0)
+		return ;
+	if (process_out_files(data, exec) > 0)
+		return ;
 	if ((*exec)->arguments && is_builtin((*exec)->arguments[0]))
 		execute_lone_builtin(data, exec);
 	else if ((*exec)->arguments)
