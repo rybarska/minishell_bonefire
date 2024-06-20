@@ -24,7 +24,7 @@ int	is_only_whitespace(char *str)
 {
 	while (ft_iswhitespace(*str))
 		str++;
-	if (*str != '\0' || *str != '\n')
+	if (*str == '\0' || *str == '\n')
 		return (1);
 	return (0);
 }
