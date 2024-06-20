@@ -38,7 +38,7 @@ void	execute_echo(t_exec **exec)
 		i++;
 	}
 	if (!omit_newline)
-		printf("\n");
+		printf("\n");	
 }
 
 void	execute_env(t_data *data, char **args)
@@ -61,17 +61,17 @@ void	execute_env(t_data *data, char **args)
 
 void	execute_exit(t_data *data, char **args)
 {
-	if (args && args[1] && args[1][0] && args[2])
-	{
-		boo(data, "too many arguments\n", "exit", 1);
-		data->last_exit_code = 1;
-		return ;
-	}
-	else if (args && args[1])
+	if (args && args[1])
 	{
 		data->last_exit_code = get_input_num(args[1]);
-		if (data->last_exit_code == -264)
+		if (data->last_exit_code == -264 || data->last_exit_code == -265)
 			boo(data, "numeric argument required\n", "exit", 2);
+		else if (args && args[1] && args[1][0] && args[2])
+		{
+			boo(data, "too many arguments\n", "exit", 1);
+			data->last_exit_code = 1;
+			return ;
+		}
 		else if (data->last_exit_code < 0 || data->last_exit_code > 255)
 			boo(data, "Number outside range (0 to 255)\n", "exit", 69);
 	}

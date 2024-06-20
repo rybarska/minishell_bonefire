@@ -77,7 +77,7 @@ int	get_input_num(char *numstr)
 	if (numstr == NULL || *numstr == '\0' || is_not_numeric(numstr))
 		return (-264);
 	if (is_overflow(numstr))
-		return (-2);
+		return (-265);
 	num = ft_atoi(numstr);
 	return (num);
 }
