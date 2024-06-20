@@ -22,6 +22,19 @@ static void	handle_sigint(int signal_number)
 	rl_redisplay();
 }
 
+static void	handle_sigint_non_interactive(int signal_number)
+{
+	(void)signal_number;
+	g_o_on = signal_number;
+	write(STDOUT_FILENO, "\n", 1);
+}
+
+static void	handle_sigquit(int signal_number)
+{
+	(void)signal_number;
+	write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
+}
+
 static void	heredoc_sigint(int signal_number)
 {
 	ioctl(STDIN_FILENO, TIOCSTI, "\n");
@@ -37,7 +50,8 @@ void	set_signal_controls(t_data *data)
 	else if (data->signal_mode == CHILD)
 		signal(SIGINT, SIG_DFL);
 	else if (data->signal_mode == NON_INTERACTIVE)
-		signal(SIGINT, SIG_IGN);
+		signal(SIGINT, &handle_sigint_non_interactive);
+		//signal(SIGINT, SIG_IGN);
 	else if (data->signal_mode == HERE_DOC)
 		signal(SIGINT, &heredoc_sigint);
 	if (data->signal_mode == INTERACTIVE)
@@ -45,7 +59,8 @@ void	set_signal_controls(t_data *data)
 	else if (data->signal_mode == CHILD)
 		signal(SIGQUIT, SIG_DFL);
 	else if (data->signal_mode == NON_INTERACTIVE)
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGQUIT, &handle_sigquit);
+		//signal(SIGQUIT, SIG_IGN);
 	else if (data->signal_mode == HERE_DOC)
 		signal(SIGQUIT, SIG_IGN);
 }
