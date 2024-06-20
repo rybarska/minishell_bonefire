@@ -21,6 +21,8 @@ int	check_quote_syntax(t_data *data)
 	is_s_quoted = 0;
 	is_d_quoted = 0;
 	temp_str = data->text;
+	if (!temp_str)
+		return (1);
 	while (*temp_str)
 	{
 		if (*temp_str == '\'' && !is_d_quoted)

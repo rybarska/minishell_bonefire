@@ -20,6 +20,15 @@ void	handle_eof_or_ctrl_d(t_data *data)
 	exit_like_a_boss(data, data->last_exit_code);
 }
 
+int	is_only_whitespace(char *str)
+{
+	while (ft_iswhitespace(*str))
+		str++;
+	if (*str != '\0' || *str != '\n')
+		return (1);
+	return (0);
+}
+
 void	read_input(t_data *data)
 {
 	char	*input;
@@ -32,20 +41,21 @@ void	read_input(t_data *data)
 	{
 		data->last_exit_code = 130;
 		g_o_on = 0;
+		return ;
 	}
 	add_string_to_thrash_list(data, input);
 	set_mode(data, NON_INTERACTIVE);
 	if (!input)
-	{
 		handle_eof_or_ctrl_d(data);
-		return ;
-	}
 	add_history(input);
-	data->text = ft_strdup(input);
-	if (!data->text)
-		snuff_it(data, "Error allocating memory for input\n", NULL, 255);
-	data->text_len = ft_strlen(data->text);
-	data->pos = 0;
+	if (!is_only_whitespace(input))
+	{
+		data->text = ft_strdup(input);
+		if (!data->text)
+			snuff_it(data, "Error allocating memory for input\n", NULL, 255);
+		data->text_len = ft_strlen(data->text);
+		data->pos = 0;
+	}
 }
 
 int	main(void)
@@ -61,7 +71,7 @@ int	main(void)
 	{
 		get_all_cmd_paths(&data);
 		read_input(&data);
-		if (check_quote_syntax(&data) == 0)
+		if (data.text && check_quote_syntax(&data) == 0)
 		{
 			make_token_list(&data);
 			merge_unseparated(&data);
