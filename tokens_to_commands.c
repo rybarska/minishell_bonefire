@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/12 22:24:19 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/21 12:40:18 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,11 @@ void	put_cmd_in_exec(t_data *data, t_token_node *node, int arg_count,
 		make_cmd_array(data, node, arg_count, *exec);
 		temp = ft_strdup((*exec)->arguments[0]);
 		if (!temp)
+		{
+			ft_free_array((*exec)->arguments);
+			free(*exec);
 			snuff_it(data, "Error duplicating string\n", NULL, 255);
+		}
 		(*exec)->name = temp;
 		if (is_builtin(temp))
 			(*exec)->cmd_exec_path = NULL;

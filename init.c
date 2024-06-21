@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:41:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/17 21:04:45 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/21 12:08:25 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ void	init_data(t_data *data)
 	data->std_in = -1;
 	data->temp1_fd = -1;
 	data->temp2_fd = -1;
-	data->is_s_quoted = -1;
-	data->is_d_quoted = -1;
+	data->is_s_quoted = 0;
+	data->is_d_quoted = 0;
 	data->has_quotes = -1;
 	data->pid = -1;
 	data->last_exit_code = 0;
