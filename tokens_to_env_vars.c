@@ -32,6 +32,7 @@ int	update_env_var_in_list(t_data *data, char *name, char *value,
 				if (!current->value)
 					snuff_it(data, "Error allocating in update_var_to_env\n",
 						NULL, 255);
+				process_quotes(data, &current->value);
 			}
 			current->is_exported = is_exported;
 			return (1);
@@ -75,6 +76,7 @@ void	add_or_update_env_var_list(t_data *data, char *name, char *value,
 		new_env_var->value = ft_strdup(value);
 		if (!new_env_var->value)
 			snuff_it(data, "Error duplicating string\n", NULL, 255);
+		process_quotes(data, &new_env_var->value);
 	}
 	new_env_var->is_exported = is_exported;
 	new_env_var->next = NULL;

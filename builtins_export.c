@@ -71,9 +71,6 @@ static void	set_env_var(t_data *data, char *name, char *value)
 	if (!temp)
 		snuff_it(data, "Error allocating memory\n", NULL, 255);
 	add_string_to_thrash_list(data, temp);
-	printf("final value is: %s\n", temp);
-	process_vars_and_quotes(data, &temp); //TODO: fix this! the lone ' arrives here but gets removed
-	//this will likely fix the double free too
 	if (is_var_in_env(data, name))
 		update_var_in_env(data, name, temp);
 	else
@@ -115,7 +112,6 @@ void	execute_export(t_data *data, char **args)
 		if (check_env_var_name(data, name, value_to_pass) == 0)
 		{
 			set_env_var(data, name, value);
-			printf("value is: %s\n", value);
 			data->last_exit_code = 0;
 		}
 		if (name_end)

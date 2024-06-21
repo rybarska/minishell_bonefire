@@ -81,7 +81,7 @@ int	main(void)
 			{
 				make_executives(&data);
 				//print_execs(data.exec_list_head);
-				// print_envs(data.env_vars_head);
+				//print_envs(data.env_vars_head);
 				if (count_executives(&data) > 0)
 					execute_execs(&data);
 			}
