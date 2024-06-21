@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:47:37 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/16 19:54:51 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/21 13:05:50 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	**malloc_for_res(t_data *data, int size)
 {
 	char	**result;
 
+	data->is_s_quoted = 0;
 	result = malloc(sizeof(char *) * (size + 1));
 	if (!result)
 		snuff_it(data, "Error: malloc failed at split special\n", NULL, 255);
@@ -107,7 +108,7 @@ char	**ft_split_returns(t_data *data, char *str, int *elements)
 			flag = false;
 		}
 		start += (flag == 0 && str[start] == ' ');
-		flag = (str[end] != ' ' && !data->is_s_quoted); // quotes?
+		flag = (str[end] != ' ' && !data->is_s_quoted);
 	}
 	result[counter] = NULL;
 	return (result);
