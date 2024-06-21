@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:47:37 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/21 12:49:55 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/21 13:05:50 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,30 +92,23 @@ char	**ft_split_returns(t_data *data, char *str, int *elements)
 	int		counter;
 	char	**result;
 	bool	flag;
-	//int i = 0;
 
 	init_vals(&start, &end, &counter, &flag);
 	result = malloc_for_res(data, count_words_q(data, str, elements));
 	while (str[start])
 	{
-		// i++;
-		// if (i == 15)
-		// 	break ;
-		// printf("our start char is: |%c|, our end char is: |%c|\n", str[start], str[end]);
-		// printf("quote var is: |%c|, flag is: |%d|\n", data->is_s_quoted, flag);
 		if (str[++end] == data->is_s_quoted && data->is_s_quoted)
 			data->is_s_quoted = 0;
 		else if ((str[end] == '\'' || str[end] == '\"') && !data->is_s_quoted)
 			data->is_s_quoted = str[end];
 		if ((((str[end] == ' ' && !data->is_s_quoted) || !str[end])) && flag)
 		{
-			//printf("substr time!!! our str is: %s\n", str + start);
 			result[counter++] = ft_substr_prot(data, str, start, end - start);
 			start = end + (str[end] != '\0');
 			flag = false;
 		}
 		start += (flag == 0 && str[start] == ' ');
-		flag = (str[end] != ' ' && !data->is_s_quoted); // quotes?
+		flag = (str[end] != ' ' && !data->is_s_quoted);
 	}
 	result[counter] = NULL;
 	return (result);
