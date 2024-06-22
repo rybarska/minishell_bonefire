@@ -55,7 +55,7 @@ void	process_quotes(t_data *data, char **string)
 	}
 }
 
-void	process_and_quote_vars(t_data *data, char **string)
+void	process_vars_and_put_them_in_quotes(t_data *data, char **string)
 {
 	char	*expanded;
 
@@ -63,9 +63,15 @@ void	process_and_quote_vars(t_data *data, char **string)
 	{
 		expanded = expand_arg(data, *string);
 		free(*string);
-		*string = ft_strjoin("\"", expanded);
-		free(expanded);
-		*string = ft_strjoin_free(*string, '\"');
-		//printf("string: %s\n", *string);
+		if (expanded)
+		{
+			*string = ft_strjoin("\"", expanded);
+			if (!*string)
+				snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
+			free(expanded);
+			*string = ft_strjoin_free(*string, '\"');
+			if (!*string)
+				snuff_it(data, "Error allocating for strjoin_free\n", NULL, 255);
+		}
 	}
 }
