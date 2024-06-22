@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vars_and_quotes.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 21:40:19 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/15 21:40:21 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:06:07 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void	process_and_quote_vars(t_data *data, char **string)
 		expanded = expand_arg(data, *string);
 		free(*string);
 		*string = ft_strjoin("\"", expanded);
-		*string = ft_strjoin(*string, "\"");
-		printf("string: %s\n", *string);
+		free(expanded);
+		*string = ft_strjoin_free(*string, '\"');
+		//printf("string: %s\n", *string);
 	}
 }

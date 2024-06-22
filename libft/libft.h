@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/04 17:06:24 by arybarsk          #+#    #+#             */
-/*   Updated: 2023/12/13 16:45:14 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/22 17:07:04 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void			ft_free_array(char **array);
 char			*ft_substr(char const *s, unsigned int start, size_t len);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strjoin_char(char const *str, char c);
+char			*ft_strjoin_free(char *str, char c);
 char			**ft_str_arr_join(char **src_array, char *string);
 char			*ft_strtrim(char const *s1, char const *s2);
 char			**ft_split(const char *s, const char c);
