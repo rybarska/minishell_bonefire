@@ -35,7 +35,6 @@ void	read_input(t_data *data)
 
 	input = NULL;
 	set_mode(data, INTERACTIVE);
-	//printf("data->last_exit_code %d\n", data->last_exit_code);
 	input = readline("minishell> ");
 	if (g_o_on == 2)
 	{

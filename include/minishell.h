@@ -76,7 +76,7 @@ typedef struct s_token_node
 	char						*value;
 	char						**split_words;
 	int							num_split_words;
-	int					has_quotes;
+	int							has_quotes;
 	struct s_token_node			*previous;
 	struct s_token_node			*next;
 }								t_token_node;
@@ -202,8 +202,8 @@ void							process_vars_and_quotes(t_data *data,
 									char **string);
 void							process_vars(t_data *data, char **string);
 void							process_quotes(t_data *data, char **string);
-void							process_vars_and_put_them_in_quotes(t_data *data,
-									char **string);
+void							process_vars_and_put_them_in_quotes(
+									t_data *data, char **string);
 
 /* execs_utils */
 t_exec							*make_empty_exec(t_data *data);
@@ -273,8 +273,8 @@ void							execute_lone_exec_no_pipe(t_data *data,
 									t_exec **exec);
 /* children_redirs */
 void							close_redir_fds(t_redirection *redir);
-int							process_out_files(t_data *data, t_exec **exec);
-int							process_in_files(t_data *data, t_exec **exec);
+int								process_out_files(t_data *data, t_exec **exec);
+int								process_in_files(t_data *data, t_exec **exec);
 void							process_heredocs(t_data *data, t_exec **exec);
 int								has_in_redirs(t_data *data,
 									t_redirection *in_redir);
@@ -314,7 +314,7 @@ void							execute_pwd(t_data *data);
 void							set_signal_controls(t_data *data);
 void							set_mode(t_data *data, t_signal_mode mode);
 /* num_check */
-int							get_input_num(char *numstr);
+int								get_input_num(char *numstr);
 /* thrash list */
 void							clear_thrash_list(t_data *data);
 void							add_string_to_thrash_list(t_data *data,
@@ -326,7 +326,8 @@ size_t							get_hash2(char *keyvalue);
 int								store_data(t_keyvalue **hashtable,
 									char *key, char *val);
 char							*hash_lookup(t_keyvalue **hashtable, char *key);
-void							free_hashtable(t_keyvalue **hashtable, bool end_flag);
+void							free_hashtable(t_keyvalue **hashtable,
+									bool end_flag);
 
 char							**ft_split_returns(t_data *data,
 									char *str, int *elements);

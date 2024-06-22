@@ -26,29 +26,28 @@ static void	handle_bad_infile(t_data *data, t_redirection *in_redir)
 
 int	process_out_files(t_data *data, t_exec **exec)
 {
-	t_redirection	*out_redir;
+	t_redirection	*out_r;
 
-	out_redir = (*exec)->out_redirs;
-	while (out_redir != NULL)
+	out_r = (*exec)->out_redirs;
+	while (out_r != NULL)
 	{
-		if (out_redir->type == TRUNCATE)
-			out_redir->fd = open(out_redir->file, O_CREAT | O_WRONLY | O_TRUNC,
-					0644);
-		else if (out_redir->type == APPEND)
-			out_redir->fd = open(out_redir->file, O_CREAT | O_WRONLY | O_APPEND,
-					0644);
-		if (out_redir->fd < 0)
-			return (boo(data, "Error: permission denied\n", out_redir->file, 126), 1);
-		if (out_redir->next)
-			close_fd_set_minus1(&out_redir->fd);
+		if (out_r->type == TRUNCATE)
+			out_r->fd = open(out_r->file, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		else if (out_r->type == APPEND)
+			out_r->fd = open(out_r->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
+		if (out_r->fd < 0)
+			return (boo(data, "Error: permission denied\n",
+					out_r->file, 126), 1);
+		if (out_r->next)
+			close_fd_set_minus1(&out_r->fd);
 		else
 		{
-			if (dup2(out_redir->fd, STDOUT_FILENO) < 0)
+			if (dup2(out_r->fd, STDOUT_FILENO) < 0)
 				snuff_it(data, "Error redirecting out_redir->fd\n",
-					out_redir->file, 255);
-			close_fd_set_minus1(&out_redir->fd);
+					out_r->file, 255);
+			close_fd_set_minus1(&out_r->fd);
 		}
-		out_redir = out_redir->next;
+		out_r = out_r->next;
 	}
 	return (0);
 }

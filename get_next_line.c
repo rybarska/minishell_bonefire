@@ -105,8 +105,9 @@ char	*get_next_line(t_data *data, int fd)
 	}
 	result = read_to_keeper(data, fd, &state_keeper);
 	if (result < 0)
-		return (free(state_keeper), state_keeper = NULL, 
-			snuff_it(data, "Error reading in get_next_line\n", NULL, 255), NULL);
+		return (free(state_keeper), state_keeper = NULL,
+			snuff_it(data, "Error reading in get_next_line\n",
+				NULL, 255), NULL);
 	line = cut_line_from_keeper(data, &state_keeper);
 	if (!(ft_strchr(line, '\n')))
 	{

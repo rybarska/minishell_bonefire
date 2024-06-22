@@ -13,7 +13,8 @@
 #include "get_next_line.h"
 #include "minishell.h"
 
-static void	process_heredoc_vars(t_data *data, t_redirection *redir, char **string)
+static void	process_heredoc_vars(t_data *data, t_redirection *redir,
+		char **string)
 {
 	char	*expanded;
 

@@ -38,7 +38,7 @@ void	execute_echo(t_exec **exec)
 		i++;
 	}
 	if (!omit_newline)
-		printf("\n");	
+		printf("\n");
 }
 
 void	execute_env(t_data *data, char **args)

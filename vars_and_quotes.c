@@ -71,7 +71,7 @@ void	process_vars_and_put_them_in_quotes(t_data *data, char **string)
 			free(expanded);
 			*string = ft_strjoin_free(*string, '\"');
 			if (!*string)
-				snuff_it(data, "Error allocating for strjoin_free\n", NULL, 255);
+				snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
 		}
 	}
 }

@@ -22,7 +22,6 @@ void	expand_and_split_and_process_quotes(t_data *data)
 	{
 		if (is_substantive(curr->type) && curr->value)
 		{
-			//process_vars(data, &curr->value);
 			process_vars_and_put_them_in_quotes(data, &curr->value);
 			curr->split_words = ft_split_returns(data,
 					curr->value, &curr->num_split_words);
