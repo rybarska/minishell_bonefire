@@ -54,3 +54,17 @@ void	process_quotes(t_data *data, char **string)
 		*string = quotes_rm;
 	}
 }
+
+void	process_and_quote_vars(t_data *data, char **string)
+{
+	char	*expanded;
+
+	if (ft_strchr(*string, '$'))
+	{
+		expanded = expand_arg(data, *string);
+		free(*string);
+		*string = ft_strjoin("\"", expanded);
+		*string = ft_strjoin(*string, "\"");
+		printf("string: %s\n", *string);
+	}
+}

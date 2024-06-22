@@ -202,6 +202,7 @@ void							process_vars_and_quotes(t_data *data,
 									char **string);
 void							process_vars(t_data *data, char **string);
 void							process_quotes(t_data *data, char **string);
+void							process_and_quote_vars(t_data *data, char **string);
 
 /* execs_utils */
 t_exec							*make_empty_exec(t_data *data);
