@@ -37,8 +37,8 @@ static void	execute_lone_external(t_data *data, t_exec **exec)
 
 static void	execute_lone_builtin(t_data *data, t_exec **exec)
 {
-	if ((*exec)->arguments && !(*exec)->arguments[2]
-		&& ft_strcmp((*exec)->arguments[0], "exit") == 0)
+	if ((*exec)->arguments && ft_strcmp((*exec)->arguments[0], "exit") == 0
+		&& (!(*exec)->arguments[1] || !(*exec)->arguments[2]))
 	{
 		close_fd_set_minus1(&data->temp1_fd);
 		close_fd_set_minus1(&data->temp2_fd);
