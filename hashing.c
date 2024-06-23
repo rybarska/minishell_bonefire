@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/17 21:30:27 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/23 22:45:37 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,19 @@ size_t	get_hash(char *keyvalue)
 {
 	size_t	hash;
 
-	__asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xorq %%rax, %%rax;"
-		"xorq %%rcx, %%rcx; xorq %%rdx, %%rdx;" 
+	__asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xor %%rax, %%rax;"
+		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
 		"1:"
 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
 		"imulq $31, %%rax; movzx %%cl, %%rcx;"
-		"addq %%rcx, %%rax; div %2; movq %%rdx, %%rax;"
-		"incq %%rbx; jmp 1b;"
+		"addq %%rcx, %%rax; div %2; mov %%rdx, %%rax;"
+		"inc %%rbx; jmp 1b;"
 		"2:"
 		"mov %%rax, %0; popq %%rbx;"
 		: "=r"(hash)
 		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
 		: "rax", "rdx", "rcx"
-    );
-    //dprintf(2, "index hash for: %s is: %zu\n", keyvalue, hash);
+	);
 	return (hash);
 }
 
@@ -39,7 +38,7 @@ size_t	get_hash2(char *keyvalue)
 
 	__asm__ volatile ("pushq %%rbx; lea (%1), %%rbx;"
 		"xor %%rax, %%rax; xor %%r8, %%r8;"
-        	"1:"
+		"1:"
 		"movb (%%rbx), %%dl; cmpb $0, %%dl; jz 2f;"
 		"movl $17, %%ecx; movzx %%dl, %%rdx;"
 		"mulq %%rcx; add %%rdx, %%rax; add %%r8, %%rax;"
@@ -47,10 +46,9 @@ size_t	get_hash2(char *keyvalue)
 		"2:"
 		"mov %%rax, %0; popq %%rbx;"
 		: "=r"(hash)
-		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
-		: "rax", "rdx"
-    );
-    //dprintf(2, "secure hash for: %s is: %zu\n", keyvalue, hash);
+		: "r"(keyvalue)
+		: "rax", "rdx", "rcx"
+	);
 	return (hash);
 }
 
