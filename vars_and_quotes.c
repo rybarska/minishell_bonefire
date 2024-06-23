@@ -65,13 +65,21 @@ void	process_vars_and_put_them_in_quotes(t_data *data, char **string)
 		free(*string);
 		if (expanded)
 		{
-			*string = ft_strjoin("\"", expanded);
-			if (!*string)
-				snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
-			free(expanded);
-			*string = ft_strjoin_free(*string, '\"');
-			if (!*string)
-				snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
+			if (!ft_strchr(expanded, ' '))
+			{
+				*string = ft_strjoin("\"", expanded);
+				if (!*string)
+					snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
+				free(expanded);
+				*string = ft_strjoin_free(*string, '\"');
+				if (!*string)
+					snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
+			}
+			else
+			{
+				*string = ft_strdup(expanded);
+				free(expanded);
+			}
 		}
 	}
 }
