@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:22:00 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:26:03 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/24 22:23:58 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,5 @@ void	get_heredoc(t_data *data, t_redirection **redir)
 	write_temp_file(data, *redir);
 	close_fd_set_minus1(&(*redir)->fd);
 	if (g_o_on == 2)
-	{
 		data->last_exit_code = 130;
-		g_o_on = 0;
-	}
 }

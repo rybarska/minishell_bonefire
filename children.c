@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/29 19:43:33 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/19 21:23:07 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/24 22:21:59 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,11 @@ void	execute_execs(t_data *data)
 	{
 		++(data->index);
 		process_heredocs(data, &curr_exec);
+		if (g_o_on == 2)
+		{
+			g_o_on = 0;
+			break ;
+		}
 		execute_lone_or_children(data, &curr_exec, &flag);
 		curr_exec = curr_exec->next;
 	}
