@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/23 22:45:37 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/24 13:52:16 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ size_t	get_hash2(char *keyvalue)
 		"mov %%rax, %0; popq %%rbx;"
 		: "=r"(hash)
 		: "r"(keyvalue)
-		: "rax", "rdx", "rcx"
+		: "rax", "rdx", "rcx", "r8"
 	);
 	return (hash);
 }
