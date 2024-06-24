@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/24 14:45:28 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/24 15:21:54 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,46 +28,6 @@ size_t	__attribute__ ((naked)) get_hash(void)
 		: "rax", "rdx", "rcx"
 	);
 }
-
-// size_t	__attribute__ ((always_inline)) get_hash(char *keyvalue)
-// {
-// 	size_t	register hash;
-
-// 	__asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xor %%rax, %%rax;"
-// 		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
-// 		"1:"
-// 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
-// 		"imulq $31, %%rax; movzx %%cl, %%rcx;"
-// 		"addq %%rcx, %%rax; div %2; mov %%rdx, %%rax;"
-// 		"inc %%rbx; jmp 1b;"
-// 		"2:"
-// 		"mov %%rax, %0; popq %%rbx;"
-// 		: "=r"(hash)
-// 		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
-// 		: "rax", "rdx", "rcx"
-// 	);
-// 	return (hash);
-// }
-
-// size_t	get_hash(char *keyvalue)
-// {
-// 	size_t	register hash;
-
-// 	__asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xor %%rax, %%rax;"
-// 		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
-// 		"1:"
-// 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
-// 		"imulq $31, %%rax; movzx %%cl, %%rcx;"
-// 		"addq %%rcx, %%rax; div %2; mov %%rdx, %%rax;"
-// 		"inc %%rbx; jmp 1b;"
-// 		"2:"
-// 		"mov %%rax, %0; popq %%rbx;"
-// 		: "=r"(hash)
-// 		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
-// 		: "rax", "rdx", "rcx"
-// 	);
-// 	return (hash);
-// }
 
 size_t	get_hash2(char *keyvalue)
 {
@@ -95,7 +55,7 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 	size_t		index;
 
 	__asm__ volatile (
-		"movq %1, %%rdi; movl %2, %%esi; callq *%3; movq %%rax, %0; ret;"
+		"movq %1, %%rdi; movl %2, %%esi; callq *%3; movq %%rax, %0;"
 		: "=r" (index)
 		: "r" (key), "r" (HASHTABLE_SIZE), "r" (get_hash)
 		:

@@ -3698,7 +3698,7 @@ Disassembly of section .text:
   404754:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
   404758:	48 8b b8 a0 00 00 00 	mov    0xa0(%rax),%rdi
   40475f:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
-  404763:	e8 88 54 00 00       	call   409bf0 <hash_lookup>
+  404763:	e8 78 54 00 00       	call   409be0 <hash_lookup>
   404768:	48 89 c1             	mov    %rax,%rcx
   40476b:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
   40476f:	48 8b 00             	mov    (%rax),%rax
@@ -3748,7 +3748,7 @@ Disassembly of section .text:
   40482e:	48 8b 75 e8          	mov    -0x18(%rbp),%rsi
   404832:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
   404836:	48 8b 50 38          	mov    0x38(%rax),%rdx
-  40483a:	e8 81 52 00 00       	call   409ac0 <store_data>
+  40483a:	e8 61 52 00 00       	call   409aa0 <store_data>
   40483f:	83 f8 00             	cmp    $0x0,%eax
   404842:	0f 85 1c 00 00 00    	jne    404864 <look_for_path+0x124>
   404848:	48 8b 7d f8          	mov    -0x8(%rbp),%rdi
@@ -9045,194 +9045,195 @@ Disassembly of section .text:
   4099fb:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
 
 0000000000409a00 <get_hash>:
-  409a00:	55                   	push   %rbp
-  409a01:	48 89 e5             	mov    %rsp,%rbp
-  409a04:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-  409a08:	48 8b 75 f8          	mov    -0x8(%rbp),%rsi
-  409a0c:	bf e8 03 00 00       	mov    $0x3e8,%edi
-  409a11:	53                   	push   %rbx
-  409a12:	48 89 f3             	mov    %rsi,%rbx
-  409a15:	48 31 c0             	xor    %rax,%rax
-  409a18:	48 31 c9             	xor    %rcx,%rcx
-  409a1b:	48 31 d2             	xor    %rdx,%rdx
-  409a1e:	8a 0b                	mov    (%rbx),%cl
-  409a20:	80 f9 00             	cmp    $0x0,%cl
-  409a23:	0f 84 18 00 00 00    	je     409a41 <get_hash+0x41>
-  409a29:	48 6b c0 1f          	imul   $0x1f,%rax,%rax
-  409a2d:	48 0f b6 c9          	movzbq %cl,%rcx
-  409a31:	48 01 c8             	add    %rcx,%rax
-  409a34:	f7 f7                	div    %edi
-  409a36:	48 89 d0             	mov    %rdx,%rax
-  409a39:	48 ff c3             	inc    %rbx
-  409a3c:	e9 dd ff ff ff       	jmp    409a1e <get_hash+0x1e>
-  409a41:	48 89 c6             	mov    %rax,%rsi
-  409a44:	5b                   	pop    %rbx
-  409a45:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
-  409a49:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-  409a4d:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
-  409a51:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  409a55:	5d                   	pop    %rbp
-  409a56:	c3                   	ret    
-  409a57:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
-  409a5e:	00 00 
+  409a00:	53                   	push   %rbx
+  409a01:	48 89 fb             	mov    %rdi,%rbx
+  409a04:	48 31 c0             	xor    %rax,%rax
+  409a07:	48 31 c9             	xor    %rcx,%rcx
+  409a0a:	48 31 d2             	xor    %rdx,%rdx
+  409a0d:	8a 0b                	mov    (%rbx),%cl
+  409a0f:	80 f9 00             	cmp    $0x0,%cl
+  409a12:	0f 84 19 00 00 00    	je     409a31 <get_hash+0x31>
+  409a18:	48 6b c0 1f          	imul   $0x1f,%rax,%rax
+  409a1c:	48 0f b6 c9          	movzbq %cl,%rcx
+  409a20:	48 01 c8             	add    %rcx,%rax
+  409a23:	48 f7 f6             	div    %rsi
+  409a26:	48 89 d0             	mov    %rdx,%rax
+  409a29:	48 ff c3             	inc    %rbx
+  409a2c:	e9 dc ff ff ff       	jmp    409a0d <get_hash+0xd>
+  409a31:	5b                   	pop    %rbx
+  409a32:	c3                   	ret    
+  409a33:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  409a3a:	00 00 00 
+  409a3d:	0f 1f 00             	nopl   (%rax)
 
-0000000000409a60 <get_hash2>:
-  409a60:	55                   	push   %rbp
-  409a61:	48 89 e5             	mov    %rsp,%rbp
-  409a64:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
-  409a68:	48 8b 75 f8          	mov    -0x8(%rbp),%rsi
-  409a6c:	53                   	push   %rbx
-  409a6d:	48 8d 1e             	lea    (%rsi),%rbx
-  409a70:	48 31 c0             	xor    %rax,%rax
-  409a73:	4d 31 c0             	xor    %r8,%r8
-  409a76:	8a 13                	mov    (%rbx),%dl
-  409a78:	80 fa 00             	cmp    $0x0,%dl
-  409a7b:	0f 84 1d 00 00 00    	je     409a9e <get_hash2+0x3e>
-  409a81:	b9 11 00 00 00       	mov    $0x11,%ecx
-  409a86:	48 0f b6 d2          	movzbq %dl,%rdx
-  409a8a:	48 f7 e1             	mul    %rcx
-  409a8d:	48 01 d0             	add    %rdx,%rax
-  409a90:	4c 01 c0             	add    %r8,%rax
-  409a93:	48 ff c3             	inc    %rbx
-  409a96:	49 ff c0             	inc    %r8
-  409a99:	e9 d8 ff ff ff       	jmp    409a76 <get_hash2+0x16>
-  409a9e:	48 89 c6             	mov    %rax,%rsi
-  409aa1:	5b                   	pop    %rbx
-  409aa2:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
-  409aa6:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
-  409aaa:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
-  409aae:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  409ab2:	5d                   	pop    %rbp
-  409ab3:	c3                   	ret    
-  409ab4:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
-  409abb:	00 00 00 
-  409abe:	66 90                	xchg   %ax,%ax
+0000000000409a40 <get_hash2>:
+  409a40:	55                   	push   %rbp
+  409a41:	48 89 e5             	mov    %rsp,%rbp
+  409a44:	48 89 7d f8          	mov    %rdi,-0x8(%rbp)
+  409a48:	48 8b 75 f8          	mov    -0x8(%rbp),%rsi
+  409a4c:	53                   	push   %rbx
+  409a4d:	48 8d 1e             	lea    (%rsi),%rbx
+  409a50:	48 31 c0             	xor    %rax,%rax
+  409a53:	4d 31 c0             	xor    %r8,%r8
+  409a56:	8a 13                	mov    (%rbx),%dl
+  409a58:	80 fa 00             	cmp    $0x0,%dl
+  409a5b:	0f 84 1d 00 00 00    	je     409a7e <get_hash2+0x3e>
+  409a61:	b9 11 00 00 00       	mov    $0x11,%ecx
+  409a66:	48 0f b6 d2          	movzbq %dl,%rdx
+  409a6a:	48 f7 e1             	mul    %rcx
+  409a6d:	48 01 d0             	add    %rdx,%rax
+  409a70:	4c 01 c0             	add    %r8,%rax
+  409a73:	48 ff c3             	inc    %rbx
+  409a76:	49 ff c0             	inc    %r8
+  409a79:	e9 d8 ff ff ff       	jmp    409a56 <get_hash2+0x16>
+  409a7e:	48 89 c6             	mov    %rax,%rsi
+  409a81:	5b                   	pop    %rbx
+  409a82:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+  409a86:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  409a8a:	48 89 45 f0          	mov    %rax,-0x10(%rbp)
+  409a8e:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  409a92:	5d                   	pop    %rbp
+  409a93:	c3                   	ret    
+  409a94:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  409a9b:	00 00 00 
+  409a9e:	66 90                	xchg   %ax,%ax
 
-0000000000409ac0 <store_data>:
-  409ac0:	55                   	push   %rbp
-  409ac1:	48 89 e5             	mov    %rsp,%rbp
-  409ac4:	48 83 ec 30          	sub    $0x30,%rsp
-  409ac8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
-  409acc:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
-  409ad0:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
-  409ad4:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
-  409ad8:	e8 23 ff ff ff       	call   409a00 <get_hash>
-  409add:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
-  409ae1:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  409ae5:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
-  409ae9:	48 83 3c c8 00       	cmpq   $0x0,(%rax,%rcx,8)
-  409aee:	0f 84 0c 00 00 00    	je     409b00 <store_data+0x40>
-  409af4:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
-  409afb:	e9 de 00 00 00       	jmp    409bde <store_data+0x11e>
-  409b00:	bf 20 00 00 00       	mov    $0x20,%edi
-  409b05:	e8 26 76 ff ff       	call   401130 <malloc@plt>
-  409b0a:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
-  409b0e:	48 83 7d d8 00       	cmpq   $0x0,-0x28(%rbp)
-  409b13:	0f 85 0c 00 00 00    	jne    409b25 <store_data+0x65>
-  409b19:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  409b20:	e9 b9 00 00 00       	jmp    409bde <store_data+0x11e>
-  409b25:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
-  409b29:	e8 12 11 00 00       	call   40ac40 <ft_strdup>
-  409b2e:	48 89 c1             	mov    %rax,%rcx
-  409b31:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-  409b35:	48 89 08             	mov    %rcx,(%rax)
-  409b38:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-  409b3c:	48 83 38 00          	cmpq   $0x0,(%rax)
-  409b40:	0f 85 15 00 00 00    	jne    409b5b <store_data+0x9b>
-  409b46:	48 8b 7d d8          	mov    -0x28(%rbp),%rdi
-  409b4a:	e8 e1 74 ff ff       	call   401030 <free@plt>
-  409b4f:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  409b56:	e9 83 00 00 00       	jmp    409bde <store_data+0x11e>
-  409b5b:	48 8b 7d e0          	mov    -0x20(%rbp),%rdi
-  409b5f:	e8 dc 10 00 00       	call   40ac40 <ft_strdup>
-  409b64:	48 89 c1             	mov    %rax,%rcx
-  409b67:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-  409b6b:	48 89 48 08          	mov    %rcx,0x8(%rax)
-  409b6f:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-  409b73:	48 83 78 08 00       	cmpq   $0x0,0x8(%rax)
-  409b78:	0f 85 21 00 00 00    	jne    409b9f <store_data+0xdf>
-  409b7e:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-  409b82:	48 8b 38             	mov    (%rax),%rdi
-  409b85:	e8 a6 74 ff ff       	call   401030 <free@plt>
-  409b8a:	48 8b 7d d8          	mov    -0x28(%rbp),%rdi
-  409b8e:	e8 9d 74 ff ff       	call   401030 <free@plt>
-  409b93:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
-  409b9a:	e9 3f 00 00 00       	jmp    409bde <store_data+0x11e>
-  409b9f:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
-  409ba3:	e8 b8 fe ff ff       	call   409a60 <get_hash2>
-  409ba8:	48 89 c1             	mov    %rax,%rcx
-  409bab:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-  409baf:	48 89 48 10          	mov    %rcx,0x10(%rax)
-  409bb3:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  409bb7:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
-  409bbb:	48 8b 0c c8          	mov    (%rax,%rcx,8),%rcx
-  409bbf:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
-  409bc3:	48 89 48 18          	mov    %rcx,0x18(%rax)
-  409bc7:	48 8b 55 d8          	mov    -0x28(%rbp),%rdx
-  409bcb:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  409bcf:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
-  409bd3:	48 89 14 c8          	mov    %rdx,(%rax,%rcx,8)
-  409bd7:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
-  409bde:	8b 45 fc             	mov    -0x4(%rbp),%eax
-  409be1:	48 83 c4 30          	add    $0x30,%rsp
-  409be5:	5d                   	pop    %rbp
-  409be6:	c3                   	ret    
-  409be7:	66 0f 1f 84 00 00 00 	nopw   0x0(%rax,%rax,1)
-  409bee:	00 00 
+0000000000409aa0 <store_data>:
+  409aa0:	55                   	push   %rbp
+  409aa1:	48 89 e5             	mov    %rsp,%rbp
+  409aa4:	48 83 ec 30          	sub    $0x30,%rsp
+  409aa8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+  409aac:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+  409ab0:	48 89 55 e0          	mov    %rdx,-0x20(%rbp)
+  409ab4:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  409ab8:	ba 00 9a 40 00       	mov    $0x409a00,%edx
+  409abd:	b9 e8 03 00 00       	mov    $0x3e8,%ecx
+  409ac2:	48 89 c7             	mov    %rax,%rdi
+  409ac5:	89 ce                	mov    %ecx,%esi
+  409ac7:	ff d2                	call   *%rdx
+  409ac9:	48 89 c0             	mov    %rax,%rax
+  409acc:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+  409ad0:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  409ad4:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
+  409ad8:	48 83 3c c8 00       	cmpq   $0x0,(%rax,%rcx,8)
+  409add:	0f 84 0c 00 00 00    	je     409aef <store_data+0x4f>
+  409ae3:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+  409aea:	e9 de 00 00 00       	jmp    409bcd <store_data+0x12d>
+  409aef:	bf 20 00 00 00       	mov    $0x20,%edi
+  409af4:	e8 37 76 ff ff       	call   401130 <malloc@plt>
+  409af9:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+  409afd:	48 83 7d d8 00       	cmpq   $0x0,-0x28(%rbp)
+  409b02:	0f 85 0c 00 00 00    	jne    409b14 <store_data+0x74>
+  409b08:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  409b0f:	e9 b9 00 00 00       	jmp    409bcd <store_data+0x12d>
+  409b14:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  409b18:	e8 23 11 00 00       	call   40ac40 <ft_strdup>
+  409b1d:	48 89 c1             	mov    %rax,%rcx
+  409b20:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  409b24:	48 89 08             	mov    %rcx,(%rax)
+  409b27:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  409b2b:	48 83 38 00          	cmpq   $0x0,(%rax)
+  409b2f:	0f 85 15 00 00 00    	jne    409b4a <store_data+0xaa>
+  409b35:	48 8b 7d d8          	mov    -0x28(%rbp),%rdi
+  409b39:	e8 f2 74 ff ff       	call   401030 <free@plt>
+  409b3e:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  409b45:	e9 83 00 00 00       	jmp    409bcd <store_data+0x12d>
+  409b4a:	48 8b 7d e0          	mov    -0x20(%rbp),%rdi
+  409b4e:	e8 ed 10 00 00       	call   40ac40 <ft_strdup>
+  409b53:	48 89 c1             	mov    %rax,%rcx
+  409b56:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  409b5a:	48 89 48 08          	mov    %rcx,0x8(%rax)
+  409b5e:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  409b62:	48 83 78 08 00       	cmpq   $0x0,0x8(%rax)
+  409b67:	0f 85 21 00 00 00    	jne    409b8e <store_data+0xee>
+  409b6d:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  409b71:	48 8b 38             	mov    (%rax),%rdi
+  409b74:	e8 b7 74 ff ff       	call   401030 <free@plt>
+  409b79:	48 8b 7d d8          	mov    -0x28(%rbp),%rdi
+  409b7d:	e8 ae 74 ff ff       	call   401030 <free@plt>
+  409b82:	c7 45 fc 00 00 00 00 	movl   $0x0,-0x4(%rbp)
+  409b89:	e9 3f 00 00 00       	jmp    409bcd <store_data+0x12d>
+  409b8e:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  409b92:	e8 a9 fe ff ff       	call   409a40 <get_hash2>
+  409b97:	48 89 c1             	mov    %rax,%rcx
+  409b9a:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  409b9e:	48 89 48 10          	mov    %rcx,0x10(%rax)
+  409ba2:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  409ba6:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
+  409baa:	48 8b 0c c8          	mov    (%rax,%rcx,8),%rcx
+  409bae:	48 8b 45 d8          	mov    -0x28(%rbp),%rax
+  409bb2:	48 89 48 18          	mov    %rcx,0x18(%rax)
+  409bb6:	48 8b 55 d8          	mov    -0x28(%rbp),%rdx
+  409bba:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  409bbe:	48 8b 4d d0          	mov    -0x30(%rbp),%rcx
+  409bc2:	48 89 14 c8          	mov    %rdx,(%rax,%rcx,8)
+  409bc6:	c7 45 fc 01 00 00 00 	movl   $0x1,-0x4(%rbp)
+  409bcd:	8b 45 fc             	mov    -0x4(%rbp),%eax
+  409bd0:	48 83 c4 30          	add    $0x30,%rsp
+  409bd4:	5d                   	pop    %rbp
+  409bd5:	c3                   	ret    
+  409bd6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  409bdd:	00 00 00 
 
-0000000000409bf0 <hash_lookup>:
-  409bf0:	55                   	push   %rbp
-  409bf1:	48 89 e5             	mov    %rsp,%rbp
-  409bf4:	48 83 ec 40          	sub    $0x40,%rsp
-  409bf8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
-  409bfc:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
-  409c00:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
-  409c04:	e8 f7 fd ff ff       	call   409a00 <get_hash>
-  409c09:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
-  409c0d:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  409c11:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
-  409c15:	48 83 3c c8 00       	cmpq   $0x0,(%rax,%rcx,8)
-  409c1a:	0f 85 0d 00 00 00    	jne    409c2d <hash_lookup+0x3d>
-  409c20:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
-  409c27:	00 
-  409c28:	e9 89 00 00 00       	jmp    409cb6 <hash_lookup+0xc6>
-  409c2d:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
-  409c31:	e8 2a fe ff ff       	call   409a60 <get_hash2>
-  409c36:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
-  409c3a:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
-  409c3e:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
-  409c42:	48 8b 04 c8          	mov    (%rax,%rcx,8),%rax
-  409c46:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
-  409c4a:	31 c0                	xor    %eax,%eax
-  409c4c:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
-  409c51:	88 45 cf             	mov    %al,-0x31(%rbp)
-  409c54:	0f 84 12 00 00 00    	je     409c6c <hash_lookup+0x7c>
-  409c5a:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-  409c5e:	48 8b 40 10          	mov    0x10(%rax),%rax
-  409c62:	48 3b 45 d8          	cmp    -0x28(%rbp),%rax
-  409c66:	0f 95 c0             	setne  %al
-  409c69:	88 45 cf             	mov    %al,-0x31(%rbp)
-  409c6c:	8a 45 cf             	mov    -0x31(%rbp),%al
-  409c6f:	a8 01                	test   $0x1,%al
-  409c71:	0f 85 05 00 00 00    	jne    409c7c <hash_lookup+0x8c>
-  409c77:	e9 11 00 00 00       	jmp    409c8d <hash_lookup+0x9d>
-  409c7c:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-  409c80:	48 8b 40 18          	mov    0x18(%rax),%rax
-  409c84:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
-  409c88:	e9 bd ff ff ff       	jmp    409c4a <hash_lookup+0x5a>
-  409c8d:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
-  409c92:	0f 84 16 00 00 00    	je     409cae <hash_lookup+0xbe>
-  409c98:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
-  409c9c:	48 8b 78 08          	mov    0x8(%rax),%rdi
-  409ca0:	e8 9b 0f 00 00       	call   40ac40 <ft_strdup>
-  409ca5:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
-  409ca9:	e9 08 00 00 00       	jmp    409cb6 <hash_lookup+0xc6>
-  409cae:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
-  409cb5:	00 
-  409cb6:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
-  409cba:	48 83 c4 40          	add    $0x40,%rsp
-  409cbe:	5d                   	pop    %rbp
-  409cbf:	c3                   	ret    
+0000000000409be0 <hash_lookup>:
+  409be0:	55                   	push   %rbp
+  409be1:	48 89 e5             	mov    %rsp,%rbp
+  409be4:	48 83 ec 40          	sub    $0x40,%rsp
+  409be8:	48 89 7d f0          	mov    %rdi,-0x10(%rbp)
+  409bec:	48 89 75 e8          	mov    %rsi,-0x18(%rbp)
+  409bf0:	48 8b 45 e8          	mov    -0x18(%rbp),%rax
+  409bf4:	ba 00 9a 40 00       	mov    $0x409a00,%edx
+  409bf9:	b9 e8 03 00 00       	mov    $0x3e8,%ecx
+  409bfe:	48 89 c7             	mov    %rax,%rdi
+  409c01:	89 ce                	mov    %ecx,%esi
+  409c03:	ff d2                	call   *%rdx
+  409c05:	48 89 c0             	mov    %rax,%rax
+  409c08:	48 89 45 e0          	mov    %rax,-0x20(%rbp)
+  409c0c:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  409c10:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
+  409c14:	48 83 3c c8 00       	cmpq   $0x0,(%rax,%rcx,8)
+  409c19:	0f 85 0d 00 00 00    	jne    409c2c <hash_lookup+0x4c>
+  409c1f:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+  409c26:	00 
+  409c27:	e9 89 00 00 00       	jmp    409cb5 <hash_lookup+0xd5>
+  409c2c:	48 8b 7d e8          	mov    -0x18(%rbp),%rdi
+  409c30:	e8 0b fe ff ff       	call   409a40 <get_hash2>
+  409c35:	48 89 45 d8          	mov    %rax,-0x28(%rbp)
+  409c39:	48 8b 45 f0          	mov    -0x10(%rbp),%rax
+  409c3d:	48 8b 4d e0          	mov    -0x20(%rbp),%rcx
+  409c41:	48 8b 04 c8          	mov    (%rax,%rcx,8),%rax
+  409c45:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+  409c49:	31 c0                	xor    %eax,%eax
+  409c4b:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+  409c50:	88 45 cf             	mov    %al,-0x31(%rbp)
+  409c53:	0f 84 12 00 00 00    	je     409c6b <hash_lookup+0x8b>
+  409c59:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+  409c5d:	48 8b 40 10          	mov    0x10(%rax),%rax
+  409c61:	48 3b 45 d8          	cmp    -0x28(%rbp),%rax
+  409c65:	0f 95 c0             	setne  %al
+  409c68:	88 45 cf             	mov    %al,-0x31(%rbp)
+  409c6b:	8a 45 cf             	mov    -0x31(%rbp),%al
+  409c6e:	a8 01                	test   $0x1,%al
+  409c70:	0f 85 05 00 00 00    	jne    409c7b <hash_lookup+0x9b>
+  409c76:	e9 11 00 00 00       	jmp    409c8c <hash_lookup+0xac>
+  409c7b:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+  409c7f:	48 8b 40 18          	mov    0x18(%rax),%rax
+  409c83:	48 89 45 d0          	mov    %rax,-0x30(%rbp)
+  409c87:	e9 bd ff ff ff       	jmp    409c49 <hash_lookup+0x69>
+  409c8c:	48 83 7d d0 00       	cmpq   $0x0,-0x30(%rbp)
+  409c91:	0f 84 16 00 00 00    	je     409cad <hash_lookup+0xcd>
+  409c97:	48 8b 45 d0          	mov    -0x30(%rbp),%rax
+  409c9b:	48 8b 78 08          	mov    0x8(%rax),%rdi
+  409c9f:	e8 9c 0f 00 00       	call   40ac40 <ft_strdup>
+  409ca4:	48 89 45 f8          	mov    %rax,-0x8(%rbp)
+  409ca8:	e9 08 00 00 00       	jmp    409cb5 <hash_lookup+0xd5>
+  409cad:	48 c7 45 f8 00 00 00 	movq   $0x0,-0x8(%rbp)
+  409cb4:	00 
+  409cb5:	48 8b 45 f8          	mov    -0x8(%rbp),%rax
+  409cb9:	48 83 c4 40          	add    $0x40,%rsp
+  409cbd:	5d                   	pop    %rbp
+  409cbe:	c3                   	ret    
+  409cbf:	90                   	nop
 
 0000000000409cc0 <free_hashtable>:
   409cc0:	55                   	push   %rbp
