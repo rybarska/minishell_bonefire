@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:22:00 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/24 22:23:58 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/25 21:13:32 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 	int		delimiter_len;
 
 	delimiter_len = ft_strlen(redir->delimiter);
+	write(1, "> ", 2);
 	buffer = get_next_line(data, 0);
 	while (buffer != NULL)
 	{
@@ -91,10 +92,11 @@ static void	write_temp_file(t_data *data, t_redirection *redir)
 			snuff_it(data, "Error writing to here_doc\n", NULL, 255);
 		}
 		free(buffer);
+		write(1, "> ", 2);
 		buffer = get_next_line(data, 0);
 	}
 	if (buffer == NULL)
-		printf("warning: here-document delimited by end-of-file\n");
+		ft_putstr_fd("warning: here-document delimited by end-of-file\n", 2);
 	free(buffer);
 }
 
