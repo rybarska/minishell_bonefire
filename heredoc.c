@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 18:22:00 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/25 21:13:32 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/25 21:25:41 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,12 @@ static void	init_temp_file(t_data *data, t_redirection *redir)
 static void	write_temp_file(t_data *data, t_redirection *redir)
 {
 	char	*buffer;
-	int		delimiter_len;
 
-	delimiter_len = ft_strlen(redir->delimiter);
 	write(1, "> ", 2);
 	buffer = get_next_line(data, 0);
 	while (buffer != NULL)
 	{
-		if ((g_o_on == 2) || (ft_strlen(buffer) == delimiter_len
-				&& ft_strncmp(buffer, redir->delimiter, delimiter_len) == 0))
+		if ((g_o_on == 2) || ft_strcmp(buffer, redir->delimiter) == 0)
 			break ;
 		process_heredoc_vars(data, redir, &buffer);
 		if ((write(redir->fd, buffer, ft_strlen(buffer)) < 0)
