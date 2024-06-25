@@ -16,10 +16,8 @@ void	expand_and_split_and_process_quotes(t_data *data)
 {
 	t_token_node	*curr;
 	int				i;
-	int				to_be_expanded;
 
 	curr = data->token_list_head;
-	to_be_expanded = 0;
 	while (curr)
 	{
 		if (is_substantive(curr->type) && curr->value)
@@ -27,8 +25,6 @@ void	expand_and_split_and_process_quotes(t_data *data)
 			
 			//process_vars_and_put_them_in_quotes(data, &curr->value);
 			//process_vars_and_put_quotes_in_quotes(data, &curr->value);
-			if (ft_strchr(curr->value, '$'))
-				to_be_expanded = 1;
 			process_vars(data, &curr->value);
 			//curr->split_words = ft_split_returns(data,
 			//		curr->value, &curr->num_split_words);
@@ -37,11 +33,8 @@ void	expand_and_split_and_process_quotes(t_data *data)
 			if (!curr->split_words)
 				snuff_it(data, "Error allocating for split\n", NULL, 255);
 			i = -1;
-			if (!to_be_expanded)
-			{
-				while (curr->split_words[++i])
-					process_quotes(data, &curr->split_words[i]);
-			}
+			while (curr->split_words[++i])
+				process_quotes(data, &curr->split_words[i]);
 		}
 		curr = curr->next;
 	}

@@ -22,7 +22,7 @@ char *ft_strncpy(char *s1, char *s2, int n)
 	return (s1);
 }
 
-static int	is_quoted(t_data *data, char d)
+/*static int	is_quoted(t_data *data, char d)
 {
 	if (d == '\'' && !data->is_d_quoted)
 		data->is_s_quoted = !data->is_s_quoted;
@@ -31,7 +31,7 @@ static int	is_quoted(t_data *data, char d)
 	if (data->is_d_quoted || data->is_s_quoted)
 		return (1);
 	return (0);
-}
+}*/
 
 char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 {
@@ -41,25 +41,33 @@ char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 	int	wc = 0;
 	char	**out;
 
-	data->is_s_quoted = 0;
-	data->is_d_quoted = 0;
 	while (str[i])
 	{
-		if (str[i] && is_quoted(data, str[i]))
+		if (str[i] == '\"')
 		{
-			while (str[i] && is_quoted(data, str[i]))
+			i++;
+			while (str[i] && str[i] != '\"')
 				i++;
-			if (str[i])
+			if (str[i] == '\"')
 				i++;
 			wc++;
 		}
-		if (str[i] && !is_quoted(data, str[i]))
+		else if (str[i] == '\'')
 		{
-			while (str[i] && !is_quoted(data, str[i]) && ft_iswhitespace(str[i]))
+			i++;
+			while (str[i] && str[i] != '\'')
 				i++;
-			if (str[i])
+			if (str[i] == '\'')
+				i++;
+			wc++;
+		}
+		else
+		{
+			while (str[i] && ft_iswhitespace(str[i]))
+				i++;
+			if (str[i] && str[i] != '\"' && str[i] != '\'')
 				wc++;
-			while (str[i] && !is_quoted(data, str[i]) && !ft_iswhitespace(str[i]))
+			while (str[i] && str[i] != '\"' && str[i] != '\'' && !ft_iswhitespace(str[i]))
 				i++;
 		}
 		if (str[i])
@@ -68,42 +76,38 @@ char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 	*elements = wc;
 	out = (char **)malloc(sizeof(char *) * (wc + 1));
 	i = 0;
-	data->is_s_quoted = 0;
-	data->is_d_quoted = 0;
 	while (str[i])
 	{
-		if (str[i] && is_quoted(data, str[i]))
+		if (str[i] == '\"')
 		{
-			while (str[i] && is_quoted(data, str[i]))
+			i++;
+			while (str[i] && str[i] != '\"')
 				i++;
 			i++;
-			if ((str[i] == '\0' || ft_iswhitespace(str[i])) && i > j)
-			{
-				out[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
-				if (!out[k])
-					snuff_it(data, "Error allocating memory \n", NULL, 255);
-				ft_strncpy(out[k++], &str[j], i - j);
-				j = i;
-			}
 		}
-		if (str[i] && !is_quoted(data, str[i]))
+		else if (str[i] == '\'')
 		{
-			while (str[i] && !is_quoted(data, str[i]) && ft_iswhitespace(str[i]))
+			i++;
+			while (str[i] && str[i] != '\'')
+				i++;
+			i++;
+		}
+		else
+		{
+			while (str[i] && ft_iswhitespace(str[i]))
 				i++;
 			j = i;
-			while (str[i] && !is_quoted(data, str[i]) && !ft_iswhitespace(str[i]))
+			while (str[i] && str[i] != '\"' && str[i] != '\'' && !ft_iswhitespace(str[i]))
 				i++;
-			if ((str[i] == '\0' || ft_iswhitespace(str[i])) && i > j)
-			{
-				out[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
-				if (!out[k])
-					snuff_it(data, "Error allocating memory \n", NULL, 255);
-				ft_strncpy(out[k++], &str[j], i - j);
-				j = i;
-			}
 		}
-		if (str[i])
-			i++;
+		if ((str[i] == '\0' || ft_iswhitespace(str[i])) && i > j)
+		{
+			out[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
+			if (!out[k])
+				snuff_it(data, "Error allocating memory \n", NULL, 255);
+			ft_strncpy(out[k++], &str[j], i - j);
+			j = i;
+		}
 	}
 	out[k] = NULL;
 	return (out);
