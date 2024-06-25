@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 22:50:41 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/17 21:05:27 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:42:31 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	is_builtin(char *command)
 	if (ft_strcmp(command, "cd") == 0 || ft_strcmp(command, "echo") == 0
 		|| ft_strcmp(command, "env") == 0 || ft_strcmp(command, "exit") == 0
 		|| ft_strcmp(command, "export") == 0 || ft_strcmp(command, "pwd") == 0
-		|| ft_strcmp(command, "unset") == 0)
+		|| ft_strcmp(command, "unset") == 0 || ft_strcmp(command, "hash") == 0)
 		return (1);
 	return (0);
 }
@@ -87,7 +87,7 @@ int	execute_builtin(t_data *data, t_exec **exec, char *command)
 		arguments = (*exec)->arguments;
 		execute_unset(data, arguments);
 	}
-	else
-		return (1);
+	else if (ft_strcmp(command, "hash") == 0)
+		execute_hash(data);
 	return (0);
 }

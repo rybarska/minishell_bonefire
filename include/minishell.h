@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/17 21:04:37 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/25 19:33:33 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,5 +335,7 @@ char							**ft_split_returns(t_data *data,
 									char *str, int *elements);
 char							**ft_split_bonefire(t_data *data,
 									char *str, int *elements);
+
+void execute_hash(t_data *data);
 
 #endif
