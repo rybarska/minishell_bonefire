@@ -36,6 +36,7 @@ void			ft_bzero(void *s, size_t n);
 void			*ft_memcpy(void *dest, const void *src, size_t n);
 void			*ft_memmove(void *str1, const void *str2, size_t n);
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size);
+char 			*ft_strncpy(char *s1, char *s2, int n);
 unsigned int	ft_strlcat(char *dest, char *src, unsigned int size);
 int				ft_toupper(int c);
 int				ft_tolower(int c);
