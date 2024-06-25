@@ -55,6 +55,12 @@ void	process_quotes(t_data *data, char **string)
 	}
 }
 
+void	check_if_string_allocated(t_data *data, char **string)
+{
+	if (!*string)
+		snuff_it(data, "Error allocating memory\n", NULL, 255);
+}
+
 void	process_vars_and_put_them_in_quotes(t_data *data, char **string)
 {
 	char	*expanded;
@@ -68,17 +74,56 @@ void	process_vars_and_put_them_in_quotes(t_data *data, char **string)
 			if (!ft_strchr(expanded, ' '))
 			{
 				*string = ft_strjoin("\"", expanded);
-				if (!*string)
-					snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
 				free(expanded);
+				check_if_string_allocated(data, string);
+				//if (!*string)
+				//	snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
 				*string = ft_strjoin_free(*string, '\"');
-				if (!*string)
-					snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
+				check_if_string_allocated(data, string);
+				//if (!*string)
+				//	snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
 			}
 			else
 			{
 				*string = ft_strdup(expanded);
 				free(expanded);
+				check_if_string_allocated(data, string);
+				//if (!*string)
+				//	snuff_it(data, "Error allocating for strdup\n", NULL, 255);
+			}
+		}
+	}
+}
+
+void	process_vars_and_put_quotes_in_quotes(t_data *data, char **string)
+{
+	char	*expanded;
+
+	if (ft_strchr(*string, '$'))
+	{
+		expanded = expand_arg(data, *string);
+		free(*string);
+		if (expanded)
+		{
+			if (ft_strchr(expanded, '\'') || ft_strchr(expanded, '\"'))
+			{
+				*string = ft_strjoin("\"", expanded);
+				free(expanded);
+				check_if_string_allocated(data, string);
+				//if (!*string)
+				//	snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
+				*string = ft_strjoin_free(*string, '\"');
+				check_if_string_allocated(data, string);
+				//if (!*string)
+				//	snuff_it(data, "Error allocating for strjoin\n", NULL, 255);
+			}
+			else
+			{
+				*string = ft_strdup(expanded);
+				free(expanded);
+				check_if_string_allocated(data, string);
+				//if (!*string)
+				//	snuff_it(data, "Error allocating for strdup\n", NULL, 255);
 			}
 		}
 	}
