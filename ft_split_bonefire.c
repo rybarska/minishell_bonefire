@@ -49,7 +49,6 @@ char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 		{
 			while (str[i] && is_quoted(data, str[i]))
 				i++;
-			printf("1. i = %d\n", i);
 			if (str[i])
 				i++;
 			wc++;
@@ -62,7 +61,6 @@ char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 				wc++;
 			while (str[i] && !is_quoted(data, str[i]) && !ft_iswhitespace(str[i]))
 				i++;
-			printf("2. i = %d\n", i);
 		}
 		if (str[i])
 			i++;
@@ -79,7 +77,6 @@ char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 			while (str[i] && is_quoted(data, str[i]))
 				i++;
 			i++;
-			printf("3. i = %d\n", i);
 			if ((str[i] == '\0' || ft_iswhitespace(str[i])) && i > j)
 			{
 				out[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
@@ -96,7 +93,6 @@ char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 			j = i;
 			while (str[i] && !is_quoted(data, str[i]) && !ft_iswhitespace(str[i]))
 				i++;
-			printf("4. i = %d\n", i);
 			if ((str[i] == '\0' || ft_iswhitespace(str[i])) && i > j)
 			{
 				out[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));

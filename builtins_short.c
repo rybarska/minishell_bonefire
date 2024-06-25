@@ -35,7 +35,7 @@ void	execute_echo(t_exec **exec)
 		write(STDOUT_FILENO, (*exec)->arguments[i],
 			ft_strlen((*exec)->arguments[i]));
 		if ((*exec)->arguments[i + 1] != NULL)
-			printf(" ");
+			write(STDOUT_FILENO, " ", 1);
 		i++;
 	}
 	if (!omit_newline)
