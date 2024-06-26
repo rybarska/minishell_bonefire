@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/26 17:53:16 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:30:58 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 		: "r" (key), "r" (HASHTABLE_SIZE), "r" (get_hash)
 		:
 	);
-	//printf("key is: %zu\n", index);
 	if (hashtable[index])
 		return (1);
 	new = malloc(sizeof(t_keyvalue));
