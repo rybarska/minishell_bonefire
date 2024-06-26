@@ -6,13 +6,13 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/26 08:15:54 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:41:01 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	__attribute__ ((naked)) get_hash(void)
+size_t __attribute__ ((naked))	get_hash(void)
 {
 	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx; xor %%rax, %%rax;"
 		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
@@ -29,33 +29,9 @@ size_t	__attribute__ ((naked)) get_hash(void)
 	);
 }
 
-// size_t	get_hash(char *keyvalue)
-// {
-// 	size_t	hash;
-// 	int counter = 0;
-
-// 	// __asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xor %%rax, %%rax;"
-// 	// 	"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
-// 	// 	"1:"
-// 	// 	"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
-// 	// 	"imulq $31, %%rax; movzx %%cl, %%rcx;"
-// 	// 	"addq %%rcx, %%rax; div %2; mov %%rdx, %%rax;"
-// 	// 	"inc %%rbx; jmp 1b;"
-// 	// 	"2:"
-// 	// 	"mov %%rax, %0; popq %%rbx;"
-// 	// 	: "=r"(hash)
-// 	// 	: "r"(keyvalue), "r"(HASHTABLE_SIZE)
-// 	// 	: "rax", "rdx", "rcx"
-// 	// );
-// 	while (keyvalue[counter])
-// 		hash = (hash * 31 + keyvalue[counter++]) % HASHTABLE_SIZE;
-// 	return (hash);
-// }
-
-
-size_t	__attribute__ ((always_inline)) get_hash2(char *keyvalue)
+size_t __attribute__ ((always_inline))	get_hash2(char *keyvalue)
 {
-	size_t	register hash;
+	size_t register	hash;
 
 	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx;"
 		"xor %%rax, %%rax; xor %%r8, %%r8;"
@@ -116,7 +92,6 @@ char	*hash_lookup(t_keyvalue **hashtable, char *key)
 		: "r" (key), "r" (HASHTABLE_SIZE), "r" (get_hash)
 		:
 	);
-	// index = get_hash(key);
 	if (!hashtable[index])
 		return (NULL);
 	secure_hash = get_hash2(key);
