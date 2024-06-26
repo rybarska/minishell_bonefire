@@ -96,7 +96,7 @@ char	*expand_arg(t_data *data, char *arg)
 		if (*arg == '$' && !data->is_s_quoted)
 		{
 			if (*(arg + 1) == '\0' || *(arg + 1) == '\"' || *(arg + 1) == '\''
-					||ft_iswhitespace(*(arg + 1)))
+				|| ft_iswhitespace(*(arg + 1)))
 				temp_str = add_one_char(data, &arg, temp_str);
 			else if (*(arg + 1) == '?')
 				get_exit_status(data, &temp_str, &arg);
