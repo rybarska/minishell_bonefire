@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/05 22:01:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2023/10/10 13:52:30 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/06/26 20:06:37 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "../../include/get_next_line.h"
 #include "minishell.h"
 
 unsigned int	ft_strlcpy(char *dest, char *src, unsigned int size)
