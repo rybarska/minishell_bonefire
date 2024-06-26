@@ -6,11 +6,11 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/21 17:58:54 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:26:30 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 20:13:18 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "include/minishell.h"
+#include "minishell.h"
 
 void	set_signal_controls(t_data *data)
 {
