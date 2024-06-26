@@ -338,6 +338,6 @@ char							**ft_split_bonefire(t_data *data,
 char							**ft_split_bonefire_regular(t_data *data,
 									char *s, int *elements);
 
-void execute_hash(t_data *data);
+void							execute_hash(t_data *data);
 
 #endif
