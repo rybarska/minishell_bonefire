@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 22:50:57 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/24 19:29:01 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:49:51 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ void	execute_echo(t_exec **exec)
 	}
 	while ((*exec)->arguments[i])
 	{
-		write(STDOUT_FILENO, (*exec)->arguments[i],
-			ft_strlen((*exec)->arguments[i]));
+		ft_putstr_fd((*exec)->arguments[i], 1);
 		if ((*exec)->arguments[i + 1] != NULL)
 			write(STDOUT_FILENO, " ", 1);
 		i++;
