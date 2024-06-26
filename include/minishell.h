@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/25 21:44:53 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:40:44 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -204,6 +204,8 @@ void							process_vars(t_data *data, char **string);
 void							process_quotes(t_data *data, char **string);
 void							process_vars_and_put_them_in_quotes(
 									t_data *data, char **string);
+void							process_vars_and_put_quotes_in_quotes(
+									t_data *data, char **string);
 
 /* execs_utils */
 t_exec							*make_empty_exec(t_data *data);
@@ -332,6 +334,10 @@ void							free_hashtable(t_keyvalue **hashtable,
 char							**ft_split_returns(t_data *data,
 									char *str, int *elements);
 char							**ft_split_bonefire(t_data *data,
-									char *str, int *elements);
+									char *s, int *elements);
+char							**ft_split_bonefire_regular(t_data *data,
+									char *s, int *elements);
+
+void execute_hash(t_data *data);
 
 #endif

@@ -16,20 +16,42 @@ void	expand_and_split_and_process_quotes(t_data *data)
 {
 	t_token_node	*curr;
 	int				i;
+	int				flag_for_quotes;
 
 	curr = data->token_list_head;
+	flag_for_quotes = 0;
 	while (curr)
 	{
 		if (is_substantive(curr->type) && curr->value)
 		{
-			process_vars_and_put_them_in_quotes(data, &curr->value);
-			curr->split_words = ft_split_returns(data,
+			if (ft_strchr(curr->value, '$') && !ft_strchr(curr->value, '\'')
+				&& !ft_strchr(curr->value, '\"'))
+				flag_for_quotes = 1;
+			process_vars(data, &curr->value);
+			if (!ft_strchr(curr->value, '$') && flag_for_quotes == 1
+				&& (ft_strchr(curr->value, '\'') || !ft_strchr(curr->value, '\"')))
+				flag_for_quotes = 1;
+			else
+				flag_for_quotes = 0;
+			//curr->split_words = ft_split_returns(data,
+			//		curr->value, &curr->num_split_words);
+			if (!flag_for_quotes)
+			{
+				curr->split_words = ft_split_bonefire(data,
 					curr->value, &curr->num_split_words);
-			if (!curr->split_words)
-				snuff_it(data, "Error allocating for split\n", NULL, 255);
-			i = -1;
-			while (curr->split_words[++i])
-				process_quotes(data, &curr->split_words[i]);
+				if (!curr->split_words)
+					snuff_it(data, "Error allocating for split\n", NULL, 255);
+				i = -1;
+				while (curr->split_words[++i])
+					process_quotes(data, &curr->split_words[i]);
+			}
+			else
+			{
+				curr->split_words = ft_split_bonefire_regular(data,
+					curr->value, &curr->num_split_words);
+				if (!curr->split_words)
+					snuff_it(data, "Error allocating for split\n", NULL, 255);
+			}
 		}
 		curr = curr->next;
 	}
