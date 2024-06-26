@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/26 17:41:01 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 17:53:16 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 size_t __attribute__ ((naked))	get_hash(void)
 {
-	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx; xor %%rax, %%rax;"
-		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
+	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx;"
+		"xor %%rax, %%rax; xor %%rdx, %%rdx;"
 		"1:"
 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
-		"imulq $31, %%rax; movzx %%cl, %%rcx;"
+		"shl $5, %%rax; sub %%rdx, %%rax; movzx %%cl, %%rcx;"
 		"addq %%rcx, %%rax; div %%rsi; mov %%rdx, %%rax;"
 		"inc %%rbx; jmp 1b;"
 		"2:"
@@ -28,6 +28,23 @@ size_t __attribute__ ((naked))	get_hash(void)
 		: "rax", "rdx", "rcx"
 	);
 }
+
+// size_t __attribute__ ((naked))	get_hash(void)
+// {
+// 	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx; xor %%rax, %%rax;"
+// 		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
+// 		"1:"
+// 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
+// 		"imulq $31, %%rax; movzx %%cl, %%rcx;"
+// 		"addq %%rcx, %%rax; div %%rsi; mov %%rdx, %%rax;"
+// 		"inc %%rbx; jmp 1b;"
+// 		"2:"
+// 		"popq %%rbx; ret;"
+// 		:
+// 		:
+// 		: "rax", "rdx", "rcx"
+// 	);
+// }
 
 size_t __attribute__ ((always_inline))	get_hash2(char *keyvalue)
 {
@@ -61,6 +78,7 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 		: "r" (key), "r" (HASHTABLE_SIZE), "r" (get_hash)
 		:
 	);
+	//printf("key is: %zu\n", index);
 	if (hashtable[index])
 		return (1);
 	new = malloc(sizeof(t_keyvalue));
