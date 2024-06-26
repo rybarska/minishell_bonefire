@@ -6,37 +6,51 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/24 13:52:16 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 19:30:58 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-size_t	get_hash(char *keyvalue)
+size_t __attribute__ ((naked))	get_hash(void)
 {
-	size_t	hash;
-
-	__asm__ volatile ("pushq %%rbx; mov %1, %%rbx; xor %%rax, %%rax;"
-		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
+	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx;"
+		"xor %%rax, %%rax; xor %%rdx, %%rdx;"
 		"1:"
 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
-		"imulq $31, %%rax; movzx %%cl, %%rcx;"
-		"addq %%rcx, %%rax; div %2; mov %%rdx, %%rax;"
+		"shl $5, %%rax; sub %%rdx, %%rax; movzx %%cl, %%rcx;"
+		"addq %%rcx, %%rax; div %%rsi; mov %%rdx, %%rax;"
 		"inc %%rbx; jmp 1b;"
 		"2:"
-		"mov %%rax, %0; popq %%rbx;"
-		: "=r"(hash)
-		: "r"(keyvalue), "r"(HASHTABLE_SIZE)
+		"popq %%rbx; ret;"
+		:
+		:
 		: "rax", "rdx", "rcx"
 	);
-	return (hash);
 }
 
-size_t	get_hash2(char *keyvalue)
-{
-	size_t	hash;
+// size_t __attribute__ ((naked))	get_hash(void)
+// {
+// 	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx; xor %%rax, %%rax;"
+// 		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
+// 		"1:"
+// 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
+// 		"imulq $31, %%rax; movzx %%cl, %%rcx;"
+// 		"addq %%rcx, %%rax; div %%rsi; mov %%rdx, %%rax;"
+// 		"inc %%rbx; jmp 1b;"
+// 		"2:"
+// 		"popq %%rbx; ret;"
+// 		:
+// 		:
+// 		: "rax", "rdx", "rcx"
+// 	);
+// }
 
-	__asm__ volatile ("pushq %%rbx; lea (%1), %%rbx;"
+size_t __attribute__ ((always_inline))	get_hash2(char *keyvalue)
+{
+	size_t register	hash;
+
+	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx;"
 		"xor %%rax, %%rax; xor %%r8, %%r8;"
 		"1:"
 		"movb (%%rbx), %%dl; cmpb $0, %%dl; jz 2f;"
@@ -46,7 +60,7 @@ size_t	get_hash2(char *keyvalue)
 		"2:"
 		"mov %%rax, %0; popq %%rbx;"
 		: "=r"(hash)
-		: "r"(keyvalue)
+		: "D" (keyvalue)
 		: "rax", "rdx", "rcx", "r8"
 	);
 	return (hash);
@@ -57,7 +71,13 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 	t_keyvalue	*new;
 	size_t		index;
 
-	index = get_hash(key);
+	__asm__ volatile (
+		"push %%rdi; push %%rsi; push %%rdx; movq %1, %%rdi; movl %2, %%esi;"
+		"callq *%3; movq %%rax, %0; pop %%rdx; pop %%rsi; pop %%rdi;"
+		: "=r" (index)
+		: "r" (key), "r" (HASHTABLE_SIZE), "r" (get_hash)
+		:
+	);
 	if (hashtable[index])
 		return (1);
 	new = malloc(sizeof(t_keyvalue));
@@ -81,7 +101,14 @@ char	*hash_lookup(t_keyvalue **hashtable, char *key)
 	size_t		secure_hash;
 	t_keyvalue	*proxy;
 
-	index = get_hash(key);
+	__asm__ volatile (
+		"push %%rdi; push %%rsi; movq %1, %%rdi; movl %2, %%esi;"
+		"callq *%3; movq %%rax, %0;"
+		"pop %%rsi; pop %%rdi;"
+		: "=r" (index)
+		: "r" (key), "r" (HASHTABLE_SIZE), "r" (get_hash)
+		:
+	);
 	if (!hashtable[index])
 		return (NULL);
 	secure_hash = get_hash2(key);
