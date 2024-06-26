@@ -202,10 +202,6 @@ void							process_vars_and_quotes(t_data *data,
 									char **string);
 void							process_vars(t_data *data, char **string);
 void							process_quotes(t_data *data, char **string);
-void							process_vars_and_put_them_in_quotes(
-									t_data *data, char **string);
-void							process_vars_and_put_quotes_in_quotes(
-									t_data *data, char **string);
 
 /* execs_utils */
 t_exec							*make_empty_exec(t_data *data);
@@ -219,6 +215,8 @@ void							clear_token_list(t_data *data);
 void							print_tokens(t_token_node *head);
 /* tokens_merge_strings */
 void							merge_unseparated(t_data *data);
+/* tokens_split */
+void							expand_and_split_and_process_quotes(t_data *data);
 /* syntax */
 int								check_quote_syntax(t_data *data);
 int								check_token_syntax(t_data *data);

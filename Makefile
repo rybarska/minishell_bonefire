@@ -13,6 +13,7 @@ SRC = ./main.c \
       ./tokens_quotes.c \
       ./tokens_lists.c \
       ./tokens_merge_strings.c \
+      ./tokens_split.c \
       ./vars_and_quotes.c \
       ./syntax.c \
       ./exec_utils.c \
@@ -43,7 +44,6 @@ SRC = ./main.c \
       ./num_check.c \
       ./thrash_list.c \
       ./hashing.c \
-      ./special_split_returns.c \
       ./ft_split_bonefire.c \
       ./ft_split_bonefire_regular.c \
       ./hash_builtin.c \
