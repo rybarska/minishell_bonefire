@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-char *ft_strncpy(char *s1, char *s2, int n)
-{
-	int i = -1;
-
-	while (++i < n && s2[i])
-		s1[i] = s2[i];
-	s1[i] = '\0';
-	return (s1);
-}
-
-/*static int	is_quoted(t_data *data, char d)
-{
-	if (d == '\'' && !data->is_d_quoted)
-		data->is_s_quoted = !data->is_s_quoted;
-	else if (d == '\"' && !data->is_s_quoted)
-		data->is_d_quoted = !data->is_d_quoted;
-	if (data->is_d_quoted || data->is_s_quoted)
-		return (1);
-	return (0);
-}*/
-
 char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 {
 	int	i = 0;
@@ -83,14 +62,12 @@ char	**ft_split_bonefire(t_data *data, char *str, int *elements)
 			i++;
 			while (str[i] && str[i] != '\"')
 				i++;
-			i++;
 		}
 		else if (str[i] == '\'')
 		{
 			i++;
 			while (str[i] && str[i] != '\'')
 				i++;
-			i++;
 		}
 		else
 		{
