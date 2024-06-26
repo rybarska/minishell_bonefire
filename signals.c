@@ -41,9 +41,8 @@ static void	heredoc_sigint(int signal_number)
 	g_o_on = signal_number;
 }
 
-void	set_mode(t_data *data, t_signal_mode mode)
+void	set_signal_controls(t_data *data)
 {
-	data->signal_mode = mode;
 	if (data->signal_mode == INTERACTIVE)
 		signal(SIGINT, &handle_sigint);
 	else if (data->signal_mode == CHILD)
@@ -60,4 +59,10 @@ void	set_mode(t_data *data, t_signal_mode mode)
 		signal(SIGQUIT, &handle_sigquit);
 	else if (data->signal_mode == HERE_DOC)
 		signal(SIGQUIT, SIG_IGN);
+}
+
+void	set_mode(t_data *data, t_signal_mode mode)
+{
+	data->signal_mode = mode;
+	set_signal_controls(data);
 }
