@@ -314,6 +314,12 @@ void							execute_pwd(t_data *data);
 /* signals */
 void							set_signal_controls(t_data *data);
 void							set_mode(t_data *data, t_signal_mode mode);
+/* signals_handlers */
+void							handle_sigint(int signal_number);
+void							handle_sigint_non_interactive(
+									int signal_number);
+void							handle_sigquit(int signal_number);
+void							heredoc_sigint(int signal_number);
 /* num_check */
 int								get_input_num(char *numstr);
 /* thrash list */

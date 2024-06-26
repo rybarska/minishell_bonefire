@@ -12,35 +12,6 @@
 
 #include "include/minishell.h"
 
-static void	handle_sigint(int signal_number)
-{
-	(void)signal_number;
-	g_o_on = signal_number;
-	write(STDOUT_FILENO, "\n", 1);
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
-
-static void	handle_sigint_non_interactive(int signal_number)
-{
-	(void)signal_number;
-	g_o_on = signal_number;
-	write(STDOUT_FILENO, "\n", 1);
-}
-
-static void	handle_sigquit(int signal_number)
-{
-	(void)signal_number;
-	write(STDOUT_FILENO, "Quit (core dumped)\n", 19);
-}
-
-static void	heredoc_sigint(int signal_number)
-{
-	ioctl(STDIN_FILENO, TIOCSTI, "\n");
-	g_o_on = signal_number;
-}
-
 void	set_signal_controls(t_data *data)
 {
 	if (data->signal_mode == INTERACTIVE)
