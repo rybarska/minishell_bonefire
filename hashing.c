@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 15:25:17 by mhuszar           #+#    #+#             */
-/*   Updated: 2024/06/25 22:54:35 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/26 08:15:54 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ size_t	__attribute__ ((naked)) get_hash(void)
 // }
 
 
-size_t	get_hash2(char *keyvalue)
+size_t	__attribute__ ((always_inline)) get_hash2(char *keyvalue)
 {
 	size_t	register hash;
 
@@ -79,13 +79,12 @@ int	store_data(t_keyvalue **hashtable, char *key, char *val)
 	size_t		index;
 
 	__asm__ volatile (
-		"push %%rdi; push %%rsi; push %%rdx; movq %1, %%rdi; movl %2, %%esi; callq *%3; movq %%rax, %0;"
-		"pop %%rdx; pop %%rsi; pop %%rdi;"
+		"push %%rdi; push %%rsi; push %%rdx; movq %1, %%rdi; movl %2, %%esi;"
+		"callq *%3; movq %%rax, %0; pop %%rdx; pop %%rsi; pop %%rdi;"
 		: "=r" (index)
 		: "r" (key), "r" (HASHTABLE_SIZE), "r" (get_hash)
 		:
 	);
-	//index = get_hash(key);
 	if (hashtable[index])
 		return (1);
 	new = malloc(sizeof(t_keyvalue));
