@@ -31,7 +31,6 @@ SRC = ./main.c \
       ./children_redirs.c \
       ./children_lone.c \
       ./children_execve.c \
-      ./print.c \
       ./cleanup_lists.c \
       ./cleanup_utils.c \
       ./cleanup.c \
@@ -51,7 +50,7 @@ SRC = ./main.c \
 OBJ = $(SRC:%.c=%.o)
 
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -I ./include -I $(LIBFT_DIR) -O3
+CFLAGS = -Werror -Wextra -Wall -I ./include -I $(LIBFT_DIR) -g
 LDFLAGS = -L$(LIBFT_DIR) -L. -lft -lreadline
 
 NAME = minishell
