@@ -46,6 +46,12 @@ static int	count_word_len(char const *s, char c)
 	return (word_len);
 }
 
+static void	skip_whitespace(char **s)
+{
+	while (**s == ' ')
+		(*s)++;
+}
+
 char	**ft_split_bonefire_regular(t_data *data, char *s, int *elements)
 {
 	int		i;
@@ -58,8 +64,7 @@ char	**ft_split_bonefire_regular(t_data *data, char *s, int *elements)
 		snuff_it(data, "Error allocating memory \n", NULL, 255);
 	while (*s)
 	{
-		while (*s == ' ')
-			s++;
+		skip_whitespace(&s);
 		if (*s && count_word_len(s, ' ') > 0)
 		{
 			array[i] = ft_substr(s, 0, count_word_len(s, ' '));
