@@ -19,9 +19,9 @@ static void	handle_bad_infile(t_data *data, t_redirection *in_redir)
 	if (access(in_redir->file, F_OK) != 0)
 		boo(data, "Error: file does not exist\n", in_redir->file, 1);
 	else if (access(in_redir->file, R_OK | X_OK) != 0)
-		boo(data, "Error opening file\n", in_redir->file, 126);
+		boo(data, "Error opening file\n", in_redir->file, 1);
 	else
-		boo(data, "Error: bad file\n", in_redir->file, 126);
+		boo(data, "Error: bad file\n", in_redir->file, 1);
 }
 
 int	process_out_files(t_data *data, t_exec **exec)
@@ -37,7 +37,7 @@ int	process_out_files(t_data *data, t_exec **exec)
 			out_r->fd = open(out_r->file, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		if (out_r->fd < 0)
 			return (boo(data, "Error: permission denied\n",
-					out_r->file, 126), 1);
+					out_r->file, 1), 1);
 		if (out_r->next)
 			close_fd_set_minus1(&out_r->fd);
 		else
