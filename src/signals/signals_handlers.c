@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 19:46:56 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/26 20:13:26 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/27 14:08:31 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	handle_sigint_non_interactive(int signal_number)
 {
 	(void)signal_number;
 	g_o_on = signal_number;
-	write(STDOUT_FILENO, "\n", 1);
 }
 
 void	handle_sigquit(int signal_number)
