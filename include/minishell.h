@@ -219,7 +219,8 @@ void							merge_unseparated(t_data *data);
 void							expand_and_split_and_process_quotes(
 									t_data *data);
 /* syntax */
-int								check_quote_syntax(t_data *data);
+int								q_syntax(t_data *data);
+int								r_syntax(t_data *data);
 int								check_token_syntax(t_data *data);
 /* tokens_to_execs */
 void							make_executives(t_data *data);

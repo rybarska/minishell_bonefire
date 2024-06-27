@@ -69,7 +69,7 @@ int	main(void)
 	{
 		get_all_cmd_paths(&data);
 		read_input(&data);
-		if (data.text && check_quote_syntax(&data) == 0)
+		if (data.text && q_syntax(&data) == 0 && r_syntax(&data) == 0)
 		{
 			make_token_list(&data);
 			merge_unseparated(&data);

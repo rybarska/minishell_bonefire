@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	check_quote_syntax(t_data *data)
+int	q_syntax(t_data *data)
 {
 	char	*temp_str;
 	int		is_s_quoted;
@@ -35,6 +35,28 @@ int	check_quote_syntax(t_data *data)
 	{
 		data->last_exit_code = 2;
 		return (boo(data, "Syntax error near unexpected token\n", NULL, 2), 2);
+	}
+	return (0);
+}
+
+int	r_syntax(t_data *data)
+{
+	char	*temp_str;
+	int		i;
+
+	i = -1;
+	temp_str = data->text;
+	if (!temp_str)
+		return (1);
+	while (temp_str[++i])
+	{
+		if ((temp_str[i] == '<' || temp_str[i] == '>')
+			&& (temp_str[i + 1]
+				&& (temp_str[i + 1] == '<' || temp_str[i + 1] == '>'))
+			&& (temp_str[i + 2]
+				&& (temp_str[i + 2] == '<' || temp_str[i + 2] == '>')))
+			return (boo(data,
+					"Syntax error near unexpected token\n", NULL, 2), 2);
 	}
 	return (0);
 }
