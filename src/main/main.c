@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:57:43 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/24 19:28:52 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/27 12:52:29 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	read_input(t_data *data)
 	{
 		data->last_exit_code = 130;
 		g_o_on = 0;
-		return ;
 	}
 	add_string_to_thrash_list(data, input);
 	set_mode(data, NON_INTERACTIVE);
