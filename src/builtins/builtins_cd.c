@@ -20,12 +20,14 @@ void	update_env_vars(t_data *data, char *old_dir)
 	res = ft_strjoin("OLDPWD=", old_dir);
 	if (!res)
 		snuff_it(data, "Error allocating for dir name\n", NULL, 255);
+	add_string_to_thrash_list(data, res);
 	execute_export(data, (char *[]){"export", res, NULL});
 	if (getcwd(curr_dir, sizeof(curr_dir)) != NULL)
 	{
 		res = ft_strjoin("PWD=", curr_dir);
 		if (!res)
 			snuff_it(data, "Error allocating for dir name\n", NULL, 255);
+		add_string_to_thrash_list(data, res);
 		execute_export(data, (char *[]){"export", res, NULL});
 		data->last_exit_code = 0;
 	}
