@@ -48,11 +48,18 @@ static void	execute_lone_builtin(t_data *data, t_exec **exec)
 			127);
 }
 
-static void	close_temps_and_snuff_it(t_data *data, t_exec **exec)
+static void	restore_stds(t_data *data, t_exec **exec)
 {
-	close_fd_set_minus1(&data->temp1_fd);
-	close_fd_set_minus1(&data->temp2_fd);
-	snuff_it(data, "Error redirecting temp fd\n", (*exec)->name, 255);
+	if (dup2(data->temp1_fd, STDIN_FILENO) < 0)
+	{
+		close_fd_set_minus1(&data->temp1_fd);
+		snuff_it(data, "Error redirecting temp fd\n", (*exec)->name, 255);
+	}
+	if (dup2(data->temp2_fd, STDOUT_FILENO) < 0)
+	{
+		close_fd_set_minus1(&data->temp2_fd);
+		snuff_it(data, "Error redirecting temp fd\n", (*exec)->name, 255);
+	}
 }
 
 void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
@@ -67,7 +74,10 @@ void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
 		snuff_it(data, "Error duplicating STDOUT_FILENO\n", NULL, 255);
 	}
 	if (process_in_files(data, exec) > 0 || process_out_files(data, exec) > 0)
+	{
+		restore_stds(data, exec);
 		return ;
+	}
 	if ((*exec)->arguments && is_builtin((*exec)->arguments[0]))
 		execute_lone_builtin(data, exec);
 	else if ((*exec)->arguments)
@@ -75,10 +85,5 @@ void	execute_lone_exec_no_pipe(t_data *data, t_exec **exec)
 		execute_lone_external(data, exec);
 		wait_for_children(data);
 	}
-	if (dup2(data->temp1_fd, STDIN_FILENO) < 0)
-		close_temps_and_snuff_it(data, exec);
-	if (dup2(data->temp2_fd, STDOUT_FILENO) < 0)
-		close_temps_and_snuff_it(data, exec);
-	close_fd_set_minus1(&data->temp1_fd);
-	close_fd_set_minus1(&data->temp2_fd);
+	restore_stds(data, exec);
 }
