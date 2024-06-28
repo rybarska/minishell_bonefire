@@ -20,13 +20,20 @@ void	handle_eof_or_ctrl_d(t_data *data)
 	exit_like_a_boss(data, data->last_exit_code);
 }
 
-int	is_only_whitespace(char *str)
+void	handle_whitespace(t_data *data, char *str)
 {
 	while (ft_iswhitespace(*str))
 		str++;
 	if (*str == '\0' || *str == '\n')
-		return (1);
-	return (0);
+		return ;
+	else
+	{
+		data->text = ft_strdup(str);
+		if (!data->text)
+			snuff_it(data, "Error allocating memory for input\n", NULL, 255);
+		data->text_len = ft_strlen(data->text);
+		data->pos = 0;
+	}
 }
 
 void	read_input(t_data *data)
@@ -46,14 +53,7 @@ void	read_input(t_data *data)
 	if (!input)
 		handle_eof_or_ctrl_d(data);
 	add_history(input);
-	if (!is_only_whitespace(input))
-	{
-		data->text = ft_strdup(input);
-		if (!data->text)
-			snuff_it(data, "Error allocating memory for input\n", NULL, 255);
-		data->text_len = ft_strlen(data->text);
-		data->pos = 0;
-	}
+	handle_whitespace(data, input);
 }
 
 int	main(void)
