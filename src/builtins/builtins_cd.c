@@ -38,11 +38,25 @@ void	update_env_vars(t_data *data, char *old_dir)
 	}
 }
 
-void	execute_cd(t_data *data, char *dir)
+int	are_args_too_many(t_data *data, char **args)
+{
+	if (args && args[1] && args[1][0] && args[2])
+	{
+		boo(data, "too many arguments\n", "cd", 1);
+		data->last_exit_code = 1;
+		return (1);
+	}
+	return (0);
+}
+
+void	execute_cd(t_data *data, char **args)
 {
 	char	*home_dir;
 
-	if (dir == NULL || ft_strcmp(dir, "") == 0 || ft_strcmp(dir, "HOME") == 0)
+	if (are_args_too_many(data, args))
+		return ;
+	if (args[1] == NULL || ft_strcmp(args[1], "") == 0
+		|| ft_strcmp(args[1], "HOME") == 0)
 	{
 		home_dir = ft_getenv(data, "HOME");
 		if (home_dir == NULL)
@@ -51,14 +65,14 @@ void	execute_cd(t_data *data, char *dir)
 			data->last_exit_code = 1;
 			return ;
 		}
-		dir = home_dir;
+		args[1] = home_dir;
 		data->last_exit_code = 0;
 	}
-	if (chdir(dir) == -1)
+	if (chdir(args[1]) == -1)
 	{
 		perror("cd");
 		data->last_exit_code = 1;
 		return ;
 	}
-	update_env_vars(data, dir);
+	update_env_vars(data, args[1]);
 }

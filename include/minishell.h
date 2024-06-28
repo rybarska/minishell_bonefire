@@ -307,7 +307,7 @@ void							print_export_strings(t_data *data);
 int								check_env_var_name(t_data *data, char *name,
 									char *value);
 /* builtins_short */
-void							execute_cd(t_data *data, char *dir);
+void							execute_cd(t_data *data, char **args);
 void							execute_echo(t_exec **exec);
 void							execute_env(t_data *data, char **args);
 void							execute_exit(t_data *data, char **args);
