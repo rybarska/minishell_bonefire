@@ -51,7 +51,7 @@ SRC = ./src/main/main.c \
 OBJ = $(SRC:%.c=%.o)
 
 CC = cc
-CFLAGS = -Werror -Wextra -Wall -I ./include -I $(LIBFT_DIR) -g
+CFLAGS = -Werror -Wextra -Wall -I ./include -I $(LIBFT_DIR)
 LDFLAGS = -L$(LIBFT_DIR) -L. -lft -lreadline
 
 NAME = minishell
