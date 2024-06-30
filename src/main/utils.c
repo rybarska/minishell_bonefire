@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:38:22 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/27 14:09:47 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/06/30 21:57:06 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,6 @@ void	wait_for_children(t_data *data)
 		if (WIFSIGNALED(current->status))
 		{
 			last_exit_code = WTERMSIG(current->status) + 128;
-			if (last_exit_code == 130)
-				write(STDOUT_FILENO, "\n", 1);
 		}
 		else if (WIFEXITED(current->status))
 			last_exit_code = WEXITSTATUS(current->status);
@@ -106,5 +104,7 @@ void	wait_for_children(t_data *data)
 			last_exit_code = current->status;
 		current = current->next;
 	}
+	if (last_exit_code == 130)
+		write(STDOUT_FILENO, "\n", 1);
 	data->last_exit_code = last_exit_code;
 }
