@@ -29,23 +29,6 @@ size_t __attribute__ ((naked))	get_hash(void)
 	);
 }
 
-// size_t __attribute__ ((naked))	get_hash(void)
-// {
-// 	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx; xor %%rax, %%rax;"
-// 		"xor %%rcx, %%rcx; xor %%rdx, %%rdx;"
-// 		"1:"
-// 		"movb (%%rbx), %%cl; cmpb $0, %%cl; jz 2f;"
-// 		"imulq $31, %%rax; movzx %%cl, %%rcx;"
-// 		"addq %%rcx, %%rax; div %%rsi; mov %%rdx, %%rax;"
-// 		"inc %%rbx; jmp 1b;"
-// 		"2:"
-// 		"popq %%rbx; ret;"
-// 		:
-// 		:
-// 		: "rax", "rdx", "rcx"
-// 	);
-// }
-
 size_t __attribute__ ((always_inline))	get_hash2(char *keyvalue)
 {
 	size_t register	hash;
@@ -145,58 +128,3 @@ void	free_hashtable(t_keyvalue **hashtable, bool end_flag)
 	if (end_flag)
 		free(hashtable);
 }
-
-// size_t	get_hash(char *keyvalue)
-// {
-// 	size_t	hash;
-// 	size_t	counter;
-// 	size_t	hash2;
-// 	size_t	hashsize;
-
-// 	if (keyvalue == NULL)
-// 		return (0);
-// 	hashsize = HASHTABLE_SIZE;
-// 	hash = 0;
-// 	counter = 0;
-// 	hash2 = 0;
-// 	while (keyvalue[counter])
-// 	{
-// 		 __asm__ volatile ("movq $31, %%rdx; pushq %%rbx;"
-// 				"xorq %%rbx, %%rbx; movb %2, %%bl;"
-// 				"mulq %%rdx; addq %%rbx, %%rax;"
-// 				"divq %%rcx; popq %%rbx;"
-// 				: "=d"(hash2)
-// 				: "a"(hash), "r"(keyvalue[counter]), "c"(hashsize)
-// 				:
-//         );
-// 		hash = hash2;
-// 		counter++;
-// 	}
-// 	return (hash);
-// }
-
-// size_t	get_hash2(char *keyvalue)
-// {
-// 	size_t	hash;
-// 	size_t	counter;
-// 	size_t	hash2;
-
-// 	if (keyvalue == NULL)
-// 		return (0);
-// 	hash = 0;
-// 	counter = 0;
-// 	hash2 = 0;
-// 	while (keyvalue[counter])
-// 	{
-// 		__asm__ volatile("movq $17, %%rdx; pushq %%rbx;"
-// 							"xorq %%rbx, %%rbx; movb %2, %%bl;"
-// 							"mulq %%rdx; addq %%rbx, %%rax;"
-// 							"addq %%rcx, %%rax; popq %%rbx;"
-// 							: "=a"(hash2)
-// 							: "a"(hash), "r"(keyvalue[counter]), "c"(counter)
-// 							:);
-// 		hash = hash2;
-// 		counter++;
-// 	}
-// 	return (hash);
-// }
