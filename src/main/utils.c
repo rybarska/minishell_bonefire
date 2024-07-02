@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:38:22 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/07/02 19:35:39 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/02 21:28:57 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	wait_for_children(t_data *data)
 {
 	t_process	*current;
 	int			wait_result;
-	bool		print_flag;
+	int			print_flag;
 
 	current = data->child_list_head;
 	print_flag = false;
