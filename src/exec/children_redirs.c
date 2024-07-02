@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 21:17:19 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/24 19:29:15 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/01 02:10:24 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	process_heredocs(t_data *data, t_exec **exec)
 	{
 		if (in_redir->type == HEREDOC)
 			get_heredoc(data, &in_redir);
+		if (g_o_on == 2)
+			return ;
 		in_redir = in_redir->next;
 	}
 }
