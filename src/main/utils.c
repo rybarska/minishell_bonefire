@@ -106,4 +106,5 @@ void	wait_for_children(t_data *data)
 			data->last_exit_code = current->status;
 		current = current->next;
 	}
+	g_o_on = 0;
 }
