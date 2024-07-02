@@ -14,8 +14,8 @@
 
 void	execute_external_or_builtin(t_data *data, t_exec *exec)
 {
-	process_in_files(data, &exec);
-	process_out_files(data, &exec);
+	if (process_in_files(data, &exec) || process_out_files(data, &exec))
+		snuff_it(data, NULL, NULL, 1);
 	if (!exec->arguments)
 		exit_like_a_boss(data, data->last_exit_code);
 	if (is_builtin(exec->arguments[0]))
