@@ -39,16 +39,37 @@ int	check_q_syntax(t_data *data)
 	return (0);
 }
 
+static int	wrong_second(t_data *data, char *temp_str, int i)
+{
+	if (temp_str[i - 1] && temp_str[i - 1] == '<')
+	{
+		if (temp_str[i] && temp_str[i] == '>')
+			return (boo(data, "Syntax error near unexpected token\n",
+					NULL, 2), 2);
+	}
+	else if (temp_str[i - 1] && temp_str[i - 1] == '>')
+	{
+		if (temp_str[i] && temp_str[i] == '<')
+			return (boo(data, "Syntax error near unexpected token\n",
+					NULL, 2), 2);
+	}
+	return (0);
+}
+
 static int	check_r_syntax_inner(t_data *data, char *temp_str, int *i)
 {
 	if (!temp_str[*i])
 		return (boo(data, "Syntax error near unexpected token\n",
 				NULL, 2), 2);
-	while (temp_str[*i] && ft_iswhitespace(temp_str[*i]))
-		(*i)++;
-	if (temp_str[*i] && (temp_str[*i] == '<' || temp_str[*i] == '>'))
-		return (boo(data, "Syntax error near unexpected token\n",
-				NULL, 2), 2);
+	else if (ft_iswhitespace(temp_str[*i]))
+	{
+		while (temp_str[*i] && ft_iswhitespace(temp_str[*i]))
+			(*i)++;
+		if (!temp_str[*i] || temp_str[*i] == '<'
+			|| temp_str[*i] == '>' || temp_str[*i] == '|')
+			return (boo(data, "Syntax error near unexpected token\n",
+					NULL, 2), 2);
+	}
 	return (0);
 }
 
@@ -64,17 +85,17 @@ int	check_r_syntax(t_data *data)
 		if (temp_str[i] == '<' || temp_str[i] == '>')
 		{
 			i++;
-			if (!temp_str[i])
-				return (boo(data, "Syntax error near unexpected token\n",
-						NULL, 2), 2);
-			while (temp_str[i] && ft_iswhitespace(temp_str[i]))
-				i++;
-			if (temp_str[i] && (temp_str[i] == '<' || temp_str[i] == '>'))
+			if (temp_str[i] == '<' || temp_str[i] == '>')
 			{
-				i++;
-				if (check_r_syntax_inner(data, temp_str, &i))
+				if (wrong_second(data, temp_str, i))
 					return (2);
+				i++;
+				if (temp_str[i] == '<' || temp_str[i] == '>')
+					return (boo(data, "Syntax error near unexpected token\n",
+							NULL, 2), 2);
 			}
+			if (check_r_syntax_inner(data, temp_str, &i))
+				return (2);
 		}
 		i++;
 	}
