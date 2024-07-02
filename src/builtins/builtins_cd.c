@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_cd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arybarsk <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 18:02:06 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/16 18:02:09 by arybarsk         ###   ########.fr       */
+/*   Updated: 2024/07/02 20:02:57 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,20 +59,20 @@ void	execute_cd(t_data *data, char **args)
 		|| ft_strcmp(args[1], "HOME") == 0)
 	{
 		home_dir = ft_getenv(data, "HOME");
-		if (home_dir == NULL)
+		if (!home_dir || chdir(home_dir) == -1)
 		{
 			boo(data, "cd: HOME not set\n", NULL, 1);
 			data->last_exit_code = 1;
 			return ;
 		}
-		args[1] = ft_strdup(home_dir);
 		data->last_exit_code = 0;
 	}
-	if (chdir(args[1]) == -1)
+	else if (chdir(args[1]) == -1)
 	{
 		perror("cd");
 		data->last_exit_code = 1;
 		return ;
 	}
-	update_env_vars(data, args[1]);
+	else
+		update_env_vars(data, args[1]);
 }
