@@ -65,13 +65,14 @@ void	execute_cd(t_data *data, char **args)
 			data->last_exit_code = 1;
 			return ;
 		}
+		args[1] = ft_strdup(home_dir);
 		data->last_exit_code = 0;
 	}
-	if (chdir(home_dir) == -1)
+	if (chdir(args[1]) == -1)
 	{
 		perror("cd");
 		data->last_exit_code = 1;
 		return ;
 	}
-	update_env_vars(data, home_dir);
+	update_env_vars(data, args[1]);
 }
