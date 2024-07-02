@@ -75,7 +75,7 @@ void	check_if_full_path(t_data *data, t_exec **exec, char *command)
 			command = expand_arg(data, command);
 		if (ft_strchr(command, '\'') || ft_strchr(command, '\"'))
 			command = rm_quotes(data, command);
-		if (access(command, R_OK | X_OK) == 0)
+		if (access(command, F_OK) == 0)
 		{
 			data->found_path = ft_strdup(command);
 			if (!data->found_path)
