@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 15:38:22 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/07/02 21:28:57 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/02 21:50:18 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	wait_for_children(t_data *data)
 			snuff_it(data, "Error: waitpid failed\n", NULL, 255);
 		if (WIFSIGNALED(current->status))
 		{
-			if (!print_flag)
+			if (!print_flag && current->status == 2)
 				print_flag = write(STDOUT_FILENO, "\n", 1);
 			data->last_exit_code = WTERMSIG(current->status) + 128;
 		}
