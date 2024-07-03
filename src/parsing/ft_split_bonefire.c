@@ -79,13 +79,13 @@ static char	**alloc_array_and_words(t_data *data, char *str, int word_count)
 		{
 			array[k] = (char *)malloc(sizeof(char) * ((i - j) + 1));
 			if (!array[k])
-				snuff_it(data, "Error allocating memory \n", NULL, 255);
+				return (ft_free_array(array), snuff_it(data,
+						"Error allocating memory \n", NULL, 255), NULL);
 			ft_strncpy(array[k++], &str[j], i - j);
 			j = i;
 		}
 	}
-	array[k] = NULL;
-	return (array);
+	return (array[k] = NULL, array);
 }
 
 char	**ft_split_bonefire(t_data *data, char *str, int *elements)
