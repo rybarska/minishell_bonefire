@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 18:45:15 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/17 20:52:32 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/03 15:51:44 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ void	clean_up_env_vars(t_data *data)
 	if (data->ft_environ != NULL)
 		ft_free_array(data->ft_environ);
 	data->ft_environ = NULL;
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 }
 
 void	clean_up_data(t_data *data)
