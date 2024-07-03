@@ -40,7 +40,11 @@ static t_thrash_node	*create_thrash_node(t_data *data, char *string)
 		return (NULL);
 	new_node = malloc(sizeof(t_thrash_node));
 	if (!new_node)
+	{
+		free(string);
+		string = NULL;
 		snuff_it(data, "Error creating thrash node", NULL, 255);
+	}
 	new_node->value = NULL;
 	new_node->value = string;
 	new_node->previous = NULL;
