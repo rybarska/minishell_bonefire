@@ -69,13 +69,15 @@ void	add_or_update_env_var_list(t_data *data, char *name, char *value,
 		snuff_it(data, "Error allocating for env var\n", NULL, 255);
 	new_env_var->name = ft_strdup(name);
 	if (!new_env_var->name)
-		snuff_it(data, "Error duplicating string\n", NULL, 255);
+		return (free(new_env_var), snuff_it(data,
+				"Error duplicating string\n", NULL, 255));
 	new_env_var->value = NULL;
 	if (value)
 	{
 		new_env_var->value = ft_strdup(value);
 		if (!new_env_var->value)
-			snuff_it(data, "Error duplicating string\n", NULL, 255);
+			return (free(new_env_var->name), free(new_env_var),
+				snuff_it(data, "Error duplicating string\n", NULL, 255));
 		process_quotes(data, &new_env_var->value);
 	}
 	new_env_var->is_exported = is_exported;
