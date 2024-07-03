@@ -52,7 +52,7 @@ void	expand_and_split_and_process_quotes(t_data *data)
 			process_vars(data, &curr->value);
 			if (!ft_strchr(curr->value, '$') && flag_for_quotes == 1
 				&& (ft_strchr(curr->value, '\'')
-					|| !ft_strchr(curr->value, '\"')))
+					|| ft_strchr(curr->value, '\"')))
 				flag_for_quotes = 1;
 			else
 				flag_for_quotes = 0;
