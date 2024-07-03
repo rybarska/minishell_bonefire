@@ -52,9 +52,11 @@ int	are_args_too_many(t_data *data, char **args)
 void	execute_cd(t_data *data, char **args)
 {
 	char	*home_dir;
+	char	*curr_to_old_dir;
 
 	if (are_args_too_many(data, args))
 		return ;
+	curr_to_old_dir = ft_getenv(data, "PWD");
 	if (args[1] == NULL || ft_strcmp(args[1], "") == 0
 		|| ft_strcmp(args[1], "HOME") == 0)
 	{
@@ -62,7 +64,6 @@ void	execute_cd(t_data *data, char **args)
 		if (!home_dir || chdir(home_dir) == -1)
 		{
 			boo(data, "cd: HOME not set\n", NULL, 1);
-			data->last_exit_code = 1;
 			return ;
 		}
 		data->last_exit_code = 0;
@@ -74,5 +75,5 @@ void	execute_cd(t_data *data, char **args)
 		return ;
 	}
 	else
-		update_env_vars(data, args[1]);
+		update_env_vars(data, curr_to_old_dir);
 }
