@@ -12,6 +12,40 @@
 
 #include "minishell.h"
 
+void	check_quotes(t_data *data)
+{
+	if (data->text[data->pos] == '\'' && !data->is_d_quoted)
+		data->is_s_quoted = !data->is_s_quoted;
+	if (data->text[data->pos] == '\"' && !data->is_s_quoted)
+		data->is_d_quoted = !data->is_d_quoted;
+}
+
+static void	parse_filename_inner(t_data *data)
+{
+	while (data->pos < data->text_len && !(data->is_s_quoted)
+		&& !(data->is_d_quoted) && data->text[data->pos] != ' '
+		&& data->text[data->pos] != '\0' && data->text[data->pos] != '|'
+		&& data->text[data->pos] != '<' && data->text[data->pos] != '>')
+	{
+		data->pos++;
+		check_quotes(data);
+	}
+	while (data->pos < data->text_len && data->is_s_quoted)
+	{
+		data->pos++;
+		check_quotes(data);
+		if (!data->is_s_quoted)
+			data->pos++;
+	}
+	while (data->pos < data->text_len && data->is_d_quoted)
+	{
+		data->pos++;
+		check_quotes(data);
+		if (!data->is_d_quoted)
+			data->pos++;
+	}
+}
+
 static char	*parse_filename(t_data *data)
 {
 	int		start_pos;
@@ -19,14 +53,17 @@ static char	*parse_filename(t_data *data)
 	char	*word;
 
 	start_pos = data->pos;
-	if (data->pos < data->text_len && (data->text[data->pos] == '\n'
-			|| data->text[data->pos] == '\0' || data->text[data->pos] == '|'
-			|| data->text[data->pos] == '<' || data->text[data->pos] == '>'))
-		return (NULL);
-	while (data->pos < data->text_len && data->text[data->pos] != ' '
-		&& data->text[data->pos] != '\0' && data->text[data->pos] != '|'
-		&& data->text[data->pos] != '<' && data->text[data->pos] != '>')
-		data->pos++;
+	data->is_s_quoted = 0;
+	data->is_d_quoted = 0;
+	check_quotes(data);
+	while (data->pos < data->text_len)
+	{
+		parse_filename_inner(data);
+		if (data->text[data->pos] == '\0' || data->text[data->pos] == '\n'
+			|| data->text[data->pos] == ' ' || data->text[data->pos] == '|'
+			|| data->text[data->pos] == '<' || data->text[data->pos] == '>')
+			break ;
+	}
 	word_len = data->pos - start_pos;
 	word = (char *)malloc((word_len + 1) * sizeof(char));
 	if (!word)
