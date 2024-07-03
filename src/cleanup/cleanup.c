@@ -36,6 +36,7 @@ void	clean_up_env_vars(t_data *data)
 	data->ft_environ = NULL;
 	close(STDIN_FILENO);
 	close(STDOUT_FILENO);
+	close(STDERR_FILENO);
 }
 
 void	clean_up_data(t_data *data)
