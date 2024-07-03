@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 21:05:24 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:30:14 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/03 21:42:40 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ char	*expand_arg(t_data *data, char *arg)
 				temp_str = add_one_char(data, &arg, temp_str);
 			else if (*(arg + 1) == '?')
 				get_exit_status(data, &temp_str, &arg);
+			else if (!ft_isalpha(*(arg + 1)) && *(arg + 1) != '_')
+				temp_str = add_one_char(data, &arg, temp_str);
 			else
 				expand_name(data, &arg, &temp_str);
 		}
