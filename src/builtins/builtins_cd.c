@@ -62,10 +62,8 @@ void	execute_cd(t_data *data, char **args)
 	{
 		home_dir = ft_getenv(data, "HOME");
 		if (!home_dir || chdir(home_dir) == -1)
-		{
-			boo(data, "cd: HOME not set\n", NULL, 1);
-			return ;
-		}
+			return (boo(data, "cd: HOME not set\n", NULL, 1));
+		update_env_vars(data, curr_to_old_dir);
 		data->last_exit_code = 0;
 	}
 	else if (chdir(args[1]) == -1)
