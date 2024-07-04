@@ -43,28 +43,6 @@ char	*ft_getenv(t_data *data, char *name)
 	return (NULL);
 }
 
-int	has_unquoted_equals(char *str)
-{
-	int	is_s_quoted;
-	int	is_d_quoted;
-	int	unquoted_equal;
-
-	is_s_quoted = 0;
-	is_d_quoted = 0;
-	unquoted_equal = 0;
-	while (*str)
-	{
-		if (*str == '\'' && !is_d_quoted)
-			is_s_quoted = !is_s_quoted;
-		if (*str == '\"' && !is_s_quoted)
-			is_d_quoted = !is_d_quoted;
-		if (*str == '=' && !is_s_quoted && !is_d_quoted)
-			unquoted_equal = 1;
-		str++;
-	}
-	return (unquoted_equal);
-}
-
 void	count_pipes(t_data *data)
 {
 	int				pipe_counter;

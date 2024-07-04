@@ -188,7 +188,6 @@ char							*parse_delimiter(t_data *data);
 void							boo(t_data *data, char *error_msg, char *name,
 									int exit_code);
 char							*ft_getenv(t_data *data, char *name);
-int								has_unquoted_equals(char *str);
 void							count_pipes(t_data *data);
 void							wait_for_children(t_data *data);
 
