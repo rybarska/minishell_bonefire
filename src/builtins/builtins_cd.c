@@ -40,7 +40,7 @@ void	update_env_vars(t_data *data, char *old_dir)
 
 int	are_args_too_many(t_data *data, char **args)
 {
-	if (args && args[1] && args[1][0] && args[2])
+	if (args && args[1] && args[2])
 	{
 		boo(data, "too many arguments\n", "cd", 1);
 		data->last_exit_code = 1;
