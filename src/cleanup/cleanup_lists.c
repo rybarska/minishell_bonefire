@@ -57,28 +57,6 @@ void	redir_lstclear(t_redirection **lst)
 	*lst = NULL;
 }
 
-void	redir_lst_close_fds(t_redirection **lst)
-{
-	t_redirection	*current;
-
-	if (!lst)
-		return ;
-	current = *lst;
-	while (current != NULL)
-	{
-		if (current->file)
-			free(current->file);
-		current->file = NULL;
-		if (current->delimiter)
-			free(current->delimiter);
-		current->delimiter = NULL;
-		if (current->fd >= 0)
-			close_fd_set_minus1(&current->fd);
-		free(current);
-		current = current->next;
-	}
-}
-
 void	exec_lstclear(t_exec **lst)
 {
 	t_exec	*current;
