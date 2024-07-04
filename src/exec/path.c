@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/07 18:45:09 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:26:19 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/04 21:11:38 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	get_path_from_env(t_data *data, char *command)
 	}
 }
 
-void	check_if_full_path(t_data *data, t_exec **exec, char *command)
+int	check_if_full_path(t_data *data, t_exec **exec, char *command)
 {
 	char	*last_slash;
 
@@ -83,4 +83,7 @@ void	check_if_full_path(t_data *data, t_exec **exec, char *command)
 			(*exec)->is_full_path = 1;
 		}
 	}
+	else
+		return (0);
+	return (1);
 }

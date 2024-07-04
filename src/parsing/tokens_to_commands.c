@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 20:03:26 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/25 19:48:54 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/04 21:10:10 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,11 @@ void	look_for_path(t_data *data, t_exec **exec, char *command)
 	(*exec)->cmd_exec_path = hash_lookup(data->hashtab, command);
 	if ((*exec)->cmd_exec_path)
 		return ;
-	check_if_full_path(data, exec, command);
-	if (!(*exec)->is_full_path && data->cmd_paths != NULL)
-		get_path_from_env(data, command);
+	if (!check_if_full_path(data, exec, command))
+	{
+		if (!(*exec)->is_full_path && data->cmd_paths != NULL)
+			get_path_from_env(data, command);
+	}
 	if (data->found_path)
 	{
 		(*exec)->cmd_exec_path = ft_strdup(data->found_path);

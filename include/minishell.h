@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/26 19:40:44 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/04 21:10:26 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,7 @@ void							exit_like_a_boss(t_data *data, int exit_code);
 /* path */
 void							get_all_cmd_paths(t_data *data);
 void							get_path_from_env(t_data *data, char *command);
-void							check_if_full_path(t_data *data, t_exec **exec,
+int								check_if_full_path(t_data *data, t_exec **exec,
 									char *command);
 /* children */
 void							execute_execs(t_data *data);
