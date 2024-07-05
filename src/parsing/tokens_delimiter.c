@@ -48,17 +48,6 @@ static char	*parse_double_quotes_delimiter(t_data *data)
 	return (word);
 }
 
-void	handle_wrong_delim(t_data *data)
-{
-	while (!(stops_delimiter(data->text[data->pos]))
-		&& data->text[data->pos])
-	{
-		data->pos++;
-	}
-	ft_putstr_fd("Error in delimiter: only isalnum allowed!", 2);
-	ft_putstr_fd(" Delimiter defaults to \"\"\n", 2);
-}
-
 static char	*parse_delimiter_inner(t_data *data)
 {
 	char	*temp;
@@ -84,7 +73,7 @@ static char	*parse_delimiter_inner(t_data *data)
 		add_string_to_thrash_list(data, temp);
 	}
 	else
-		handle_wrong_delim(data);
+		temp = parse_word(data);
 	return (temp);
 }
 
