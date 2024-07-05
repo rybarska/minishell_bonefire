@@ -217,7 +217,8 @@ void							print_tokens(t_token_node *head);
 /* tokens_merge_strings */
 void							merge_unseparated(t_data *data);
 /* tokens_split */
-void							expand_and_split_and_process_quotes(t_data *data);
+void							expand_and_split_and_process_quotes(
+									t_data *data);
 /* syntax */
 int								check_q_syntax(t_data *data);
 int								check_r_syntax(t_data *data);
@@ -317,7 +318,8 @@ void							set_signal_controls(t_data *data);
 void							set_mode(t_data *data, t_signal_mode mode);
 /* signals_handlers */
 void							handle_sigint(int signal_number);
-void							handle_sigint_non_interactive(int signal_number);
+void							handle_sigint_non_interactive(
+									int signal_number);
 void							handle_sigquit(int signal_number);
 void							heredoc_sigint(int signal_number);
 /* num_check */
