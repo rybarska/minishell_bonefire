@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 23:16:15 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/06/11 14:26:54 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:52:53 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,17 @@ static char	*parse_double_quotes_delimiter(t_data *data)
 	return (word);
 }
 
+void	handle_wrong_delim(t_data *data)
+{
+	while (!(starts_next_token(data->text[data->pos]))
+		&& data->text[data->pos])
+	{
+		data->pos++;
+	}
+	ft_putstr_fd("Error in delimiter: only isalnum allowed!", 2);
+	ft_putstr_fd(" Delimiter defaults to \"\"\n", 2);
+}
+
 static char	*parse_delimiter_inner(t_data *data)
 {
 	char	*temp;
@@ -69,11 +80,11 @@ static char	*parse_delimiter_inner(t_data *data)
 		else
 			temp = ft_strdup("$");
 		if (!temp)
-			snuff_it(data, "Error allocating for delimiter\n", NULL, 255);
+			snuff_it(data, "Delim allocation error\n", NULL, 255);
 		add_string_to_thrash_list(data, temp);
 	}
 	else
-		snuff_it(data, "Error in delimiter", NULL, 2);
+		handle_wrong_delim(data);
 	return (temp);
 }
 
@@ -95,13 +106,13 @@ char	*parse_delimiter(t_data *data)
 	while (data->text[data->pos] && !ft_strchr("|>< \n", data->text[data->pos]))
 	{
 		temp = parse_delimiter_inner(data);
+		if (!temp)
+			return (add_string_to_thrash_list(data, delimiter), delimiter);
 		temp_delimiter = ft_strjoin(delimiter, temp);
 		if (!temp_delimiter)
-			snuff_it(data, "Error allocating memory for temp_delimiter", NULL,
-				255);
+			snuff_it(data, "Error allocating memory for temp", NULL, 255);
 		free(delimiter);
 		delimiter = temp_delimiter;
 	}
-	add_string_to_thrash_list(data, delimiter);
-	return (delimiter);
+	return (add_string_to_thrash_list(data, delimiter), delimiter);
 }
