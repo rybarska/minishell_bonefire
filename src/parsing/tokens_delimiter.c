@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 23:16:15 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/07/05 11:37:02 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:52:53 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,11 @@ static char	*parse_double_quotes_delimiter(t_data *data)
 
 void	handle_wrong_delim(t_data *data)
 {
-	while (!(ft_iswhitespace(data->text[data->pos]))
+	while (!(starts_next_token(data->text[data->pos]))
 		&& data->text[data->pos])
-			data->pos++;
+	{
+		data->pos++;
+	}
 	ft_putstr_fd("Error in delimiter: only isalnum allowed!", 2);
 	ft_putstr_fd(" Delimiter defaults to \"\"\n", 2);
 }

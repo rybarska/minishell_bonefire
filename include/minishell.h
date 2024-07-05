@@ -6,7 +6,7 @@
 /*   By: mhuszar <mhuszar@student.42vienna.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 19:51:49 by arybarsk          #+#    #+#             */
-/*   Updated: 2024/07/04 21:10:26 by mhuszar          ###   ########.fr       */
+/*   Updated: 2024/07/05 11:50:29 by mhuszar          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@
 # include <readline/history.h>
 # include <readline/readline.h>
 # include <signal.h>
+# include <stdbool.h>
+# include <stddef.h> //for size_t
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <sys/ioctl.h>
 # include <sys/wait.h>
 # include <unistd.h>
-# include <stdbool.h>
-# include <stddef.h> //for size_t
 
 extern volatile sig_atomic_t	g_o_on;
 
@@ -176,6 +176,7 @@ void							init_data(t_data *data);
 /* parse */
 void							read_input(t_data *data);
 t_token							get_next_token(t_data *data);
+int								starts_next_token(int c);
 char							*parse_word(t_data *data);
 char							*parse_var(t_data *data);
 char							*parse_single_quotes(t_data *data);
@@ -215,8 +216,7 @@ void							print_tokens(t_token_node *head);
 /* tokens_merge_strings */
 void							merge_unseparated(t_data *data);
 /* tokens_split */
-void							expand_and_split_and_process_quotes(
-									t_data *data);
+void							expand_and_split_and_process_quotes(t_data *data);
 /* syntax */
 int								check_q_syntax(t_data *data);
 int								check_r_syntax(t_data *data);
@@ -316,8 +316,7 @@ void							set_signal_controls(t_data *data);
 void							set_mode(t_data *data, t_signal_mode mode);
 /* signals_handlers */
 void							handle_sigint(int signal_number);
-void							handle_sigint_non_interactive(
-									int signal_number);
+void							handle_sigint_non_interactive(int signal_number);
 void							handle_sigquit(int signal_number);
 void							heredoc_sigint(int signal_number);
 /* num_check */
@@ -328,21 +327,19 @@ void							add_string_to_thrash_list(t_data *data,
 									char *string);
 /* hashtable */
 void							init_hashtable(t_data *data);
-//size_t							get_hash(char *kexavlue);
 size_t							get_hash2(char *keyvalue);
-int								store_data(t_keyvalue **hashtable,
-									char *key, char *val);
+int								store_data(t_keyvalue **hashtable, char *key,
+									char *val);
 char							*hash_lookup(t_keyvalue **hashtable, char *key);
 void							free_hashtable(t_keyvalue **hashtable,
 									bool end_flag);
-
-char							**ft_split_returns(t_data *data,
-									char *str, int *elements);
-char							**ft_split_bonefire(t_data *data,
-									char *s, int *elements);
+void							execute_hash(t_data *data);
+/* splits */
+char							**ft_split_returns(t_data *data, char *str,
+									int *elements);
+char							**ft_split_bonefire(t_data *data, char *s,
+									int *elements);
 char							**ft_split_bonefire_regular(t_data *data,
 									char *s, int *elements);
-
-void							execute_hash(t_data *data);
 
 #endif
