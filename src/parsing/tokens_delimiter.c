@@ -50,7 +50,7 @@ static char	*parse_double_quotes_delimiter(t_data *data)
 
 void	handle_wrong_delim(t_data *data)
 {
-	while (!(starts_next_token(data->text[data->pos]))
+	while (!(stops_delimiter(data->text[data->pos]))
 		&& data->text[data->pos])
 	{
 		data->pos++;

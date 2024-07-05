@@ -34,3 +34,10 @@ int	is_substantive(t_token_type type)
 		return (1);
 	return (0);
 }
+
+int	stops_delimiter(int c)
+{
+	if (ft_iswhitespace(c) || c == '|' || c == '<' || c == '>' || c == '\0')
+		return (1);
+	return (0);
+}

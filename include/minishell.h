@@ -196,6 +196,7 @@ void							wait_for_children(t_data *data);
 int								is_separating(t_token_type type);
 int								is_redirecting(t_token_type type);
 int								is_substantive(t_token_type type);
+int								stops_delimiter(int c);
 
 /* vars_and_quotes */
 void							process_vars_and_quotes(t_data *data,
