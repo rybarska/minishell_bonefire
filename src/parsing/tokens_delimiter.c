@@ -79,14 +79,12 @@ static char	*parse_delimiter_inner(t_data *data)
 
 char	*parse_delimiter(t_data *data)
 {
-	int		start_pos;
 	char	*delimiter;
 	char	*temp;
 	char	*temp_delimiter;
 
 	delimiter = NULL;
 	temp = NULL;
-	start_pos = data->pos;
 	delimiter = ft_strdup("");
 	if (!delimiter)
 		snuff_it(data, "Error allocating memory for delimiter", NULL, 255);

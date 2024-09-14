@@ -29,9 +29,10 @@ size_t __attribute__ ((naked))	get_hash(void)
 	);
 }
 
-size_t __attribute__ ((always_inline))	get_hash2(char *keyvalue)
+static inline size_t __attribute__ ((always_inline))
+	get_hash2(char *keyvalue)
 {
-	size_t register	hash;
+	register size_t	hash;
 
 	__asm__ volatile ("pushq %%rbx; mov %%rdi, %%rbx;"
 		"xor %%rax, %%rax; xor %%r8, %%r8;"

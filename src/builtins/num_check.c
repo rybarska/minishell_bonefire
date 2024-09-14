@@ -43,10 +43,8 @@ static int	is_overflow(char *numstr)
 
 static int	is_not_numeric(char *numstr)
 {
-	int	sign;
 	int	i;
 
-	sign = 1;
 	i = 0;
 	while (numstr[i] && ft_iswhitespace(numstr[i]))
 		++i;
@@ -54,8 +52,6 @@ static int	is_not_numeric(char *numstr)
 		return (1);
 	if (numstr[i] == '-' || numstr[i] == '+')
 	{
-		if (numstr[i] == '-')
-			sign = -1;
 		i++;
 	}
 	if (!(numstr[i] >= '0' && numstr[i] <= '9'))
