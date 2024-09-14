@@ -330,7 +330,6 @@ void							add_string_to_thrash_list(t_data *data,
 									char *string);
 /* hashtable */
 void							init_hashtable(t_data *data);
-size_t							get_hash2(char *keyvalue);
 int								store_data(t_keyvalue **hashtable, char *key,
 									char *val);
 char							*hash_lookup(t_keyvalue **hashtable, char *key);

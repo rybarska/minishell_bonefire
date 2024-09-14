@@ -18,10 +18,8 @@ void	make_cmd_array(t_data *data, t_token_node *node, int arg_count,
 	t_token_node	*current;
 	int				i;
 	int				j;
-	char			*temp;
 
 	current = node;
-	temp = NULL;
 	exec->arguments = (char **)malloc((arg_count + 1) * sizeof(char *));
 	if (!exec->arguments)
 		snuff_it(data, "Error allocating memory for exec args\n", NULL, 255);
